@@ -25,14 +25,12 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body
         className={cn(
-          "flex min-h-screen flex-col  font-sans antialiased",
+          "flex min-h-screen flex-col font-sans antialiased",
           fontSans.variable,
         )}
       >
         <Header />
-        <div className="flex-1 flex-col bg-zinc-200 px-4 sm:px-8">
-          {children}
-        </div>
+        <div className="flex flex-1 flex-col bg-zinc-200">{children}</div>
       </body>
     </html>
   )
