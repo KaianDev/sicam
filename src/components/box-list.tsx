@@ -1,16 +1,15 @@
+import type { Box } from "@/types/box-type"
 import { FolderOpen } from "lucide-react"
 
-import type { Box } from "@/types/box-type"
-
 // Components
-import { Button } from "./ui/button"
-import Link from "next/link"
+import { BoxItemActions } from "./box-item-actions"
 
 interface BoxListProps {
   boxes: Box[]
+  user?: any
 }
 
-export const BoxList = ({ boxes }: BoxListProps) => {
+export const BoxList = ({ boxes, user }: BoxListProps) => {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {boxes.map((box) => (
@@ -30,11 +29,7 @@ export const BoxList = ({ boxes }: BoxListProps) => {
             <p>Nessa pasta estão os seguintes processos:</p>
             <p className="line-clamp-2">{box.content}</p>
           </div>
-          <div>
-            <Link href={`/school/box/${box.id}`}>
-              <Button className="ml-auto block">Detalhes</Button>
-            </Link>
-          </div>
+          <BoxItemActions box={box} userId={user && user.id} />
         </div>
       ))}
     </div>

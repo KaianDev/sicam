@@ -9,6 +9,7 @@ export const getBoxes = async (): Promise<Box[]> => {
         "XXXXXXXX, SSSSSSSS, DDDDDD, OOOOOO, XXXXXXXX, SSSSSSSS, DDDDDD, OOOOOO, XXXXXXXX, SSSSSSSS, DDDDDD, OOOOOO",
       numBox: `#${i + 1}`,
       school: "Escola " + i,
+      ownerId: (i + 1) % 2 === 0 ? 1 : 2,
     })
   }
 

@@ -4,4 +4,5 @@ export interface Box {
   content: string
   numBox: string
   observation?: string
+  ownerId: number
 }

@@ -5,7 +5,7 @@ import { Button } from "./ui/button"
 import { AsideMenu } from "./aside-menu"
 
 export const Header = () => {
-  const session = true
+  const session = null
 
   return (
     <header className="h-shadow sticky top-0 flex h-24 items-center justify-between gap-2 bg-green-700 px-4 sm:relative sm:px-8">
