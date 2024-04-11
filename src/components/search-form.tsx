@@ -14,11 +14,7 @@ export const SearchForm = () => {
           placeholder="Pesquisar"
           className="w-full border-0"
         />
-        <Button
-          variant="default"
-          size="icon"
-          className="w-12 bg-transparent text-white"
-        >
+        <Button variant="ghost" size="icon" className="w-12">
           <Search />
         </Button>
       </form>
