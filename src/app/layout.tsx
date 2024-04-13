@@ -23,6 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        <link
+          rel="icon"
+          href="/assets/favicon.png"
+          type="image/png"
+          sizes="any"
+        />
+      </head>
       <body
         className={cn(
           "flex min-h-screen flex-col font-sans antialiased",

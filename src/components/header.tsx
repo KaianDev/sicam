@@ -5,18 +5,18 @@ import { Button } from "./ui/button"
 import { AsideMenu } from "./aside-menu"
 
 export const Header = () => {
-  const session = null
+  const session = true
 
   return (
     <header className="h-shadow sticky top-0 flex h-24 items-center justify-between gap-2 bg-green-700 px-4 sm:relative sm:px-8">
       <Link href="/">
         <Image
-          src="/assets/logo.svg"
+          src="/assets/logo.png"
           alt="Logo CREDE 3 - Acaraú"
           width={0}
           height={0}
           sizes="100vw"
-          className="sm:w-52 md:block md:w-96"
+          className="sm:w-48"
         />
       </Link>
       <div className="flex flex-1 items-center justify-end gap-4">
