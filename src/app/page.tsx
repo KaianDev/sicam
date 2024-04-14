@@ -1,20 +1,20 @@
 // Components
 import { BoxList } from "@/components/box-list"
 import { Pagination } from "@/components/pagination"
-import { Button } from "@/components/ui/button"
 
 // Utilities
 import { getBoxes } from "@/data/box"
 
-interface HomePage {
+interface HomePageProps {
   searchParams: {
     page?: string
     search?: string
   }
 }
 
-const Home = async ({ searchParams }: HomePage) => {
+const HomePage = async ({ searchParams }: HomePageProps) => {
   const boxes = await getBoxes()
+  console.log({ boxes })
   const pageNum =
     searchParams.page && !isNaN(parseInt(searchParams.page))
       ? parseInt(searchParams.page)
@@ -30,4 +30,4 @@ const Home = async ({ searchParams }: HomePage) => {
   )
 }
 
-export default Home
+export default HomePage

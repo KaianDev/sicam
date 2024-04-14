@@ -1,17 +1,28 @@
-import type { Box } from "@/types/box-type"
+import { BoxWithSchool } from "@/types/box"
 
-export const getBoxes = async (): Promise<Box[]> => {
-  const boxes: Box[] = []
-  for (let i = 1; i <= 12; i++) {
-    boxes.push({
-      id: i + 1,
-      content:
-        "XXXXXXXX, SSSSSSSS, DDDDDD, OOOOOO, XXXXXXXX, SSSSSSSS, DDDDDD, OOOOOO, XXXXXXXX, SSSSSSSS, DDDDDD, OOOOOO",
-      numBox: `#${i + 1}`,
-      school: "Escola " + i,
-      ownerId: (i + 1) % 2 === 0 ? 1 : 2,
-    })
+interface IGetBoxes {
+  search?: string
+  page?: string
+}
+
+export const getBoxes = async (
+  searchParams: IGetBoxes,
+): Promise<BoxWithSchool[]> => {
+  const fetchString =
+    searchParams.page && searchParams.search
+      ? `http://localhost:3000/api/box?search=${searchParams?.search}&page=${searchParams?.page}`
+      : searchParams.page
+        ? `http://localhost:3000/api/box?page=${searchParams.page}`
+        : searchParams.search
+          ? `http://localhost:3000/api/box?search=${searchParams.search}`
+          : `http://localhost:3000/api/box`
+
+  const res = await fetch(fetchString)
+  if (!res.ok) {
+    throw new Error(
+      "Ocorreu um erro no carregamento, tente novamente mais tarde.",
+    )
   }
-
-  return boxes
+  const data = await res.json()
+  return data.boxes as BoxWithSchool[]
 }

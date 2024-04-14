@@ -1,13 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "./ui/button"
 import { usePathname } from "next/navigation"
-import { Box } from "@/types/box-type"
+
+import { BoxWithSchool } from "@/types/box"
+
+// Components
+import { Button } from "@/components/ui/button"
 
 interface BoxItemActionsProps {
-  box: Box
-  userId?: number
+  box: BoxWithSchool
+  userId?: string
 }
 
 export const BoxItemActions = ({ box, userId }: BoxItemActionsProps) => {

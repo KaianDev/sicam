@@ -3,7 +3,7 @@ import { BoxList } from "@/components/box-list"
 import { Pagination } from "@/components/pagination"
 import { getBoxes } from "@/data/box"
 
-const DashboardPage = async () => {
+const AppPage = async () => {
   const boxes = await getBoxes()
   const session = { user: { id: 1 } }
 
@@ -20,4 +20,4 @@ const DashboardPage = async () => {
   )
 }
 
-export default DashboardPage
+export default AppPage

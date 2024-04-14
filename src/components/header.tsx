@@ -16,7 +16,7 @@ export const Header = () => {
           width={0}
           height={0}
           sizes="100vw"
-          className="sm:w-48"
+          className="sm:w-36"
         />
       </Link>
       <div className="flex flex-1 items-center justify-end gap-4">

@@ -17,6 +17,7 @@ export const GET = async (req: NextRequest) => {
       take,
       skip,
       where: search ? { content: { contains: search } } : {},
+      include: { school: true },
     })
 
     return NextResponse.json({ boxes }, { status: 200 })
