@@ -13,8 +13,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  avatar String?
+  role Role @default(USER)
+
+  boxes Box[]
+
+  @@map("users")
+
+}
+
+
 model School {
   id String @id @default(uuid())
   uex String @unique
   name String
+
+  boxes Box[]
+
+  @@map("schools")
+}
+
+model Box {
+  id String @id @default(uuid())
+  schoolId String 
+  content String
+  observation String?
+  numBox Int
+  ownerId String
+
+  school School @relation(fields: [schoolId], references: [id])
+  user User @relation(fields: [ownerId], references: [id])
+
+  @@map("boxes")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
