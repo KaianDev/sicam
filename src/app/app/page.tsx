@@ -3,8 +3,15 @@ import { BoxList } from "@/components/box-list"
 import { Pagination } from "@/components/pagination"
 import { getBoxes } from "@/data/box"
 
-const AppPage = async () => {
-  const boxes = await getBoxes()
+interface AppPageProps {
+  searchParams: {
+    page?: string
+    search?: string
+  }
+}
+
+const AppPage = async ({ searchParams }: AppPageProps) => {
+  const boxes = await getBoxes(searchParams)
   const session = { user: { id: 1 } }
 
   return (
