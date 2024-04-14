@@ -23,6 +23,6 @@ export const GET = async (req: NextRequest, { params }: RequestParams) => {
 
     return NextResponse.json({ school }, { status: 200 })
   } catch (err) {
-    throwError(err)
+    return throwError(err)
   }
 }
