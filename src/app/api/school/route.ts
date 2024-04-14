@@ -8,7 +8,7 @@ export const GET = async () => {
     const schools = await prisma.school.findMany()
     return NextResponse.json({ schools }, { status: 200 })
   } catch (err) {
-    throwError(err)
+    return throwError(err)
   }
 }
 
@@ -29,6 +29,6 @@ export const POST = async (req: NextRequest) => {
     const newSchool = await prisma.school.create({ data: { uex, name } })
     return NextResponse.json({ newSchool }, { status: 201 })
   } catch (err) {
-    throwError(err)
+    return throwError(err)
   }
 }
