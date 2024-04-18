@@ -3,6 +3,7 @@ import { BoxWithEntityAndSector } from "@/types/box"
 
 // Components
 import { BoxItemActions } from "./box-item-actions"
+import { Badge } from "./ui/badge"
 
 interface BoxListProps {
   boxes: BoxWithEntityAndSector[]
@@ -17,6 +18,7 @@ export const BoxList = ({ boxes, user }: BoxListProps) => {
           key={box.id}
           className="space-y-4 rounded-md bg-zinc-200 p-4 shadow-lg"
         >
+          <Badge variant="secondary">{box.sector.name}</Badge>
           <div className="flex items-center gap-2 overflow-hidden">
             <FolderOpen size={30} />
             <div className="flex-1 truncate" title={box.entity.name}>

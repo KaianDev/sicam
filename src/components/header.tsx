@@ -1,12 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
 
-
 // Components
 import { SearchForm } from "@/components/search-form"
 import { AsideMenu } from "@/components/aside-menu"
 import { LoginDialog } from "@/components/login-dialog"
-
 
 export const Header = () => {
   const session = null
