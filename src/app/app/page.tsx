@@ -18,7 +18,7 @@ const AppPage = async ({ searchParams }: AppPageProps) => {
     <div className="flex flex-1 flex-row bg-red-500">
       <Aside />
       <main className="flex-1 bg-zinc-200 px-4">
-        <div className="container mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
+        <div className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
           <BoxList boxes={boxes} user={session.user} />
           <Pagination />
         </div>

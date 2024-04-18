@@ -14,7 +14,6 @@ interface HomePageProps {
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
   const boxes = await getBoxes(searchParams)
-  console.log({ boxes })
   const pageNum =
     searchParams.page && !isNaN(parseInt(searchParams.page))
       ? parseInt(searchParams.page)
