@@ -13,44 +13,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id String @id @default(uuid())
-  name String
-  email String @unique
+  id       String  @id @default(uuid())
+  name     String
+  email    String  @unique
   password String
-  avatar String?
-  role Role @default(USER)
+  avatar   String?
+  role     Role    @default(USER)
+  sectorId String
 
   boxes Box[]
+
+  sector Sector @relation(fields: [sectorId], references: [id])
 
   @@map("users")
-
 }
 
-
-model School {
-  id String @id @default(uuid())
-  uex String @unique
-  name String
+model Entity {
+  id   String @id @default(uuid())
+  name String @unique
 
   boxes Box[]
 
-  @@map("schools")
+  @@map("entities")
 }
 
 model Box {
-  id String @id @default(uuid())
-  schoolId String 
-  content String
+  id          String  @id @default(uuid())
+  entityId    String
+  ownerId     String
+  sectorId    String
+  content     String
   observation String?
-  numBox Int
-  ownerId String
+  numBox      Int
 
-  school School @relation(fields: [schoolId], references: [id])
-  user User @relation(fields: [ownerId], references: [id])
+  sector Sector @relation(fields: [sectorId], references: [id])
+  entity Entity @relation(fields: [entityId], references: [id])
+  user   User   @relation(fields: [ownerId], references: [id])
 
   @@map("boxes")
+}
+
+model Sector {
+  id      String @id @default(uuid())
+  name    String @unique
+  
+  members User[]
+  boxes   Box[]
+
+  @@map("sectors")
 }
 
 enum Role {
