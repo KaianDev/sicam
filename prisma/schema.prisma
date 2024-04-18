@@ -39,13 +39,14 @@ model Entity {
 }
 
 model Box {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   entityId    String
   ownerId     String
   sectorId    String
   content     String
   observation String?
   numBox      Int
+  createdAt   DateTime @default(now())
 
   sector Sector @relation(fields: [sectorId], references: [id])
   entity Entity @relation(fields: [entityId], references: [id])
@@ -55,9 +56,9 @@ model Box {
 }
 
 model Sector {
-  id      String @id @default(uuid())
-  name    String @unique
-  
+  id   String @id @default(uuid())
+  name String @unique
+
   members User[]
   boxes   Box[]
 

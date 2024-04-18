@@ -5,12 +5,17 @@ export const addSchoolSchema = z.object({
   name: z.string(),
 })
 
+export const addEntitySchema = z.object({
+  name: z.string(),
+})
+
 export const boxSchema = z.object({
   id: z.string(),
-  schoolId: z.string(),
   content: z.string(),
   observation: z.string().optional(),
   numBox: z.number(),
+  entityId: z.string(),
+  sectorId: z.string(),
   ownerId: z.string(),
 })
 
@@ -18,6 +23,7 @@ export const addBoxSchema = boxSchema.omit({
   id: true,
   numBox: true,
   ownerId: true,
+  sectorId: true,
 })
 
 export const loginSchema = z.object({

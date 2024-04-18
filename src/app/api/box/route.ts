@@ -17,7 +17,10 @@ export const GET = async (req: NextRequest) => {
       take,
       skip,
       where: search ? { content: { contains: search } } : {},
-      include: { school: true },
+      include: { entity: true },
+      orderBy: {
+        createdAt: "desc",
+      },
     })
 
     return NextResponse.json({ boxes }, { status: 200 })
@@ -28,10 +31,16 @@ export const GET = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
   try {
-    const ownerId = "70161e14-65cf-4eaf-a541-e5b7a2bb148e"
+    //const ownerId = "00b164b6-2262-4e76-a32a-8a37c567af02" // John Snow
+    const ownerId = "4e4a4667-9822-408b-bc5d-8f9f37981bd0" // Daenarys
 
     const user = await prisma.user.findFirst({ where: { id: ownerId } })
-    console.log(user)
+
+    if (!user) {
+      throw new Error("Usuário não encontrado!")
+    }
+
+    const sectorId = user.sectorId
 
     const data = await req.json()
     const schema = addBoxSchema.safeParse(data)
@@ -40,26 +49,46 @@ export const POST = async (req: NextRequest) => {
       throw new Error("Dados inválidos")
     }
 
-    const { content, schoolId, observation } = schema.data
+    const { content, entityId, observation } = schema.data
 
-    const school = await prisma.school.findFirst({
-      where: { id: schoolId },
+    const entity = await prisma.entity.findFirst({
+      where: { id: entityId },
       include: { boxes: true },
     })
 
-    if (!school) {
-      throw new Error("A escola não encontrada")
+    const sector = await prisma.sector.findFirst({
+      where: {
+        id: sectorId,
+      },
+      include: {
+        boxes: {
+          where: {
+            entityId,
+          },
+        },
+      },
+    })
+
+    if (!entity) {
+      throw new Error("A entidade não foi encontrada")
     }
 
-    const numBox = school.boxes.length + 1
+    if (!sector) {
+      throw new Error("Setor inválido")
+    }
+
+    console.log(sector.boxes)
+
+    const numBox = sector.boxes.length + 1
 
     const newBox = await prisma.box.create({
       data: {
         content,
         observation,
-        schoolId,
         numBox,
+        entityId,
         ownerId,
+        sectorId,
       },
     })
 
