@@ -17,7 +17,7 @@ export const GET = async (req: NextRequest) => {
       take,
       skip,
       where: search ? { content: { contains: search } } : {},
-      include: { entity: true },
+      include: { entity: true, sector: true },
       orderBy: {
         createdAt: "desc",
       },

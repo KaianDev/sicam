@@ -1,11 +1,11 @@
 import { FolderOpen } from "lucide-react"
-import { BoxWithSchool } from "@/types/box"
+import { BoxWithEntityAndSector } from "@/types/box"
 
 // Components
 import { BoxItemActions } from "./box-item-actions"
 
 interface BoxListProps {
-  boxes: BoxWithSchool[]
+  boxes: BoxWithEntityAndSector[]
   user?: any
 }
 
@@ -19,8 +19,8 @@ export const BoxList = ({ boxes, user }: BoxListProps) => {
         >
           <div className="flex items-center gap-2 overflow-hidden">
             <FolderOpen size={30} />
-            <div className="flex-1 truncate" title={box.school.name}>
-              <strong className="truncate">{box.school.name}</strong>
+            <div className="flex-1 truncate" title={box.entity.name}>
+              <strong className="truncate">{box.entity.name}</strong>
               <p className="text-xl font-bold leading-none">nº {box.numBox}</p>
             </div>
           </div>

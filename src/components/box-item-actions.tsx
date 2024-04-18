@@ -3,13 +3,13 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { BoxWithSchool } from "@/types/box"
+import { BoxWithEntityAndSector } from "@/types/box"
 
 // Components
 import { Button } from "@/components/ui/button"
 
 interface BoxItemActionsProps {
-  box: BoxWithSchool
+  box: BoxWithEntityAndSector
   userId?: string
 }
 
@@ -21,12 +21,12 @@ export const BoxItemActions = ({ box, userId }: BoxItemActionsProps) => {
   return (
     <div className="flex justify-end gap-4">
       {canEdit && (
-        <Link href={`/school/box/${box.id}/details`}>
+        <Link href={`/entity/box/${box.id}/details`}>
           <Button variant="secondary">Editar</Button>
         </Link>
       )}
 
-      <Link href={`/school/box/${box.id}/update`}>
+      <Link href={`/entity/box/${box.id}/update`}>
         <Button>Detalhes</Button>
       </Link>
     </div>

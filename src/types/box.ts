@@ -1,5 +1,6 @@
-import { Box, School } from "@prisma/client"
+import { Box, Entity, Sector } from "@prisma/client"
 
-export interface BoxWithSchool extends Box {
-  school: School
+export interface BoxWithEntityAndSector extends Box {
+  entity: Entity
+  sector: Sector
 }

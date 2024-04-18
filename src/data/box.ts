@@ -1,4 +1,4 @@
-import { BoxWithSchool } from "@/types/box"
+import { BoxWithEntityAndSector } from "@/types/box"
 
 interface IGetBoxes {
   search?: string
@@ -7,7 +7,7 @@ interface IGetBoxes {
 
 export const getBoxes = async (
   searchParams: IGetBoxes,
-): Promise<BoxWithSchool[]> => {
+): Promise<BoxWithEntityAndSector[]> => {
   const fetchString =
     searchParams.page && searchParams.search
       ? `http://localhost:3000/api/box?search=${searchParams?.search}&page=${searchParams?.page}`
@@ -24,5 +24,5 @@ export const getBoxes = async (
     )
   }
   const data = await res.json()
-  return data.boxes as BoxWithSchool[]
+  return data.boxes as BoxWithEntityAndSector[]
 }
