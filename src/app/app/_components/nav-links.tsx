@@ -11,7 +11,7 @@ export const NavLinks = () => {
   const pathname = usePathname()
 
   return (
-    <div className="flex h-full max-h-screen flex-col items-center gap-3 px-2 py-4 lg:p-4">
+    <div className="flex flex-1 max-h-screen flex-col items-center gap-3">
       {links.map((link) => {
         const LinkIcon = link.icon
 

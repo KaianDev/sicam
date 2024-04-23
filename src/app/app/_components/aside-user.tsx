@@ -1,24 +1,19 @@
 import Image from "next/image"
-import { LogOut } from "lucide-react"
-
-// Components
-import { Button } from "@/components/ui/button"
 
 export const AsideUser = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 bg-green-800 px-2 py-4 lg:h-60 lg:p-8">
+    <div className="flex  flex-col items-center justify-center gap-2 bg-green-800 p-4 lg:h-64 lg:w-full">
       <Image
-        src="/assets/no-avatar.png"
+        src="/assets/default.png"
+        alt="default"
         width={140}
         height={140}
-        sizes="100vw"
-        className="rounded-full border-4 border-zinc-50 bg-zinc-300 object-cover object-bottom"
-        alt="default"
+        className="rounded-full border-4 border-zinc-300 bg-zinc-100"
       />
-      <Button className="flex w-full items-center gap-2 px-2 sm:justify-center lg:w-max">
-        <LogOut />
-        <span className="hidden uppercase lg:block">Sair</span>
-      </Button>
+      <div className="hidden text-center text-zinc-100 lg:block">
+        <p>John Snow</p>
+        <p>Cegaf</p>
+      </div>
     </div>
   )
 }
