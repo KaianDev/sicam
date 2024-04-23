@@ -7,10 +7,10 @@ import { AsideMenu } from "@/components/aside-menu"
 import { LoginDialog } from "@/components/login-dialog"
 
 export const Header = () => {
-  const session = null
+  const session = true
 
   return (
-    <header className="h-shadow sticky top-0 flex h-24 items-center justify-between gap-2 bg-green-700 px-4 sm:relative sm:px-8">
+    <header className="h-shadow sticky top-0 z-10 flex h-24 items-center justify-between gap-2 bg-green-700 px-4 sm:px-8">
       <Link href="/">
         <Image
           src="/assets/logo.png"
