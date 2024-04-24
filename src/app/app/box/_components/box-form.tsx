@@ -1,6 +1,7 @@
 "use client"
 
 import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 // Components
 import { Button } from "@/components/ui/button"
@@ -21,32 +22,38 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 
+// U
+import { CreateOrUpdateBoxSchema, CreateOrUpdateBoxType } from "@/types/zod"
+import Link from "next/link"
+
 interface BoxFormProps {
+  type: "create" | "update"
   defaultValues?: {
+    entityId: string
     content: string
-    entity: string
     observation?: string
   }
+  onSubmit: (data: CreateOrUpdateBoxType) => void
 }
 
-export const BoxForm = ({ defaultValues }: BoxFormProps) => {
-  const form = useForm({
-    defaultValues,
-  })
+export const BoxForm = ({ defaultValues, type, onSubmit }: BoxFormProps) => {
+  // const user = useSession()
 
-  const handleAddNewBoxSubmit = (data: any) => {
-    console.log(data)
-  }
+  const form = useForm<CreateOrUpdateBoxType>({
+    defaultValues: {
+      ...defaultValues,
+      ownerId: "123",
+      sectorId: "CEGAF",
+    },
+    resolver: zodResolver(CreateOrUpdateBoxSchema),
+  })
 
   return (
     <div className="pb-6">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleAddNewBoxSubmit)}
-          className="space-y-8"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
-            name="entity"
+            name="entityId"
             control={form.control}
             render={({ field }) => (
               <FormItem>
@@ -56,6 +63,7 @@ export const BoxForm = ({ defaultValues }: BoxFormProps) => {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  disabled={!!defaultValues?.entityId}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione uma escola ou município" />
@@ -112,7 +120,19 @@ export const BoxForm = ({ defaultValues }: BoxFormProps) => {
               )}
             />
           </div>
-          <Button type="submit">Criar Caixa</Button>
+          <div className="space-x-2">
+            <Button type="submit" variant="secondary">
+              {type === "create" ? "Criar Caixa" : "Editar Caixa"}
+            </Button>
+            {type === "update" && (
+              <Link
+                href="/app"
+                className="rounded-md bg-primary p-2 text-white"
+              >
+                Cancelar
+              </Link>
+            )}
+          </div>
         </form>
       </Form>
     </div>

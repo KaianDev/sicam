@@ -7,7 +7,11 @@ interface BoxDetailsProps {
   boxId: string
 }
 
-export const BoxDetails = ({ origin }: BoxDetailsProps) => {
+export const BoxDetails = ({ origin, boxId }: BoxDetailsProps) => {
+  // TODO: Fetch Box
+  // const box = getBoxById(boxId)
+  // const user = useSession() //next-auth
+
   return (
     <div className="container space-y-4">
       <div className="border-b border-zinc-300 py-4">
