@@ -4,13 +4,18 @@ import { BoxWithEntityAndSector } from "@/types/box"
 // Components
 import { BoxItemActions } from "./box-item-actions"
 import { Badge } from "./ui/badge"
+import { getBoxes } from "@/data/box"
 
 interface BoxListProps {
-  boxes: BoxWithEntityAndSector[]
   user?: any
+  searchParams: {
+    page?: string
+    search?: string
+  }
 }
 
-export const BoxList = ({ boxes, user }: BoxListProps) => {
+export const BoxList = async ({ user, searchParams }: BoxListProps) => {
+  const boxes = await getBoxes(searchParams)
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {boxes.map((box) => (

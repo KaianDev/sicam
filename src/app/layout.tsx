@@ -1,7 +1,7 @@
 import "./globals.css"
 
 import type { Metadata } from "next"
-import { Inter as FontSans } from "next/font/google"
+import { Poppins as FontSans } from "next/font/google"
 
 // Components
 import { Header } from "@/components/header"
@@ -9,7 +9,11 @@ import { Header } from "@/components/header"
 // Utilities
 import { cn } from "@/lib/utils"
 
-const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" })
+const fontSans = FontSans({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+  variable: "--font-sans",
+})
 
 export const metadata: Metadata = {
   title: "SiCAM",

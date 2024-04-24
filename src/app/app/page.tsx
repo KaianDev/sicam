@@ -1,9 +1,7 @@
 // Components
 import { BoxList } from "@/components/box-list"
 import { Pagination } from "@/components/pagination"
-
-// Utilities
-import { getBoxes } from "@/data/box"
+import { Suspense } from "react"
 
 interface AppPageProps {
   searchParams: {
@@ -13,12 +11,13 @@ interface AppPageProps {
 }
 
 const AppPage = async ({ searchParams }: AppPageProps) => {
-  const boxes = await getBoxes(searchParams)
-  const session = { user: { id: 1 } }
+  const session = { user: { id: "4e4a4667-9822-408b-bc5d-8f9f37981bd0" } }
 
   return (
     <main className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
-      <BoxList boxes={boxes} user={session.user} />
+      <Suspense fallback={<div>Carregando...</div>}>
+        <BoxList searchParams={searchParams} user={session.user} />
+      </Suspense>
       <Pagination />
     </main>
   )

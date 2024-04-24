@@ -1,10 +1,5 @@
 // Components
 import { Aside } from "@/app/app/_components/aside"
-import Image from "next/image"
-import { NavLinks } from "./_components/nav-links"
-import { Button } from "@/components/ui/button"
-import { LogOut } from "lucide-react"
-
 interface AppLayoutProps {
   children: React.ReactNode
 }
