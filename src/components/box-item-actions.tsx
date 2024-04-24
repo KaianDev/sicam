@@ -21,12 +21,18 @@ export const BoxItemActions = ({ box, userId }: BoxItemActionsProps) => {
   return (
     <div className="flex justify-end gap-4">
       {canEdit && (
-        <Link href={`/entity/box/${box.id}/details`}>
+        <Link href={`/app/box/update/${box.id}`}>
           <Button variant="secondary">Editar</Button>
         </Link>
       )}
 
-      <Link href={`/entity/box/${box.id}/update`}>
+      <Link
+        href={
+          pathname.includes("/app")
+            ? `/app/box/details/${box.id}`
+            : `/box/details/${box.id}`
+        }
+      >
         <Button>Detalhes</Button>
       </Link>
     </div>
