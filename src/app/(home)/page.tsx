@@ -1,9 +1,9 @@
+import { Suspense } from "react"
+
 // Components
 import { BoxList } from "@/components/box-list"
 import { Pagination } from "@/components/pagination"
-
-// Utilities
-import { getBoxes } from "@/data/box"
+import { BoxesListSkeleton } from "@/components/skeletons"
 
 interface HomePageProps {
   searchParams: {
@@ -21,7 +21,9 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
   return (
     <div className="mx-4 ">
       <main className="container mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
-        <BoxList searchParams={searchParams} />
+        <Suspense fallback={<BoxesListSkeleton />}>
+          <BoxList searchParams={searchParams} />
+        </Suspense>
         <Pagination />
       </main>
     </div>

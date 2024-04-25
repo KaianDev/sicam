@@ -21,7 +21,7 @@ export const BoxList = async ({ user, searchParams }: BoxListProps) => {
       {boxes.map((box) => (
         <div
           key={box.id}
-          className="space-y-4 rounded-md bg-zinc-200 p-4 shadow-lg"
+          className="space-y-4 overflow-hidden rounded-md bg-zinc-200 p-4 shadow-lg"
         >
           <Badge variant="secondary">{box.sector.name}</Badge>
           <div className="flex items-center gap-2 overflow-hidden">
