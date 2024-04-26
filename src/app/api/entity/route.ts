@@ -1,6 +1,6 @@
 import prisma from "@/lib/db"
 import { throwError } from "@/lib/error"
-import { addEntitySchema } from "@/lib/zod"
+import { CreateOrUpdateEntitySchema } from "@/lib/zod"
 import { NextRequest, NextResponse } from "next/server"
 
 export const GET = async () => {
@@ -27,7 +27,7 @@ export const GET = async () => {
 export const POST = async (req: NextRequest) => {
   try {
     const data = await req.json()
-    const schema = addEntitySchema.safeParse(data)
+    const schema = CreateOrUpdateEntitySchema.safeParse(data)
     if (!schema.success) {
       throw new Error("Dados inválidos")
     }

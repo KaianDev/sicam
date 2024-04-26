@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -22,9 +23,10 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 
-// U
-import { CreateOrUpdateBoxSchema, CreateOrUpdateBoxType } from "@/types/zod"
-import Link from "next/link"
+// Utilities
+import { CreateOrUpdateBoxType } from "@/types/zod"
+import { CreateOrUpdateBoxSchema } from "@/lib/zod"
+import { Entity } from "@prisma/client"
 
 interface BoxFormProps {
   type: "create" | "update"
@@ -34,9 +36,15 @@ interface BoxFormProps {
     observation?: string
   }
   onSubmit: (data: CreateOrUpdateBoxType) => void
+  entities: Entity[]
 }
 
-export const BoxForm = ({ defaultValues, type, onSubmit }: BoxFormProps) => {
+export const BoxForm = ({
+  defaultValues,
+  type,
+  entities,
+  onSubmit,
+}: BoxFormProps) => {
   // const user = useSession()
 
   const form = useForm<CreateOrUpdateBoxType>({
@@ -70,13 +78,12 @@ export const BoxForm = ({ defaultValues, type, onSubmit }: BoxFormProps) => {
                   </SelectTrigger>
                   <FormControl>
                     <SelectContent>
-                      <SelectItem
-                        value={"EEMTI Professora Theolina de Murylo Zacas"}
-                      >
-                        EEMTI Professora Theolina de Murylo Zacas
-                      </SelectItem>
-                      <SelectItem value={"Acaraú"}>Acaraú</SelectItem>
-                      <SelectItem value={"Itarema"}>Itarema</SelectItem>
+                      {entities.map((entity) => (
+                        <SelectItem value={entity.id} key={entity.id}>
+                          <span>{entity?.uex && `${entity.uex} - `}</span>
+                          {entity.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </FormControl>
                 </Select>

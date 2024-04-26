@@ -1,12 +1,25 @@
 "use client"
+import { Entity } from "@prisma/client"
 
-import { BoxForm } from "@/app/app/box/_components/box-form"
 import { CreateOrUpdateBoxType } from "@/types/zod"
 
-export const CreateBoxForm = () => {
+// Components
+import { BoxForm } from "@/app/app/box/_components/box-form"
+
+interface CreateBoxFormProps {
+  entities: Entity[]
+}
+
+export const CreateBoxForm = ({ entities }: CreateBoxFormProps) => {
   const handleCreateNewBoxSubmit = async (data: CreateOrUpdateBoxType) => {
     console.log(data)
   }
 
-  return <BoxForm onSubmit={handleCreateNewBoxSubmit} type="create" />
+  return (
+    <BoxForm
+      entities={entities}
+      onSubmit={handleCreateNewBoxSubmit}
+      type="create"
+    />
+  )
 }

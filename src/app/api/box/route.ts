@@ -1,6 +1,6 @@
 import prisma from "@/lib/db"
 import { throwError } from "@/lib/error"
-import { addBoxSchema } from "@/lib/zod"
+import { CreateOrUpdateBoxSchema } from "@/lib/zod"
 import { NextRequest, NextResponse } from "next/server"
 
 export const GET = async (req: NextRequest) => {
@@ -43,7 +43,7 @@ export const POST = async (req: NextRequest) => {
     const sectorId = user.sectorId
 
     const data = await req.json()
-    const schema = addBoxSchema.safeParse(data)
+    const schema = CreateOrUpdateBoxSchema.safeParse(data)
 
     if (!schema.success) {
       throw new Error("Dados inválidos")

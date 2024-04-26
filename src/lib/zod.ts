@@ -2,27 +2,27 @@ import { z } from "zod"
 
 export const entitySchema = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string({ required_error: "Campo Obrigatório" }),
   uex: z.string().optional(),
 })
 
-export const addEntitySchema = entitySchema.omit({ id: true })
+export const CreateOrUpdateEntitySchema = entitySchema.omit({ id: true })
 
-export const boxSchema = z.object({
+export const BoxSchema = z.object({
   id: z.string(),
-  content: z.string(),
+  entityId: z.string({ required_error: "Campo obrigatório" }),
+  ownerId: z.string(),
+  sectorId: z.string(),
+  content: z.string({ required_error: "Campo obrigatório" }),
   observation: z.string().optional(),
   numBox: z.number(),
-  entityId: z.string(),
-  sectorId: z.string(),
-  ownerId: z.string(),
+  createdAt: z.date(),
 })
 
-export const addBoxSchema = boxSchema.omit({
+export const CreateOrUpdateBoxSchema = BoxSchema.omit({
   id: true,
   numBox: true,
-  ownerId: true,
-  sectorId: true,
+  createdAt: true,
 })
 
 export const loginSchema = z.object({
