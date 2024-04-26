@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client"
 import {
   FolderPlus,
   Home,
@@ -39,3 +40,10 @@ export const links = [
     icon: User,
   },
 ]
+
+export const getLinks = (role: Role) => {
+  return links.filter((link) => {
+    if (!link.href.includes("/admin")) return link
+    if (role === "ADMIN") return link
+  })
+}
