@@ -1,6 +1,6 @@
 "use client"
 
-import Link from "next/link"
+import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 
 // Components
@@ -19,16 +19,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 // Utilities
 import { links } from "@/lib/links"
 import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { mockUser } from "@/data/mock-user"
 
-interface AsideMenu {
-  user: any
-}
-
-export const AsideMenu = ({ user }: AsideMenu) => {
+export const AsideMenu = () => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+
+  // TODO: get user
+  const user = mockUser
   if (pathname === "/") return null
 
   const handleLinkClick = (href: string) => {
@@ -54,7 +53,7 @@ export const AsideMenu = ({ user }: AsideMenu) => {
               <div>
                 <SheetTitle>{user.name}</SheetTitle>
                 <SheetDescription className="text-start">
-                  {user.role === "user" ? "Analista" : "Admin"}
+                  {user.role === "ADMIN" && "Admin"}
                 </SheetDescription>
               </div>
             </div>
@@ -62,22 +61,27 @@ export const AsideMenu = ({ user }: AsideMenu) => {
 
           <div className="flex flex-1 flex-col border-t-2 py-6">
             <div className="flex flex-col gap-4">
-              {links.map((link) => {
-                const LinkIcon = link.icon
-                return (
-                  <Button
-                    key={link.label}
-                    onClick={() => handleLinkClick(link.href)}
-                    className={cn(
-                      "flex items-center gap-2 rounded-md bg-green-800 p-2 font-medium text-white hover:bg-green-100 hover:text-green-800 sm:justify-center lg:justify-start",
-                      pathname === link.href && "bg-green-100 text-green-800",
-                    )}
-                  >
-                    <LinkIcon />
-                    {link.label}
-                  </Button>
-                )
-              })}
+              {links
+                .filter((link) => {
+                  if (!link.href.includes("/admin")) return link
+                  if (user.role === "ADMIN") return link
+                })
+                .map((link) => {
+                  const LinkIcon = link.icon
+                  return (
+                    <Button
+                      key={link.label}
+                      onClick={() => handleLinkClick(link.href)}
+                      className={cn(
+                        "flex items-center justify-start gap-2 rounded-md bg-green-800 p-2 font-medium text-white hover:bg-green-100 hover:text-green-800 ",
+                        pathname === link.href && "bg-green-100 text-green-800",
+                      )}
+                    >
+                      <LinkIcon />
+                      {link.label}
+                    </Button>
+                  )
+                })}
             </div>
             <Button className="mt-auto gap-4">
               <LogOut />

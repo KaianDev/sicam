@@ -1,4 +1,11 @@
-import { FolderPlus, Home, School, User, Bookmark } from "lucide-react"
+import {
+  FolderPlus,
+  Home,
+  School,
+  User,
+  Bookmark,
+  ShieldAlert,
+} from "lucide-react"
 
 export const links = [
   {
@@ -12,17 +19,22 @@ export const links = [
     icon: FolderPlus,
   },
   {
-    href: "/app/entity",
+    href: "/app/admin",
+    label: "Administrativo",
+    icon: ShieldAlert,
+  },
+  {
+    href: "/app/admin/entity",
     label: "Entidade",
     icon: School,
   },
   {
-    href: "/app/sector",
+    href: "/app/admin/sector",
     label: "Setor",
     icon: Bookmark,
   },
   {
-    href: "/app/user",
+    href: "/app/admin/user",
     label: "Usuário",
     icon: User,
   },
