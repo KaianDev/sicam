@@ -30,8 +30,9 @@ model User {
 }
 
 model Entity {
-  id   String @id @default(uuid())
-  name String @unique
+  id   String     @id @default(uuid())
+  name String     @unique
+  uex  String?
 
   boxes Box[]
 
@@ -68,4 +69,9 @@ model Sector {
 enum Role {
   USER
   ADMIN
+}
+
+enum EntityType {
+  CITY
+  SCHOOL
 }

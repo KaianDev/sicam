@@ -1,8 +1,12 @@
 import { z } from "zod"
 
-export const addEntitySchema = z.object({
+export const entitySchema = z.object({
+  id: z.string(),
   name: z.string(),
+  uex: z.string().optional(),
 })
+
+export const addEntitySchema = entitySchema.omit({ id: true })
 
 export const boxSchema = z.object({
   id: z.string(),

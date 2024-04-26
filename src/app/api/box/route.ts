@@ -31,8 +31,8 @@ export const GET = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
   try {
-    //const ownerId = "00b164b6-2262-4e76-a32a-8a37c567af02" // John Snow
-    const ownerId = "4e4a4667-9822-408b-bc5d-8f9f37981bd0" // Daenarys
+    const ownerId = "55c511dc-ec7c-4a3c-82e6-01d99df846d0" // John Snow
+    // const ownerId = "6d578917-1d2d-4e09-8474-b7f59de71363" // Daenarys Targeryen
 
     const user = await prisma.user.findFirst({ where: { id: ownerId } })
 
