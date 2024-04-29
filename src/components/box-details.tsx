@@ -15,6 +15,13 @@ export const BoxDetails = ({ origin, boxId }: BoxDetailsProps) => {
   return (
     <div className="container space-y-4">
       <div className="border-b border-zinc-300 py-4">
+        <Link
+          href={origin}
+          className="mb-4 flex w-fit items-center gap-1 hover:text-primary"
+        >
+          <ArrowLeft />
+          Voltar
+        </Link>
         <div className="flex justify-start gap-2">
           <h1 className="text-2xl font-semibold sm:text-3xl">
             Detalhes da Caixa - Nº 999
@@ -56,13 +63,6 @@ export const BoxDetails = ({ origin, boxId }: BoxDetailsProps) => {
           </p>
         </div>
         <div className="flex justify-end gap-4">
-          <Link
-            href={origin}
-            className="flex gap-2 rounded-md bg-primary p-2 text-white"
-          >
-            <ArrowLeft />
-            Voltar
-          </Link>
           {origin !== "/" && (
             <Link
               href={`/app/box/update/id`}
