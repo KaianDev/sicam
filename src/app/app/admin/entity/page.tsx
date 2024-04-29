@@ -1,9 +1,7 @@
 import { CreateEntityForm } from "@/app/app/admin/entity/_components/create-entity-form"
-import { getEntities } from "@/data/entity"
+import { EntityTable } from "@/app/app/admin/entity/_components/entity-table"
 
 const Entity = async () => {
-  const entities = await getEntities()
-
   return (
     <main className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
       <div className="container space-y-4 px-0">
@@ -11,13 +9,8 @@ const Entity = async () => {
           Criar nova entidade
         </h1>
         <CreateEntityForm />
-        <div>
-          {entities.map((entity) => (
-            <div key={entity.id}>
-              <span>{entity?.uex && `${entity.uex} - `}</span> {entity.name}
-            </div>
-          ))}
-        </div>
+        <h2 className="border-b py-2 text-xl">Entidades Cadastradas</h2>
+        <EntityTable />
       </div>
     </main>
   )
