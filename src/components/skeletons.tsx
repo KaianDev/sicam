@@ -22,3 +22,21 @@ export const BoxesListSkeleton = () => {
     </div>
   )
 }
+
+export const EntityTableSkeleton = () => {
+  return (
+    <div className="pb-6">
+      <Skeleton className="w-full">
+        <Skeleton className="h-12 w-full p-4">
+          <Skeleton className="h-full w-1/2 bg-zinc-300"></Skeleton>
+        </Skeleton>
+        {Array.from({ length: 10 }).map((_, i) => (
+          <div key={i} className="flex h-16 gap-4 p-4">
+            <Skeleton className="flex-1 bg-zinc-300"></Skeleton>
+            <Skeleton className="w-10 bg-zinc-300 md:w-24"></Skeleton>
+          </div>
+        ))}
+      </Skeleton>
+    </div>
+  )
+}

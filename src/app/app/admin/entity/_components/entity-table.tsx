@@ -17,7 +17,7 @@ export const EntityTable = async () => {
   const entities = await getEntities()
 
   return (
-    <div>
+    <div className="pb-6">
       <Table className="overflow-hidden rounded-md">
         <TableCaption>Lista de Entidades</TableCaption>
         <TableHeader className="bg-green-700">
@@ -31,7 +31,7 @@ export const EntityTable = async () => {
         <TableBody>
           {entities.map((entity) => (
             <TableRow key={entity.id}>
-              <TableCell className="text-xs md:text-sm lg:text-base">
+              <TableCell className="text-xs sm:text-sm lg:text-base">
                 {formatEntityName(entity.name, entity.uex)}
               </TableCell>
               <TableCell className="text-end">
