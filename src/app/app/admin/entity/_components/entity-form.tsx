@@ -19,8 +19,10 @@ import { Input } from "@/components/ui/input"
 // Utilities
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CreateOrUpdateEntitySchema } from "@/lib/zod"
+import Link from "next/link"
 
 interface EntityFormProps {
+  type: "update" | "create"
   defaultValues?: {
     name?: string
     uex?: string
@@ -28,7 +30,11 @@ interface EntityFormProps {
   onSubmit: (data: CreateOrUpdateEntityType) => void
 }
 
-export const EntityForm = ({ defaultValues, onSubmit }: EntityFormProps) => {
+export const EntityForm = ({
+  type,
+  defaultValues,
+  onSubmit,
+}: EntityFormProps) => {
   const form = useForm<CreateOrUpdateEntityType>({
     defaultValues,
     resolver: zodResolver(CreateOrUpdateEntitySchema),
@@ -83,9 +89,16 @@ export const EntityForm = ({ defaultValues, onSubmit }: EntityFormProps) => {
               </FormItem>
             )}
           />
-          <Button type="submit" variant="secondary">
-            Criar entidade
-          </Button>
+          <div className="space-x-2">
+            <Button type="submit" variant="secondary">
+              {type === "create" ? "Criar entidade" : "Editar entidade"}
+            </Button>
+            {type === "update" && (
+              <Link href="/app/admin/entity">
+                <Button>Cancelar</Button>
+              </Link>
+            )}
+          </div>
         </form>
       </Form>
     </div>

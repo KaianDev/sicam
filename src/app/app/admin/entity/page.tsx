@@ -6,7 +6,7 @@ import { EntityTableSkeleton } from "@/components/skeletons"
 import { CreateEntityForm } from "@/app/app/admin/entity/_components/create-entity-form"
 import { EntityTable } from "@/app/app/admin/entity/_components/entity-table"
 
-const Entity = async () => {
+const Entity = () => {
   return (
     <main className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
       <div className="container space-y-4 px-0">

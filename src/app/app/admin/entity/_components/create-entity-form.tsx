@@ -8,9 +8,8 @@ export const CreateEntityForm = () => {
   const handleCreateNewEntitySubmit = async (
     data: CreateOrUpdateEntityType,
   ) => {
-    console.log(data)
     await addEntityAction(data)
   }
 
-  return <EntityForm onSubmit={handleCreateNewEntitySubmit} />
+  return <EntityForm onSubmit={handleCreateNewEntitySubmit} type="create" />
 }
