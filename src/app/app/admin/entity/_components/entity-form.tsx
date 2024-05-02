@@ -27,7 +27,7 @@ interface EntityFormProps {
     name?: string
     uex?: string
   }
-  onSubmit: (data: CreateOrUpdateEntityType) => void
+  onSubmit: (data: CreateOrUpdateEntityType) => Promise<void>
 }
 
 export const EntityForm = ({
@@ -40,8 +40,8 @@ export const EntityForm = ({
     resolver: zodResolver(CreateOrUpdateEntitySchema),
   })
 
-  const handleSubmit = form.handleSubmit((data) => {
-    onSubmit(data)
+  const handleSubmit = form.handleSubmit(async (data) => {
+    await onSubmit(data)
     form.reset({
       name: "",
       uex: "",

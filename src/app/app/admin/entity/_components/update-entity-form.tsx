@@ -16,20 +16,10 @@ export const UpdateEntityForm = ({ entity }: UpdateEntityFormProps) => {
   }
 
   return (
-    <>
-      {entity.uex ? (
-        <EntityForm
-          type="update"
-          onSubmit={handleUpdateEntitySubmit}
-          defaultValues={{ name: entity.name, uex: entity.uex }}
-        />
-      ) : (
-        <EntityForm
-          type="update"
-          onSubmit={handleUpdateEntitySubmit}
-          defaultValues={{ name: entity.name }}
-        />
-      )}
-    </>
+    <EntityForm
+      type="update"
+      onSubmit={handleUpdateEntitySubmit}
+      defaultValues={{ name: entity.name, uex: entity.uex ?? "" }}
+    />
   )
 }
