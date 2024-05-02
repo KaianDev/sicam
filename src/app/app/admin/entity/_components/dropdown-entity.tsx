@@ -21,7 +21,7 @@ export const DropdownEntity = ({ entityId }: DropdownEntityProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem className="gap-2" asChild>
-          <Link href={`/app/admin/entity/${entityId}`}>
+          <Link href={`/app/admin/entity/update/${entityId}`}>
             <FileEdit />
             Editar
           </Link>

@@ -1,7 +1,7 @@
 // Components
 import { Subtitle } from "@/components/subtitle"
 import { getEntity } from "@/data/entity"
-import { UpdateEntityForm } from "../_components/update-entity-form"
+import { UpdateEntityForm } from "@/app/app/admin/entity/_components/update-entity-form"
 
 interface UpdateEntityPageProps {
   params: {

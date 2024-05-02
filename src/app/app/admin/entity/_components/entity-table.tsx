@@ -1,3 +1,7 @@
+import Link from "next/link"
+import { FileEdit } from "lucide-react"
+
+// Components
 import {
   Table,
   TableCaption,
@@ -7,11 +11,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
+import { DropdownEntity } from "@/app/app/admin/entity/_components/dropdown-entity"
+
+// Utilities
 import { getEntities } from "@/data/entity"
 import { formatEntityName } from "@/helpers/format-entity-name"
-import { DropdownEntity } from "@/app/app/admin/entity/_components/dropdown-entity"
-import Link from "next/link"
-import { FileEdit } from "lucide-react"
 
 export const EntityTable = async () => {
   const entities = await getEntities()
@@ -39,7 +44,7 @@ export const EntityTable = async () => {
                   <DropdownEntity entityId={entity.id} />
                 </div>
                 <Link
-                  href={`/app/admin/entity/${entity.id}`}
+                  href={`/app/admin/entity/update/${entity.id}`}
                   className="hidden items-center gap-2 text-base hover:text-primary md:flex"
                 >
                   <FileEdit />

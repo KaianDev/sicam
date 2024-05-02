@@ -1,11 +1,12 @@
 "use client"
 
+import Link from "next/link"
 import { useForm } from "react-hook-form"
 
 import type { CreateOrUpdateEntityType } from "@/types/zod"
 
 // Components
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -19,7 +20,6 @@ import { Input } from "@/components/ui/input"
 // Utilities
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CreateOrUpdateEntitySchema } from "@/lib/zod"
-import Link from "next/link"
 
 interface EntityFormProps {
   type: "update" | "create"
@@ -94,8 +94,8 @@ export const EntityForm = ({
               {type === "create" ? "Criar entidade" : "Editar entidade"}
             </Button>
             {type === "update" && (
-              <Link href="/app/admin/entity">
-                <Button>Cancelar</Button>
+              <Link href="/app/admin/entity" className={buttonVariants()}>
+                Cancelar
               </Link>
             )}
           </div>
