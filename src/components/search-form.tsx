@@ -1,24 +1,42 @@
+"use client"
 import { Search } from "lucide-react"
 
 // Components
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { searchAction } from "@/actions/search-action"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useDebouncedCallback } from "use-debounce"
 
 export const SearchForm = () => {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const path = pathname.includes("/app") ? "/app" : pathname
+
+  const router = useRouter()
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams)
+
+    if (term) {
+      params.set("search", term)
+    } else {
+      params.delete("search")
+    }
+    router.replace(`${path}?${params.toString()}`)
+  }, 300)
+
   return (
     <div className="w-full md:w-2/3 lg:w-1/2">
-      <form action={searchAction} className="flex gap-2">
-        <Input
+      <div className="relative h-9 overflow-hidden rounded-md">
+        <input
           type="search"
           name="search"
           placeholder="Pesquisar"
-          className="w-full border-0"
+          className="h-full w-full border-0 pl-10 pr-2 outline-none ring-0"
+          onChange={(e) => handleSearch(e.target.value)}
+          defaultValue={searchParams.get("search")?.toString()}
         />
-        <Button variant="ghost" size="icon" className="w-12">
+        <button className="top absolute left-2 top-0 size-9 text-muted-foreground">
           <Search />
-        </Button>
-      </form>
+        </button>
+      </div>
     </div>
   )
 }
