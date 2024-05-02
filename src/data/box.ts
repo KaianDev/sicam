@@ -5,17 +5,19 @@ interface IGetBoxes {
   page?: string
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api"
+
 export const getBoxes = async (searchParams: IGetBoxes) => {
   const fetchString =
     searchParams.page && searchParams.search
-      ? `http://localhost:3000/api/box?search=${searchParams?.search}&page=${searchParams?.page}`
+      ? `${apiUrl}/box?search=${searchParams?.search}&page=${searchParams?.page}`
       : searchParams.page
-        ? `http://localhost:3000/api/box?page=${searchParams.page}`
+        ? `${apiUrl}/box?page=${searchParams.page}`
         : searchParams.search
-          ? `http://localhost:3000/api/box?search=${searchParams.search}`
-          : `http://localhost:3000/api/box`
+          ? `${apiUrl}/box?search=${searchParams.search}`
+          : `${apiUrl}/api/box`
 
-  const res = await fetch(fetchString, { cache: "no-cache" })
+  const res = await fetch(fetchString, { next: { tags: ["boxes"] } })
   if (!res.ok) {
     throw new Error(
       "Ocorreu um erro no carregamento, tente novamente mais tarde.",
