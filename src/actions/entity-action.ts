@@ -1,15 +1,12 @@
 "use server"
 
+import { addEntityService } from "@/services/entity"
 import { CreateOrUpdateEntityType } from "@/types/zod"
-import { revalidateTag } from "next/cache"
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 export const addEntityAction = async (data: CreateOrUpdateEntityType) => {
-  await fetch("http://localhost:3000/api/entity", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-  revalidateTag("entities")
+  await addEntityService(data)
+  revalidatePath("/app/admin/entity")
+  redirect("/app/admin/entity")
 }
