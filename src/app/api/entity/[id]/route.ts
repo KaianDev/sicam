@@ -1,5 +1,6 @@
 import prisma from "@/lib/db"
 import { throwError } from "@/lib/error"
+import { getEntityService } from "@/services/entity"
 import { NextRequest, NextResponse } from "next/server"
 
 interface RequestParams {
@@ -12,10 +13,7 @@ export const GET = async (req: NextRequest, { params }: RequestParams) => {
   try {
     const id = params.id
 
-    const entity = await prisma.entity.findFirst({
-      where: { id },
-      include: { boxes: true },
-    })
+    const entity = await getEntityService(id)
 
     if (!entity) {
       return NextResponse.json(

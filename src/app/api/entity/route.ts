@@ -1,23 +1,11 @@
-import prisma from "@/lib/db"
 import { throwError } from "@/lib/error"
-import { CreateOrUpdateEntitySchema } from "@/lib/zod"
+
+import { addEntityService, getEntitiesService } from "@/services/entity"
 import { NextRequest, NextResponse } from "next/server"
 
 export const GET = async () => {
   try {
-    const entities = await prisma.entity.findMany({
-      orderBy: [
-        {
-          uex: {
-            sort: "asc",
-            nulls: "first",
-          },
-        },
-        {
-          name: "asc",
-        },
-      ],
-    })
+    const entities = await getEntitiesService()
     return NextResponse.json({ entities }, { status: 200 })
   } catch (err) {
     return throwError(err)
@@ -27,18 +15,7 @@ export const GET = async () => {
 export const POST = async (req: NextRequest) => {
   try {
     const data = await req.json()
-    const schema = CreateOrUpdateEntitySchema.safeParse(data)
-    if (!schema.success) {
-      throw new Error("Dados inválidos")
-    }
-    const { name, uex } = schema.data
-
-    const entity = await prisma.entity.findUnique({ where: { name } })
-
-    if (entity) {
-      throw new Error("A entidade já existe")
-    }
-    const newEntity = await prisma.entity.create({ data: { name, uex } })
+    const newEntity = await addEntityService(data)
     return NextResponse.json({ newEntity }, { status: 201 })
   } catch (err) {
     return throwError(err)
