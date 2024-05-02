@@ -45,10 +45,10 @@ export const POST = async (req: NextRequest) => {
     }
 
     const sectorId = user.sectorId
-
+    
     const data = await req.json()
     const schema = CreateOrUpdateBoxSchema.safeParse(data)
-
+    // console.log(schema)
     if (!schema.success) {
       throw new Error("Dados inválidos")
     }
@@ -80,8 +80,6 @@ export const POST = async (req: NextRequest) => {
     if (!sector) {
       throw new Error("Setor inválido")
     }
-
-    console.log(sector.boxes)
 
     const numBox = sector.boxes.length + 1
 

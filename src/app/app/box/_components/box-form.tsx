@@ -45,14 +45,8 @@ export const BoxForm = ({
   entities,
   onSubmit,
 }: BoxFormProps) => {
-  // const user = useSession()
-
   const form = useForm<CreateOrUpdateBoxType>({
-    defaultValues: {
-      ...defaultValues,
-      ownerId: "123",
-      sectorId: "CEGAF",
-    },
+    defaultValues,
     resolver: zodResolver(CreateOrUpdateBoxSchema),
   })
 

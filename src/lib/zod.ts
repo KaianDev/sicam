@@ -23,6 +23,8 @@ export const CreateOrUpdateBoxSchema = BoxSchema.omit({
   id: true,
   numBox: true,
   createdAt: true,
+  ownerId: true,
+  sectorId: true,
 })
 
 export const SectorSchema = z.object({

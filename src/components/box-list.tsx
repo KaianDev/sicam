@@ -61,16 +61,20 @@ export const BoxList = async ({
       )}
 
       {boxes.length === 0 && (
-        <div className="space-y-8 py-6">
-          <div className="px-4 text-center text-2xl">
-            Nenhum resultado encontrado para essa consulta!
+        <div className="flex min-h-[calc(100dvh-280px)] flex-col items-center justify-center gap-8">
+          <div className="text-center text-2xl">
+            {searchParams.search
+              ? "Nenhum resultado encontrado para essa consulta"
+              : "Não há caixas cadastradas"}
           </div>
-          <div className="text-center">
-            <Link href={backHref} className={buttonVariants()}>
-              <ArrowLeft />
-              Voltar
-            </Link>
-          </div>
+          {(searchParams.search || searchParams.page) && (
+            <div className="text-center">
+              <Link href={backHref} className={buttonVariants()}>
+                <ArrowLeft />
+                Voltar
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </>
