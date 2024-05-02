@@ -5,6 +5,7 @@ import Image from "next/image"
 import { SearchForm } from "@/components/search-form"
 import { AsideMenu } from "@/components/aside-menu"
 import { LoginDialog } from "@/components/login-dialog"
+import { Suspense } from "react"
 
 export const Header = () => {
   const session = true
@@ -22,7 +23,9 @@ export const Header = () => {
         />
       </Link>
       <div className="flex flex-1 items-center justify-end gap-4">
-        <SearchForm />
+        <Suspense>
+          <SearchForm />
+        </Suspense>
 
         {!session && (
           <>
