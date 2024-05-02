@@ -11,8 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-import { DropdownEntity } from "@/app/app/admin/entity/_components/dropdown-entity"
+import { UpdateDropdown } from "@/components/update-dropdown"
 
 // Utilities
 import { getEntities } from "@/data/entity"
@@ -41,7 +40,9 @@ export const EntityTable = async () => {
               </TableCell>
               <TableCell className="text-end">
                 <div className="md:hidden">
-                  <DropdownEntity entityId={entity.id} />
+                  <UpdateDropdown
+                    href={`/app/admin/entity/update/${entity.id}`}
+                  />
                 </div>
                 <Link
                   href={`/app/admin/entity/update/${entity.id}`}

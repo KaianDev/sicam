@@ -25,6 +25,13 @@ export const CreateOrUpdateBoxSchema = BoxSchema.omit({
   createdAt: true,
 })
 
+export const SectorSchema = z.object({
+  id: z.string(),
+  name: z.string({ required_error: "Campo obrigatório" }),
+})
+
+export const CreateOrUpdateSectorSchema = SectorSchema.omit({ id: true })
+
 export const loginSchema = z.object({
   email: z
     .string({ required_error: "Campo obrigatório" })
