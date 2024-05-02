@@ -31,7 +31,7 @@ export const Header = () => {
           </>
         )}
 
-        {session && <AsideMenu user={{ name: "John Snow", role: "ADMIN" }} />}
+        {session && <AsideMenu />}
       </div>
     </header>
   )
