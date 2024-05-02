@@ -2,7 +2,6 @@ import { Suspense } from "react"
 
 // Components
 import { BoxList } from "@/components/box-list"
-import { Pagination } from "@/components/pagination"
 import { BoxesListSkeleton } from "@/components/skeletons"
 
 interface AppPageProps {
@@ -23,9 +22,12 @@ const AppPage = async ({ searchParams }: AppPageProps) => {
         </div>
       )}
       <Suspense fallback={<BoxesListSkeleton />}>
-        <BoxList searchParams={searchParams} user={session.user} />
+        <BoxList
+          searchParams={searchParams}
+          user={session.user}
+          backHref="/app"
+        />
       </Suspense>
-      <Pagination />
     </main>
   )
 }

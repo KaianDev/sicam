@@ -5,9 +5,7 @@ interface IGetBoxes {
   page?: string
 }
 
-export const getBoxes = async (
-  searchParams: IGetBoxes,
-): Promise<BoxWithEntityAndSector[]> => {
+export const getBoxes = async (searchParams: IGetBoxes) => {
   const fetchString =
     searchParams.page && searchParams.search
       ? `http://localhost:3000/api/box?search=${searchParams?.search}&page=${searchParams?.page}`
@@ -17,12 +15,15 @@ export const getBoxes = async (
           ? `http://localhost:3000/api/box?search=${searchParams.search}`
           : `http://localhost:3000/api/box`
 
-  const res = await fetch(fetchString)
+  const res = await fetch(fetchString, { cache: "no-cache" })
   if (!res.ok) {
     throw new Error(
       "Ocorreu um erro no carregamento, tente novamente mais tarde.",
     )
   }
   const data = await res.json()
-  return data.boxes as BoxWithEntityAndSector[]
+  return {
+    boxes: data.boxes as BoxWithEntityAndSector[],
+    count: data.boxCount as number,
+  }
 }

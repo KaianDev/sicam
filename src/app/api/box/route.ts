@@ -23,7 +23,11 @@ export const GET = async (req: NextRequest) => {
       },
     })
 
-    return NextResponse.json({ boxes }, { status: 200 })
+    const boxCount = await prisma.box.count({
+      where: search ? { content: { contains: search } } : {},
+    })
+
+    return NextResponse.json({ boxes, boxCount }, { status: 200 })
   } catch (err) {
     return throwError(err)
   }

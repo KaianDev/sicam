@@ -2,7 +2,6 @@ import { Suspense } from "react"
 
 // Components
 import { BoxList } from "@/components/box-list"
-import { Pagination } from "@/components/pagination"
 import { BoxesListSkeleton } from "@/components/skeletons"
 
 interface HomePageProps {
@@ -12,14 +11,9 @@ interface HomePageProps {
   }
 }
 
-const HomePage = async ({ searchParams }: HomePageProps) => {
-  const pageNum =
-    searchParams.page && !isNaN(parseInt(searchParams.page))
-      ? parseInt(searchParams.page)
-      : 1
-
+const HomePage = ({ searchParams }: HomePageProps) => {
   return (
-    <div className="mx-4 ">
+    <div className="mx-4">
       <main className="container mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
         {searchParams.search && (
           <div>
@@ -27,9 +21,8 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
           </div>
         )}
         <Suspense fallback={<BoxesListSkeleton />}>
-          <BoxList searchParams={searchParams} />
+          <BoxList searchParams={searchParams} backHref="/" />
         </Suspense>
-        <Pagination />
       </main>
     </div>
   )
