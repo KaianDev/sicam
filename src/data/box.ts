@@ -15,7 +15,7 @@ export const getBoxes = async (searchParams: IGetBoxes) => {
         ? `${apiUrl}/box?page=${searchParams.page}`
         : searchParams.search
           ? `${apiUrl}/box?search=${searchParams.search}`
-          : `${apiUrl}/api/box`
+          : `${apiUrl}/box`
 
   const res = await fetch(fetchString, { next: { tags: ["boxes"] } })
   if (!res.ok) {
