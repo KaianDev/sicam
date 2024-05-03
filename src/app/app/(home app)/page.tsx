@@ -24,7 +24,6 @@ const AppPage = async ({ searchParams }: AppPageProps) => {
       <Suspense fallback={<BoxesListSkeleton />}>
         <BoxList
           searchParams={searchParams}
-          user={session.user}
           backHref="/app"
         />
       </Suspense>
