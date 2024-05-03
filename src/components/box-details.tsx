@@ -1,16 +1,22 @@
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import { FolderEdit, ArrowLeft } from "lucide-react"
+
+// Components
 import { Badge } from "@/components/ui/badge"
+
+// Utilities
+import { fetchBox } from "@/actions/box"
 
 interface BoxDetailsProps {
   origin: "/" | "/app"
   boxId: string
 }
 
-export const BoxDetails = ({ origin, boxId }: BoxDetailsProps) => {
-  // TODO: Fetch Box
-  // const box = getBoxById(boxId)
-  // const user = useSession() //next-auth
+export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
+  // Get User
+  const box = await fetchBox(boxId)
+  if (!box) return notFound()
 
   return (
     <div className="container space-y-4">
@@ -24,42 +30,38 @@ export const BoxDetails = ({ origin, boxId }: BoxDetailsProps) => {
         </Link>
         <div className="flex justify-start gap-2">
           <h1 className="text-2xl font-semibold sm:text-3xl">
-            Detalhes da Caixa - Nº 999
+            Detalhes da Caixa - Nº {box.numBox}
           </h1>
-          <Badge className="h-max">CEGAF</Badge>
+          <Badge className="h-max">{box.sector.name}</Badge>
         </div>
-        <small>EEMTI Professora Theolina de Muryllo Zacas</small>
+        <small>{box.entity.name}</small>
       </div>
 
       <div>
         <h2 className="text-xl font-semibold">Conteúdo</h2>
-        <p className="text-muted-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam,
-          dolorum animi? Illo, voluptatum architecto. Ducimus sunt nobis
-          consectetur ex dolores exercitationem suscipit culpa vel quo, harum
-          voluptate accusantium hic impedit? Lorem ipsum dolor sit, amet
-          consectetur adipisicing elit. Dolorum dolore ratione reiciendis. Culpa
-          optio incidunt exercitationem a, mollitia voluptatem voluptates
-          asperiores, vero sapiente veritatis quam quaerat recusandae, error
-          illum ut?
-        </p>
+        <p className="text-muted-foreground">{box.content}</p>
       </div>
 
-      <div>
-        <h2 className="text-xl font-semibold">Observação</h2>
-        <p className="text-muted-foreground">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea odit
-          voluptatem sapiente vero, dignissimos quo impedit doloremque ratione?
-          Doloribus dolorem beatae rerum perspiciatis ducimus placeat
-          perferendis! Enim labore dolore quod.
-        </p>
-      </div>
+      {box.observation && (
+        <div>
+          <h2 className="text-xl font-semibold">Observação</h2>
+          <p className="text-muted-foreground">{box.observation}</p>
+        </div>
+      )}
 
       <div className="space-y-4 pt-5">
         <div className="flex flex-col items-end">
-          <small>{new Date().toLocaleDateString("pt-BR")}</small>
+          <small className="text-muted-foreground">
+            {new Date(box.createdAt).toLocaleDateString("pt-BR", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </small>
           <p>
-            Criada por: <span className="text-muted-foreground">John Snow</span>
+            Criada por:{" "}
+            <span className="text-muted-foreground">{box.user.name}</span>
           </p>
         </div>
         <div className="flex justify-end gap-4">

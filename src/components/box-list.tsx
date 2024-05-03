@@ -8,8 +8,8 @@ import { buttonVariants } from "@/components/ui/button"
 import { Pagination } from "@/components/pagination"
 
 // Components
-import { getBoxes } from "@/data/box"
 import { getPageNum } from "@/helpers/get-page-num"
+import { fetchBoxes } from "@/actions/box"
 
 interface BoxListProps {
   user?: any
@@ -25,7 +25,7 @@ export const BoxList = async ({
   backHref,
   searchParams,
 }: BoxListProps) => {
-  const { boxes, count } = await getBoxes(searchParams)
+  const { boxes, boxCount } = await fetchBoxes(searchParams)
   const pageNum = getPageNum(searchParams.page)
 
   return (
@@ -56,7 +56,7 @@ export const BoxList = async ({
               </div>
             ))}
           </div>
-          <Pagination pageNum={pageNum} boxCount={count} />
+          <Pagination pageNum={pageNum} boxCount={boxCount} />
         </>
       )}
 

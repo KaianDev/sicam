@@ -2,7 +2,6 @@
 
 import { CreateOrUpdateEntityType } from "@/types/zod"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 
 import prisma from "@/lib/db"
 
@@ -25,7 +24,6 @@ export const fetchEntities = async () => {
 
 export const fetchEntity = async (id: string) => {
   const entity = await prisma.entity.findFirst({ where: { id } })
-  if (!entity) return null
   return entity
 }
 
@@ -34,7 +32,6 @@ export const fetchEntityWithBoxes = async (id: string) => {
     where: { id },
     include: { boxes: true },
   })
-  if (!entity) return { message: "Não foi possível encontra a entidade" }
   return entity
 }
 

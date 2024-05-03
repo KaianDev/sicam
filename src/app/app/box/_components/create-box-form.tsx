@@ -1,18 +1,34 @@
 "use client"
 import { Entity } from "@prisma/client"
 
-import { CreateOrUpdateBoxType } from "@/types/zod"
+import type { CreateOrUpdateBoxType } from "@/types/zod"
 
 // Components
 import { BoxForm } from "@/app/app/box/_components/box-form"
+
+// Utilities
+import { addNewBox } from "@/actions/box"
+import { useToast } from "@/components/ui/use-toast"
 
 interface CreateBoxFormProps {
   entities: Entity[]
 }
 
 export const CreateBoxForm = ({ entities }: CreateBoxFormProps) => {
+  const { toast } = useToast()
+
   const handleCreateNewBoxSubmit = async (data: CreateOrUpdateBoxType) => {
-    console.log(data)
+    const res = await addNewBox(data)
+    if (res?.message) {
+      toast({
+        title: "Opzz.. Ocorreu um erro.",
+        description: res.message,
+      })
+    } else {
+      toast({
+        title: "Caixa adicionada com sucesso!",
+      })
+    }
   }
 
   return (

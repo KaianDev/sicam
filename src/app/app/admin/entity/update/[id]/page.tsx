@@ -1,8 +1,9 @@
+import { notFound } from "next/navigation"
+
 // Components
 import { Subtitle } from "@/components/subtitle"
 import { fetchEntity } from "@/actions/entity"
 import { UpdateEntityForm } from "@/app/app/admin/entity/_components/update-entity-form"
-import { redirect } from "next/navigation"
 
 interface UpdateEntityPageProps {
   params: {
@@ -12,7 +13,7 @@ interface UpdateEntityPageProps {
 
 const UpdateEntityPage = async ({ params }: UpdateEntityPageProps) => {
   const entity = await fetchEntity(params.id)
-  if (!entity) return redirect("/app/admin/entity")
+  if (!entity) return notFound()
 
   return (
     <main className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
