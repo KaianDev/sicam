@@ -1,18 +1,16 @@
 import Link from "next/link"
-import { ArrowLeft, FolderOpen } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 
 // Components
-import { BoxItemActions } from "@/components/box-item-actions"
-import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
 import { Pagination } from "@/components/pagination"
 
-// Components
+// Utilities
 import { getPageNum } from "@/helpers/get-page-num"
 import { fetchBoxes } from "@/actions/box"
+import { BoxItem } from "./ui/box-item"
 
 interface BoxListProps {
-  user?: any
   backHref: string
   searchParams: {
     page?: string
@@ -20,11 +18,7 @@ interface BoxListProps {
   }
 }
 
-export const BoxList = async ({
-  user,
-  backHref,
-  searchParams,
-}: BoxListProps) => {
+export const BoxList = async ({ backHref, searchParams }: BoxListProps) => {
   const { boxes, boxCount } = await fetchBoxes(searchParams)
   const pageNum = getPageNum(searchParams.page)
 
@@ -34,26 +28,7 @@ export const BoxList = async ({
         <>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {boxes.map((box) => (
-              <div
-                key={box.id}
-                className="space-y-4 overflow-hidden rounded-md bg-zinc-200 p-4 shadow-lg"
-              >
-                <Badge variant="secondary">{box.sector.name}</Badge>
-                <div className="flex items-center gap-2 overflow-hidden">
-                  <FolderOpen size={30} />
-                  <div className="flex-1 truncate" title={box.entity.name}>
-                    <strong className="truncate">{box.entity.name}</strong>
-                    <p className="text-xl font-bold leading-none">
-                      nº {box.numBox}
-                    </p>
-                  </div>
-                </div>
-                <div className="text-sm">
-                  <p>Nessa pasta estão os seguintes processos:</p>
-                  <p className="line-clamp-2 min-h-10">{box.content}</p>
-                </div>
-                <BoxItemActions box={box} userId={user && user.id} />
-              </div>
+              <BoxItem box={box} key={box.id} />
             ))}
           </div>
           <Pagination pageNum={pageNum} boxCount={boxCount} />

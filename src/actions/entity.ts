@@ -30,7 +30,15 @@ export const fetchEntity = async (id: string) => {
 export const fetchEntityWithBoxes = async (id: string) => {
   const entity = await prisma.entity.findFirst({
     where: { id },
-    include: { boxes: true },
+    include: {
+      boxes: {
+        include: {
+          sector: true,
+          user: { select: { id: true } },
+          entity: true,
+        },
+      },
+    },
   })
   return entity
 }
