@@ -1,12 +1,14 @@
 "use client"
 
 import Link from "next/link"
+import { useTransition } from "react"
+import { Loader } from "lucide-react"
 import { useForm } from "react-hook-form"
 
 import type { CreateOrUpdateEntityType } from "@/types/zod"
 
 // Components
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -16,10 +18,12 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { CustomSubmitButton } from "@/components/custom-submit-button"
 
 // Utilities
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CreateOrUpdateEntitySchema } from "@/lib/zod"
+import { cn } from "@/lib/utils"
 
 interface EntityFormProps {
   type: "update" | "create"
@@ -40,11 +44,15 @@ export const EntityForm = ({
     resolver: zodResolver(CreateOrUpdateEntitySchema),
   })
 
+  const [isPending, startTransition] = useTransition()
+
   const handleSubmit = form.handleSubmit(async (data) => {
-    await onSubmit(data)
-    form.reset({
-      name: "",
-      uex: "",
+    startTransition(async () => {
+      await onSubmit(data)
+      form.reset({
+        name: "",
+        uex: "",
+      })
     })
   })
 
@@ -63,6 +71,7 @@ export const EntityForm = ({
                 <FormControl>
                   <Input
                     placeholder="Digite o nome da escola ou município"
+                    disabled={isPending}
                     {...field}
                   />
                 </FormControl>
@@ -82,6 +91,7 @@ export const EntityForm = ({
                 <FormControl>
                   <Input
                     placeholder="Digite número da Unidade Executora"
+                    disabled={isPending}
                     {...field}
                   />
                 </FormControl>
@@ -90,11 +100,20 @@ export const EntityForm = ({
             )}
           />
           <div className="space-x-2">
-            <Button type="submit" variant="secondary">
-              {type === "create" ? "Criar entidade" : "Editar entidade"}
-            </Button>
-            {type === "update" && (
-              <Link href="/app/admin/entity" className={buttonVariants()}>
+            <CustomSubmitButton
+              createLabel="Criar entidade"
+              updateLabel="Editar entidade"
+              formType={type}
+              isPending={isPending}
+            />
+            {!isPending && (
+              <Link
+                href="/app"
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "text-black ",
+                )}
+              >
                 Cancelar
               </Link>
             )}

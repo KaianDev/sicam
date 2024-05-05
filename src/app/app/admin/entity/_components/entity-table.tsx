@@ -35,7 +35,7 @@ export const EntityTable = async () => {
         <TableBody>
           {entities.map((entity) => (
             <TableRow key={entity.id}>
-              <TableCell className="text-xs sm:text-sm lg:text-base">
+              <TableCell className="text-sm lg:text-base">
                 {formatEntityName(entity.name, entity.uex)}
               </TableCell>
               <TableCell className="text-end">
