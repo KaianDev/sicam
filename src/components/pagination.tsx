@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "./ui/button"
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
+import { useState } from "react"
 
 interface PaginationProps {
   pageNum: number
@@ -14,15 +15,23 @@ export const Pagination = ({ pageNum, boxCount }: PaginationProps) => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [search, setSearch] = useState("")
 
   const handleNextClick = () => {
     const params = new URLSearchParams(searchParams)
+    const searchTerm = params.get("search")?.toString()
+    if (searchTerm) {
+      setSearch(searchTerm)
+    } else {
+      setSearch("")
+    }
     params.set("page", `${pageNum + 1}`)
     router.replace(`${pathname}?${params.toString()}`)
   }
 
   const handlePrevClick = () => {
     const params = new URLSearchParams()
+    if (search) params.set("search", search)
     params.set("page", `${pageNum - 1}`)
     router.replace(`${pathname}?${params.toString()}`)
   }
@@ -43,7 +52,7 @@ export const Pagination = ({ pageNum, boxCount }: PaginationProps) => {
       <Button
         size="icon"
         variant="secondary"
-        disabled={quantityPage === pageNum}
+        disabled={quantityPage <= pageNum}
         onClick={handleNextClick}
       >
         <ArrowRight />

@@ -15,8 +15,10 @@ export const SearchForm = () => {
     const params = new URLSearchParams(searchParams)
 
     if (term) {
+      if (params.has("page")) params.delete("page")
       params.set("search", term)
     } else {
+      params.delete("page")
       params.delete("search")
     }
     router.replace(`${path}?${params.toString()}`)
