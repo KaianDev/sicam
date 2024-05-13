@@ -10,16 +10,16 @@ interface EntityDetailsPageProps {
   params: { id: string }
 }
 
-const EntityDetailsPage = async ({ params }: EntityDetailsPageProps) => {
+const EntityDetailsAppPage = async ({ params }: EntityDetailsPageProps) => {
   const entity = await fetchEntityWithBoxes(params.id)
   if (!entity) return notFound()
   return (
-    <main className="my-10 px-4">
-      <div className="container rounded-md bg-white px-4 sm:px-8">
+    <main className="mx-auto my-10 min-h-[calc(100vh-200px)] rounded-md bg-white shadow-md sm:p-4">
+      <div className="container px-4 sm:px-8">
         <EntityBoxList entity={entity} />
       </div>
     </main>
   )
 }
 
-export default EntityDetailsPage
+export default EntityDetailsAppPage

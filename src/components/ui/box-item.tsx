@@ -1,9 +1,12 @@
+"use client"
+
 import type { BoxWithEntityAndSector } from "@/types/box"
 
 import { BoxItemActions } from "@/components/box-item-actions"
 import { Badge } from "@/components/ui/badge"
 import { FolderOpen } from "lucide-react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 interface BoxItemProps {
   box: BoxWithEntityAndSector
@@ -12,6 +15,8 @@ interface BoxItemProps {
 }
 
 export const BoxItem = ({ box, user, showEntity = true }: BoxItemProps) => {
+  const pathname = usePathname()
+
   return (
     <div
       key={box.id}
@@ -23,7 +28,11 @@ export const BoxItem = ({ box, user, showEntity = true }: BoxItemProps) => {
         <div className="flex-1 truncate" title={box.entity.name}>
           {showEntity && (
             <Link
-              href={`/entity/${box.entityId}/box`}
+              href={
+                pathname === "/"
+                  ? `/entity/${box.entityId}/box`
+                  : `/app/entity/${box.entityId}/box`
+              }
               className="hover:underline"
             >
               <strong className="truncate">{box.entity.name}</strong>
