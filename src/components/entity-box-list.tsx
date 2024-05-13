@@ -12,7 +12,7 @@ interface EntityBoxListProps {
 
 export const EntityBoxList = ({ entity }: EntityBoxListProps) => {
   return (
-    <div className="space-y-10 pb-8 pt-4 ">
+    <div className="space-y-10 pb-8 pt-8 ">
       <div className="space-y-4">
         <div className="flex justify-between">
           <BackLink className="flex w-max items-center gap-1 hover:text-primary">

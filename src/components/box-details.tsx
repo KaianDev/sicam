@@ -30,10 +30,10 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
             <ArrowLeft />
             Voltar
           </Link>
-          <Badge className="h-max">{box.sector.name}</Badge>
+          <Badge className="h-max" variant="secondary">{box.sector.name}</Badge>
         </div>
         <Subtitle label={`Detalhes da Caixa - Nº ${box.numBox}`} />
-        <small>{box.entity.name}</small>
+        <strong>{box.entity.name}</strong>
       </div>
 
       <div>
