@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 
 // Utilities
 import { fetchBox } from "@/actions/box"
+import { Subtitle } from "./subtitle"
 
 interface BoxDetailsProps {
   origin: "/" | "/app"
@@ -19,21 +20,19 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
   if (!box) return notFound()
 
   return (
-    <div className="container space-y-4">
+    <div className="container space-y-4 px-4 sm:px-8">
       <div className="border-b border-zinc-300 py-4">
-        <Link
-          href={origin}
-          className="mb-4 flex w-fit items-center gap-1 hover:text-primary"
-        >
-          <ArrowLeft />
-          Voltar
-        </Link>
-        <div className="flex justify-start gap-2">
-          <h1 className="text-2xl font-semibold sm:text-3xl">
-            Detalhes da Caixa - Nº {box.numBox}
-          </h1>
+        <div className="flex justify-between">
+          <Link
+            href={origin}
+            className="mb-4 flex w-fit items-center gap-1 hover:text-primary"
+          >
+            <ArrowLeft />
+            Voltar
+          </Link>
           <Badge className="h-max">{box.sector.name}</Badge>
         </div>
+        <Subtitle label={`Detalhes da Caixa - Nº ${box.numBox}`} />
         <small>{box.entity.name}</small>
       </div>
 
@@ -44,8 +43,8 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
 
       {box.observation && (
         <div>
-          <h2 className="text-xl font-semibold">Observação</h2>
-          <p className="text-muted-foreground">{box.observation}</p>
+          <h2 className="text-lg font-semibold">Observação</h2>
+          <p className="text-base text-muted-foreground">{box.observation}</p>
         </div>
       )}
 
