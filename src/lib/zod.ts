@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client"
 import { z } from "zod"
 
 export const entitySchema = z.object({
@@ -43,3 +44,17 @@ export const loginSchema = z.object({
     .string({ required_error: "Campo obrigatório" })
     .min(1, "Campo obrigatório"),
 })
+
+export const UserSchema = z.object({
+  id: z.string(),
+  name: z.string({ required_error: "Campo obrigatório" }),
+  email: z
+    .string({ required_error: "Campo obrigatório" })
+    .email("E-mail inválido"),
+  password: z.string({ required_error: "Campo obrigatório" }),
+  sectorId: z.string({ required_error: "Campo obrigatório" }),
+  role: z.nativeEnum(Role, { required_error: "Campo obrigatório" }),
+  avatar: z.string().optional(),
+})
+
+export const CreateOrUpdateUserSchema = UserSchema.omit({ id: true })
