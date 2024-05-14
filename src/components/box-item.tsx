@@ -1,12 +1,14 @@
 "use client"
 
-import type { BoxWithEntityAndSector } from "@/types/box"
-
-import { BoxItemActions } from "@/components/box-item-actions"
-import { Badge } from "@/components/ui/badge"
-import { FolderOpen } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { FolderOpen } from "lucide-react"
+
+import type { BoxWithEntityAndSector } from "@/types/box"
+
+// Components
+import { BoxItemActions } from "@/components/box-item-actions"
+import { Badge } from "@/components/ui/badge"
 
 interface BoxItemProps {
   box: BoxWithEntityAndSector

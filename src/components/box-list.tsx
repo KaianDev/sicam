@@ -8,7 +8,7 @@ import { Pagination } from "@/components/pagination"
 // Utilities
 import { getPageNum } from "@/helpers/get-page-num"
 import { fetchBoxes } from "@/actions/box"
-import { BoxItem } from "./ui/box-item"
+import { BoxItem } from "./box-item"
 
 interface BoxListProps {
   backHref: string

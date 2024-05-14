@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react"
 // Components
 import { Subtitle } from "./subtitle"
 import { EntityWithBoxes } from "@/types/entity"
-import { BoxItem } from "./ui/box-item"
+import { BoxItem } from "./box-item"
 import { BackLink } from "./back-link"
 
 interface EntityBoxListProps {
