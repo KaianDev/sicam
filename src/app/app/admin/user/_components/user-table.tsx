@@ -26,21 +26,29 @@ export const UserTable = async () => {
         <TableHeader className="bg-green-700">
           <TableRow className="hover:bg-green-700">
             <TableHead className="text-white">Nome do usuário</TableHead>
-            <TableHead className="text-white">Setor</TableHead>
-            <TableHead className="text-white">Perfil</TableHead>
+            <TableHead className="hidden text-white sm:table-cell">
+              Setor
+            </TableHead>
+            <TableHead className="hidden text-white sm:table-cell">
+              Perfil
+            </TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id}>
-              <TableCell className="text-sm lg:text-base">
-                {user.name}
+              <TableCell className="flex flex-col text-sm lg:text-base">
+                <p className="font-bold sm:font-normal">{user.name}</p>
+                <small className="sm:hidden">{user.sector.name}</small>
+                <small className="sm:hidden">
+                  {user.role === "ADMIN" ? "Administrador" : "Usuário"}
+                </small>
               </TableCell>
-              <TableCell className="text-sm lg:text-base">
+              <TableCell className="hidden text-sm sm:table-cell lg:text-base">
                 {user.sector.name}
               </TableCell>
-              <TableCell className="text-sm lg:text-base">
+              <TableCell className="hidden text-sm sm:block lg:text-base">
                 {user.role === "ADMIN" ? "Administrador" : "Usuário"}
               </TableCell>
               <TableCell className="text-end">

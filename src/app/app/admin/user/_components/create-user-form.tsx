@@ -1,9 +1,13 @@
 "use client"
 
-import { Sector } from "@prisma/client"
+import type { Sector } from "@prisma/client"
+import type { CreateUserType } from "@/types/zod"
+
+// Components
 import { UserForm } from "./user-form"
 import { useToast } from "@/components/ui/use-toast"
-import { CreateOrUpdateUserType } from "@/types/zod"
+
+// Utilities
 import { createUser } from "@/actions/user"
 
 interface CreateUserFormProps {
@@ -13,9 +17,8 @@ interface CreateUserFormProps {
 export const CreateUserForm = ({ sectors }: CreateUserFormProps) => {
   const { toast } = useToast()
 
-  const handleCreateNewUser = async (data: CreateOrUpdateUserType) => {
+  const handleCreateNewUser = async (data: CreateUserType) => {
     const res = await createUser(data)
-    console.log(res);
     if (res?.message) {
       toast({
         title: "Opzz.. Ocorreu um erro.",

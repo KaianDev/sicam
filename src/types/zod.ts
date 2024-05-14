@@ -3,9 +3,10 @@ import {
   CreateOrUpdateBoxSchema,
   CreateOrUpdateEntitySchema,
   CreateOrUpdateSectorSchema,
-  CreateOrUpdateUserSchema,
+  CreateUserSchema,
   loginSchema,
 } from "@/lib/zod"
+import { UpdateUserWithOutPasswordSchema } from "../lib/zod"
 
 export type LoginSchema = z.infer<typeof loginSchema>
 
@@ -19,4 +20,7 @@ export type CreateOrUpdateSectorType = z.infer<
   typeof CreateOrUpdateSectorSchema
 >
 
-export type CreateOrUpdateUserType = z.infer<typeof CreateOrUpdateUserSchema>
+export type CreateUserType = z.infer<typeof CreateUserSchema>
+export type UpdateUserWithOutPasswordType = z.infer<
+  typeof UpdateUserWithOutPasswordSchema
+>

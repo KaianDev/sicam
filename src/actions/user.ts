@@ -1,12 +1,13 @@
 "use server"
 
-import prisma from "@/lib/db"
-import { CreateOrUpdateUserType } from "@/types/zod"
-import bcrypt from "bcrypt"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import prisma from "@/lib/db"
+import bcrypt from "bcrypt"
 
-export const createUser = async (data: CreateOrUpdateUserType) => {
+import { CreateUserType, UpdateUserWithOutPasswordType } from "@/types/zod"
+
+export const createUser = async (data: CreateUserType) => {
   try {
     const user = await prisma.user.findUnique({ where: { email: data.email } })
     if (user) return { message: "Já existe um usuário com esse e-mail." }
@@ -38,4 +39,39 @@ export const fetchUsers = async () => {
       },
     },
   })
+}
+
+export const fetchUserById = async (id: string) => {
+  return await prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      sectorId: true,
+      avatar: true,
+    },
+  })
+}
+
+export const updateUserWithOutPassword = async (
+  id: string,
+  data: UpdateUserWithOutPasswordType,
+) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { id } })
+
+    if (!user) return { message: "Usuário não encontrado." }
+
+    await prisma.user.update({
+      where: { id },
+      data: data,
+    })
+  } catch (e) {
+    return { message: "Ocorreu um erro ao atualizar o usuário." }
+  }
+
+  revalidatePath("/api/admin/user")
+  redirect("/app/admin/user")
 }

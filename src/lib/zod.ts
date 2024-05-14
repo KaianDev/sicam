@@ -57,4 +57,8 @@ export const UserSchema = z.object({
   avatar: z.string().optional(),
 })
 
-export const CreateOrUpdateUserSchema = UserSchema.omit({ id: true })
+export const CreateUserSchema = UserSchema.omit({ id: true })
+export const UpdateUserWithOutPasswordSchema = UserSchema.omit({
+  password: true,
+  id: true,
+})

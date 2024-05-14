@@ -1,13 +1,14 @@
 "use client"
 
+import { useToast } from "@/components/ui/use-toast"
 import Link from "next/link"
 import { useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { usePathname } from "next/navigation"
 import { Role, Sector } from "@prisma/client"
 
-import type { CreateUserType } from "@/types/zod"
+import type { UserWithOutPassword } from "@/types/user"
+import type { UpdateUserWithOutPasswordType } from "@/types/zod"
 
 // Components
 import { buttonVariants } from "@/components/ui/button"
@@ -30,51 +31,45 @@ import { CustomSubmitButton } from "@/components/custom-submit-button"
 import { Input } from "@/components/ui/input"
 
 // Utilities
-import { CreateUserSchema } from "@/lib/zod"
+import { UpdateUserWithOutPasswordSchema } from "@/lib/zod"
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
+import { updateUserWithOutPassword } from "@/actions/user"
 
-interface UserFormProps {
-  type: "create" | "update"
-  defaultValues?: {
-    name?: string
-    email?: string
-    role?: Role
-    sectorId?: string
-  }
-  onSubmit: (data: CreateUserType) => Promise<void>
+interface UpdateUserFormProps {
+  user: UserWithOutPassword
   sectors: Sector[]
 }
 
-export const UserForm = ({
-  type,
-  sectors,
-  defaultValues,
-  onSubmit,
-}: UserFormProps) => {
+export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
   const pathname = usePathname()
+  const { toast } = useToast()
 
-  const form = useForm<CreateUserType>({
+  const form = useForm<UpdateUserWithOutPasswordType>({
     defaultValues: {
-      ...defaultValues,
-      role: Role.USER,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      sectorId: user.sectorId,
     },
-    resolver: zodResolver(
-      CreateUserSchema
-    ),
+    resolver: zodResolver(UpdateUserWithOutPasswordSchema),
   })
   const [isPending, startTransition] = useTransition()
 
   const handleSubmit = form.handleSubmit((data) => {
     startTransition(async () => {
-      await onSubmit(data)
-      form.reset({
-        avatar: undefined,
-        role: Role.USER,
-        email: "",
-        name: "",
-        password: "",
-        sectorId: undefined,
-      })
+      const res = await updateUserWithOutPassword(user.id, data)
+      if (res?.message) {
+        toast({
+          title: "Opzz.. Ocorreu um erro.",
+          description: res.message,
+        })
+      } else {
+        toast({
+          title: "Sucesso!",
+          description: "Usuário criado com sucesso.",
+        })
+      }
     })
   })
 
@@ -128,26 +123,6 @@ export const UserForm = ({
                   <FormControl>
                     <Input
                       placeholder="Digite o e-mail do usuário"
-                      disabled={isPending}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="password"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="after:text-red-500 after:content-['*']">
-                    Senha
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Digite a senha do usuário"
                       disabled={isPending}
                       {...field}
                     />
@@ -234,7 +209,7 @@ export const UserForm = ({
               type="submit"
               createLabel="Criar usuário"
               updateLabel="Editar usuário"
-              formType={type}
+              formType={"update"}
               isPending={isPending}
             />
             {!isPending && (
