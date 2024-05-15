@@ -23,6 +23,7 @@ export const CreateUserForm = ({ sectors }: CreateUserFormProps) => {
       toast({
         title: "Opzz.. Ocorreu um erro.",
         description: res.message,
+        variant: "destructive",
       })
     } else {
       toast({

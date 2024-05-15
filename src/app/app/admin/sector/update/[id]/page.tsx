@@ -1,5 +1,11 @@
+import { notFound } from "next/navigation"
+
+// Components
 import { Subtitle } from "@/components/subtitle"
 import { UpdateSectorForm } from "../../_components/update-sector-form"
+
+// Utilities
+import { fetchSector } from "@/actions/sector"
 
 interface UpdateSectorPageProps {
   params: {
@@ -7,9 +13,9 @@ interface UpdateSectorPageProps {
   }
 }
 
-const UpdateSectorPage = ({ params }: UpdateSectorPageProps) => {
-  // TODO: get one sector
-  const sector = { name: "Cegaf", id: "1" }
+const UpdateSectorPage = async ({ params }: UpdateSectorPageProps) => {
+  const sector = await fetchSector(params.id)
+  if (!sector) return notFound()
 
   return (
     <main className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
