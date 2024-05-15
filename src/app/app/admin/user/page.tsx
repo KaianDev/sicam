@@ -1,7 +1,10 @@
-import { fetchSectors } from "@/actions/sector"
+// Components
 import { Subtitle } from "@/components/subtitle"
 import { CreateUserForm } from "./_components/create-user-form"
 import { UserTable } from "./_components/user-table"
+
+// Utilities
+import { fetchSectors } from "@/actions/sector"
 
 const UserAdminPage = async () => {
   const sectors = await fetchSectors()

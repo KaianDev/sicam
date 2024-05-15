@@ -67,7 +67,7 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
       } else {
         toast({
           title: "Sucesso!",
-          description: "Usuário criado com sucesso.",
+          description: "Usuário editado com sucesso.",
         })
       }
     })

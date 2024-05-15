@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath, unstable_noStore as noStore } from "next/cache"
 import { redirect } from "next/navigation"
 import prisma from "@/lib/db"
 import bcrypt from "bcrypt"
@@ -8,6 +8,7 @@ import bcrypt from "bcrypt"
 import { CreateUserType, UpdateUserWithOutPasswordType } from "@/types/zod"
 
 export const createUser = async (data: CreateUserType) => {
+  noStore()
   try {
     const user = await prisma.user.findUnique({ where: { email: data.email } })
     if (user) return { message: "Já existe um usuário com esse e-mail." }
@@ -26,6 +27,7 @@ export const createUser = async (data: CreateUserType) => {
 }
 
 export const fetchUsers = async () => {
+  noStore()
   return await prisma.user.findMany({
     select: {
       id: true,
@@ -59,6 +61,7 @@ export const updateUserWithOutPassword = async (
   id: string,
   data: UpdateUserWithOutPasswordType,
 ) => {
+  noStore()
   try {
     const user = await prisma.user.findUnique({ where: { id } })
 
