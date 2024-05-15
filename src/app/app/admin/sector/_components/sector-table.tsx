@@ -1,8 +1,6 @@
 import Link from "next/link"
 import { FileEdit } from "lucide-react"
 
-import { Sector } from "@prisma/client"
-
 // Components
 import {
   Table,
@@ -15,22 +13,11 @@ import {
 } from "@/components/ui/table"
 import { UpdateDropdown } from "@/components/update-dropdown"
 
-export const SectorTable = () => {
-  // TODO: get all sectors
-  const sectors = [
-    {
-      id: "1",
-      name: "Cegaf",
-    },
-    {
-      id: "2",
-      name: "Cedea",
-    },
-    {
-      id: "3",
-      name: "Cecom",
-    },
-  ] as Sector[]
+// Utilities
+import { fetchSectors } from "@/actions/sector"
+
+export const SectorTable = async () => {
+  const sectors = await fetchSectors()
 
   return (
     <div>

@@ -1,3 +1,6 @@
+import { Suspense } from "react"
+
+// Components
 import { Subtitle } from "@/components/subtitle"
 import { CreateSectorForm } from "./_components/create-sector-form"
 import { SectorTable } from "./_components/sector-table"
@@ -12,7 +15,9 @@ const SectorPage = () => {
         <Subtitle label="Criar novo setor" />
         <CreateSectorForm />
         <Subtitle label="Setores cadastrados" />
-        <SectorTable />
+        <Suspense>
+          <SectorTable />
+        </Suspense>
       </div>
     </main>
   )
