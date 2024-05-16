@@ -38,12 +38,14 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "flex min-h-screen flex-col font-sans antialiased",
+          "flex h-dvh flex-col overflow-hidden bg-zinc-100 font-sans antialiased",
           fontSans.variable,
         )}
       >
         <Header />
-        <div className="flex flex-1 flex-col bg-zinc-200">{children}</div>
+        <div className="flex flex-1 flex-col overflow-y-auto bg-zinc-200">
+          {children}
+        </div>
         <Toaster />
       </body>
     </html>

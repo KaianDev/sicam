@@ -26,29 +26,29 @@ export const UserTable = async () => {
         <TableHeader className="bg-green-700">
           <TableRow className="hover:bg-green-700">
             <TableHead className="text-white">Nome do usuário</TableHead>
-            <TableHead className="hidden text-white sm:table-cell">
+            <TableHead className="hidden text-white md:table-cell">
               Setor
             </TableHead>
-            <TableHead className="hidden text-white sm:table-cell">
+            <TableHead className="hidden text-white md:table-cell">
               Perfil
             </TableHead>
-            <TableHead></TableHead>
+            <TableHead className="md:w-32"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id}>
               <TableCell className="flex flex-col text-sm lg:text-base">
-                <p className="font-bold sm:font-normal">{user.name}</p>
-                <small className="sm:hidden">{user.sector.name}</small>
-                <small className="sm:hidden">
+                <p className="font-bold md:font-normal">{user.name}</p>
+                <small className="md:hidden">{user.sector.name}</small>
+                <small className="md:hidden">
                   {user.role === "ADMIN" ? "Administrador" : "Usuário"}
                 </small>
               </TableCell>
-              <TableCell className="hidden text-sm sm:table-cell lg:text-base">
+              <TableCell className="hidden text-sm md:table-cell lg:text-base">
                 {user.sector.name}
               </TableCell>
-              <TableCell className="hidden text-sm sm:block lg:text-base">
+              <TableCell className="hidden w-full text-sm md:block lg:text-base">
                 {user.role === "ADMIN" ? "Administrador" : "Usuário"}
               </TableCell>
               <TableCell className="text-end">

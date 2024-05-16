@@ -14,7 +14,7 @@ interface HomePageProps {
 const HomePage = ({ searchParams }: HomePageProps) => {
   return (
     <div className="mx-4">
-      <main className="container mx-auto my-10 rounded-md bg-white p-4 shadow-md">
+      <main className="container mx-auto my-10 overflow-y-auto rounded-md bg-white p-4 shadow-md">
         <Suspense fallback={<BoxesListSkeleton />}>
           <BoxList searchParams={searchParams} backHref="/" />
         </Suspense>
