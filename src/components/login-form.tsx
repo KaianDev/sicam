@@ -32,7 +32,7 @@ export const LoginForm = () => {
     <div>
       <Form {...form}>
         <form method="POST" onSubmit={form.handleSubmit(handleLoginSubmit)}>
-          <div className="space-y-4">
+          <div className="space-y-6">
             <FormField
               name="email"
               control={form.control}
@@ -51,7 +51,15 @@ export const LoginForm = () => {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Senha</FormLabel>
+                  <div className="flex justify-between">
+                    <FormLabel>Senha</FormLabel>
+                    <Link
+                      href="/auth/forget-password"
+                      className="block w-max text-sm hover:underline"
+                    >
+                      Esqueceu a senha?
+                    </Link>
+                  </div>
                   <FormControl>
                     <Input
                       placeholder="Digite sua senha"
@@ -63,11 +71,8 @@ export const LoginForm = () => {
                 </FormItem>
               )}
             />
+            <Button className="w-full">Entrar</Button>
           </div>
-          <Link href="/" className="mb-4 block w-max text-sm hover:underline">
-            Esqueceu a senha?
-          </Link>
-          <Button>Entrar</Button>
         </form>
       </Form>
     </div>
