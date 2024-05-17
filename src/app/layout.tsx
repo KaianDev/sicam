@@ -4,7 +4,6 @@ import type { Metadata } from "next"
 import { Poppins as FontSans } from "next/font/google"
 
 // Components
-import { Header } from "@/components/header"
 import { Toaster } from "@/components/ui/toaster"
 
 // Utilities
@@ -42,10 +41,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Header />
-        <div className="flex flex-1 flex-col overflow-y-auto bg-zinc-200">
-          {children}
-        </div>
+        {children}
         <Toaster />
       </body>
     </html>
