@@ -1,22 +1,20 @@
-import { notFound } from "next/navigation"
+import { Suspense } from "react"
 
 // Components
 import { EntityBoxList } from "@/components/entity-box-list"
-
-// Utilities
-import { fetchEntityWithBoxes } from "@/actions/entity"
+import { EntityBoxListSkeleton } from "@/components/skeletons"
 
 interface EntityDetailsPageProps {
   params: { id: string }
 }
 
-const EntityDetailsPage = async ({ params }: EntityDetailsPageProps) => {
-  const entity = await fetchEntityWithBoxes(params.id)
-  if (!entity) return notFound()
+const EntityDetailsPage = ({ params }: EntityDetailsPageProps) => {
   return (
     <main className="my-10 px-4">
       <div className="container rounded-md bg-white px-4 sm:px-8">
-        <EntityBoxList entity={entity} />
+        <Suspense fallback={<EntityBoxListSkeleton />}>
+          <EntityBoxList entityId={params.id} />
+        </Suspense>
       </div>
     </main>
   )
