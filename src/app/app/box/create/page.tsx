@@ -1,6 +1,8 @@
 import { CreateBoxForm } from "@/app/app/box/_components/create-box-form"
 import { fetchEntities } from "@/actions/entity"
 
+export const dynamic = "force-dynamic"
+
 const CreateBoxPage = async () => {
   const entities = await fetchEntities()
 
