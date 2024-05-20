@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Logo](/public/assets/logo.png)
 
-## Getting Started
+# SiCAM
 
-First, run the development server:
+O Sistema de Catálogo de Arquivo Morto (SiCAM) é uma solução projetada para gerenciar e organizar referências de processos arquivados. Ele facilita a consulta e localização das caixas de arquivo morto em espaços físicos, otimizando a recuperação de informações e documentos específicos. Com o SiCAM, as organizações podem manter um controle preciso e acessível das referências dos seus processos, melhorando a eficiência operacional e reduzindo o tempo gasto na busca por documentos arquivados.
+
+## Stack utilizada
+
+![PNPM](https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220)
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Zod](https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+
+## Instalação
+
+**Pré requisitos**
+
+- [NodeJS](https://nodejs.org/en/download/package-manager)
+- [pnpm](https://pnpm.io/pt/installation)
+
+**Clone o projeto**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/KaianDev/sicam.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Entre no diretório do projeto**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd sicam
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Configure o banco de dados (Postgresql)**
 
-## Learn More
+**Renomeie o arquivo .env.example para .env**
 
-To learn more about Next.js, take a look at the following resources:
+**Defina as váriaveis de ambiente no arquivo .env**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- DATABASE_URL="postgres://username:password@host:port/mydb"
+- SICAM_ADMIN_NAME="nome_do_usuário"
+- SICAM_ADMIN_EMAIL="email_do_admin"
+- SICAM_ADMIN_PASSWORD="senha_do_admin"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Instale as dependências**
 
-## Deploy on Vercel
+```bash
+  pnpm i
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Rode o comando de Seed** <br/>
+Esse comando irá criar o usuário ADMIN, guarde as credenciais para fazer o login com esse usuário posteriormente.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+  npx prisma db seed
+```
+
+**Inicie o servidor**
+
+```bash
+  pnpm dev
+```
+
+## Deploy
+
+Para fazer o deploy desse projeto rode
+
+```bash
+  pnpm build
+  pnpm start
+```
+
+## Funcionalidades
+
+- Cadastro e edição de caixas
+- Buscas de caixas
+
+## Contribuidores
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/kaiandev">
+        <img src="https://avatars.githubusercontent.com/u/123319433?v=4" width="100px;" alt="Kaian Vasconcelos"/><br>
+        <sub>
+          <b>Kaian Vasconcelos</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/vitorAlves0">
+        <img src="https://avatars.githubusercontent.com/u/110987582?v=4" width="100px;" alt="Vitor Alves"/><br>
+        <sub>
+          <b>Vitor Alves</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
