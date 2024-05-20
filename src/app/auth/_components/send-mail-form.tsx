@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { Loader } from "lucide-react"
 
 import type { SendMailType } from "@/types/zod"
 
@@ -57,7 +58,13 @@ export const SendMailForm = () => {
             )}
           />
           <div className="flex flex-col gap-4">
-            <Button type="submit">Enviar e-mail</Button>
+            <Button type="submit" disabled={isPending}>
+              {isPending ? (
+                <Loader className="mr-2 size-5 animate-spin" />
+              ) : (
+                "Enviar e-mail"
+              )}
+            </Button>
             <Link
               href="/auth/login"
               className={cn(buttonVariants({ variant: "outline" }))}

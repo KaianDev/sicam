@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { Loader } from "lucide-react"
 
 import { LoginSchema } from "@/types/zod"
 
@@ -67,7 +68,7 @@ export const LoginForm = () => {
                     <FormLabel>Senha</FormLabel>
                     <Link
                       href="/auth/send-mail"
-                      className="block w-max text-sm hover:underline"
+                      className="block w-max text-sm underline hover:text-primary"
                     >
                       Esqueceu a senha?
                     </Link>
@@ -85,8 +86,12 @@ export const LoginForm = () => {
               )}
             />
             <div className="flex flex-col gap-4">
-              <Button type="submit" className="w-full">
-                Entrar
+              <Button type="submit" disabled={isPending}>
+                {isPending ? (
+                  <Loader className="mr-2 size-5 animate-spin" />
+                ) : (
+                  "Entrar"
+                )}
               </Button>
               <Link
                 href="/"
