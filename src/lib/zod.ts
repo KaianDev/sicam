@@ -62,3 +62,9 @@ export const UpdateUserWithOutPasswordSchema = UserSchema.omit({
   password: true,
   id: true,
 })
+
+export const SendMailSchema = z.object({
+  email: z
+    .string({ required_error: "Campo obrigatório" })
+    .email("E-mail inválido"),
+})

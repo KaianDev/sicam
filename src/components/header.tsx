@@ -1,14 +1,19 @@
 import Image from "next/image"
+import Link from "next/link"
+import { Suspense } from "react"
 
 // Components
 import { SearchForm } from "@/components/search-form"
 import { AsideMenu } from "@/components/aside-menu"
-import { LoginDialog } from "@/components/login-dialog"
 import { BackLink } from "@/components/back-link"
-import { Suspense } from "react"
+
+// Utilities
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { LogIn } from "lucide-react"
 
 export const Header = () => {
-  const session = true
+  const session = false
 
   return (
     <header className="h-shadow sticky top-0 z-10 flex h-24 items-center justify-between gap-2 bg-green-700 px-4 sm:px-8">
@@ -30,7 +35,13 @@ export const Header = () => {
         {!session && (
           <>
             <div className="h-14 w-[2px] bg-primary"></div>
-            <LoginDialog />
+            <Link
+              href="/auth/login"
+              className={cn(buttonVariants({ variant: "default" }))}
+            >
+              <LogIn className="sm:mr-2" />
+              <span className="hidden sm:inline">Entrar</span>
+            </Link>
           </>
         )}
 
