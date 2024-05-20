@@ -9,6 +9,9 @@
     "lint": "next lint",
     "postinstall": "prisma generate"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "5.13.0",
@@ -34,6 +37,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "ts-node": "^10.9.2",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
