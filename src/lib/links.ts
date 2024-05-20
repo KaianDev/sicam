@@ -3,9 +3,10 @@ import {
   FolderPlus,
   Home,
   School,
-  User,
+  UserCog,
   Bookmark,
   ShieldAlert,
+  Users,
 } from "lucide-react"
 
 export const links = [
@@ -18,6 +19,11 @@ export const links = [
     href: "/app/box/create",
     label: "Adicionar Caixa",
     icon: FolderPlus,
+  },
+  {
+    href: "/app/user",
+    label: "Perfil",
+    icon: UserCog,
   },
   {
     href: "/app/admin",
@@ -36,8 +42,8 @@ export const links = [
   },
   {
     href: "/app/admin/user",
-    label: "Usuário",
-    icon: User,
+    label: "Usuários",
+    icon: Users,
   },
 ]
 

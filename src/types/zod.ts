@@ -21,6 +21,7 @@ export type CreateOrUpdateSectorType = z.infer<
 >
 
 export type CreateUserType = z.infer<typeof CreateUserSchema>
+
 export type UpdateUserWithOutPasswordType = z.infer<
   typeof UpdateUserWithOutPasswordSchema
 >
