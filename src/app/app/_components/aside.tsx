@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 
 export const Aside = () => {
   return (
-    <aside className="hidden w-24 sm:block lg:w-64">
+    <aside className="fixed bottom-0 top-0 mt-24 hidden w-24 sm:block lg:w-64">
       <div className="flex h-full flex-col justify-between bg-green-700">
         {/* TODO:USER */}
         <AsideUser />

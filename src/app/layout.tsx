@@ -37,7 +37,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "flex h-dvh flex-col overflow-hidden bg-zinc-100 font-sans antialiased",
+          "flex h-full min-h-screen flex-col bg-zinc-100 font-sans antialiased",
           fontSans.variable,
         )}
       >

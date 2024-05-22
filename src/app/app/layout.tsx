@@ -9,9 +9,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <>
       <Header />
-      <div className="flex h-[calc(100vh-96px)] flex-row overflow-hidden">
+      <div className="mt-24 flex flex-1 flex-row ">
         <Aside />
-        <div className="flex-1 overflow-y-auto bg-zinc-200 px-4">
+        <div className="flex-1 overflow-y-auto bg-zinc-200 px-4 sm:ml-24 lg:ml-64">
           {children}
         </div>
       </div>

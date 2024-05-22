@@ -13,10 +13,10 @@ import { cn } from "@/lib/utils"
 import { LogIn } from "lucide-react"
 
 export const Header = () => {
-  const session = false
+  const session = true
 
   return (
-    <header className="h-shadow sticky top-0 z-10 flex h-24 items-center justify-between gap-2 bg-green-700 px-4 sm:px-8">
+    <header className="h-shadow fixed w-full top-0 z-10 flex h-24 items-center justify-between gap-2 bg-green-700 px-4 sm:px-8">
       <BackLink>
         <Image
           src="/assets/logo.png"

@@ -15,7 +15,7 @@ export const NavLinks = () => {
   const links = getLinks(user.role)
 
   return (
-    <div className="flex max-h-screen flex-1 flex-col items-center gap-3">
+    <div className="flex max-h-screen flex-1 flex-col items-center gap-2 lg:gap-3">
       {links.map((link) => {
         const LinkIcon = link.icon
 
