@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 
 import { PrismaClient, Sector, User } from "@prisma/client"
 const prisma = new PrismaClient()

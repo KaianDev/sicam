@@ -21,7 +21,7 @@ export const links = [
     icon: FolderPlus,
   },
   {
-    href: "/app/user",
+    href: "/app/profile",
     label: "Perfil",
     icon: UserCog,
   },
