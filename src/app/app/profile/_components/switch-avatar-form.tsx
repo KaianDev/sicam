@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Save, X } from "lucide-react"
 import { ChangeEvent } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -94,10 +93,9 @@ export const SwitchAvatarForm = ({
           )}
         />
         {preview && (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col gap-4">
             <Button type="submit" variant="secondary">
-              <Save className="mr-0 sm:mr-2" />
-              <span className="hidden sm:inline">Salvar</span>
+              Salvar
             </Button>
 
             <Button
@@ -106,8 +104,7 @@ export const SwitchAvatarForm = ({
               className="text-black"
               onClick={() => setPreview("")}
             >
-              <X className="mr-0 sm:mr-2" />
-              <span className="hidden sm:inline">Cancelar</span>
+              Cancelar
             </Button>
           </div>
         )}

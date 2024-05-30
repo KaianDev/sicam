@@ -7,6 +7,8 @@ import {
   CreateUserSchema,
   SendMailSchema,
   loginSchema,
+  UpdateUserProfileSchema,
+  ChangePasswordSchema,
 } from "@/lib/zod"
 
 export type LoginSchema = z.infer<typeof loginSchema>
@@ -26,5 +28,9 @@ export type CreateUserType = z.infer<typeof CreateUserSchema>
 export type UpdateUserWithOutPasswordType = z.infer<
   typeof UpdateUserWithOutPasswordSchema
 >
+
+// Profile
+export type UpdateProfileData = z.infer<typeof UpdateUserProfileSchema>
+export type ChangePasswordData = z.infer<typeof ChangePasswordSchema>
 
 export type SendMailType = z.infer<typeof SendMailSchema>

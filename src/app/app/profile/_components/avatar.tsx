@@ -1,11 +1,13 @@
 "use client"
 
-import { buttonVariants } from "@/components/ui/button"
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { User } from "@prisma/client"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+
+// Components
+import { buttonVariants } from "@/components/ui/button"
 import { SwitchAvatarForm } from "./switch-avatar-form"
 
 interface AvatarProps {
@@ -22,8 +24,8 @@ export const Avatar = ({ user }: AvatarProps) => {
       : "/assets/default.png"
 
   return (
-    <div className="flex flex-row gap-4">
-      <div className="relative min-w-32 size-36 sm:size-48 border-2 border-dotted">
+    <div className="flex flex-col gap-4 sm:flex-row ">
+      <div className="relative mx-auto size-36 min-w-32 border-2 border-dotted sm:size-48">
         <Image
           src={avatarImage}
           alt={`Foto de perfil de(a) ${user.name}`}
@@ -43,7 +45,6 @@ export const Avatar = ({ user }: AvatarProps) => {
           </Link>
         )}
       </div>
-
     </div>
   )
 }
