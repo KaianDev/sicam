@@ -53,10 +53,10 @@ export const UserTable = async () => {
               </TableCell>
               <TableCell className="text-end">
                 <div className="md:hidden">
-                  <UpdateDropdown href={`/app/admin/user/update/${user.id}`} />
+                  <UpdateDropdown href={`/app/admin/users/update/${user.id}`} />
                 </div>
                 <Link
-                  href={`/app/admin/user/update/${user.id}`}
+                  href={`/app/admin/users/update/${user.id}`}
                   className="hidden items-center gap-2 text-base hover:text-primary md:flex"
                 >
                   <FileEdit />

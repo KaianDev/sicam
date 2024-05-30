@@ -215,7 +215,7 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
             />
             {!isPending && (
               <Link
-                href="/app/admin/user"
+                href="/app/admin/users"
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
                   "text-black",

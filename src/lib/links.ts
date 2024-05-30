@@ -41,7 +41,7 @@ export const links = [
     icon: Bookmark,
   },
   {
-    href: "/app/admin/user",
+    href: "/app/admin/users",
     label: "Usuários",
     icon: Users,
   },

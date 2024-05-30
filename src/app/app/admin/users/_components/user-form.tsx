@@ -58,9 +58,7 @@ export const UserForm = ({
       ...defaultValues,
       role: Role.USER,
     },
-    resolver: zodResolver(
-      CreateUserSchema
-    ),
+    resolver: zodResolver(CreateUserSchema),
   })
   const [isPending, startTransition] = useTransition()
 
@@ -239,7 +237,7 @@ export const UserForm = ({
             />
             {!isPending && (
               <Link
-                href="/app/admin/user"
+                href="/app/admin/users"
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
                   "text-black",

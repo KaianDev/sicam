@@ -21,8 +21,8 @@ export const createUser = async (data: CreateUserType) => {
     return { message: "Ocorreu um erro ao criar o usuário." }
   }
 
-  revalidatePath("/app/admin/user")
-  redirect("/app/admin/user")
+  revalidatePath("/app/admin/users")
+  redirect("/app/admin/users")
 }
 
 export const fetchUsers = async () => {
@@ -72,6 +72,6 @@ export const updateUserWithOutPassword = async (
     return { message: "Ocorreu um erro ao atualizar o usuário." }
   }
 
-  revalidatePath("/app/admin/user")
-  redirect("/app/admin/user")
+  revalidatePath("/app/admin/users")
+  redirect("/app/admin/users")
 }
