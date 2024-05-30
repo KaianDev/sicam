@@ -5,8 +5,8 @@ import { ComponentProps } from "react"
 import { Button } from "@/components/ui/button"
 
 interface CustomSubmitButtonPros extends ComponentProps<"button"> {
-  createLabel: string
-  updateLabel: string
+  createLabel?: string
+  updateLabel?: string
   isPending: boolean
   formType: "create" | "update"
 }

@@ -6,6 +6,7 @@ import { useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Role, Sector } from "@prisma/client"
+import { usePathname } from "next/navigation"
 
 import type { UserWithOutPassword } from "@/types/user"
 import type { UpdateUserWithOutPasswordType } from "@/types/zod"
@@ -33,7 +34,6 @@ import { Input } from "@/components/ui/input"
 // Utilities
 import { UpdateUserWithOutPasswordSchema } from "@/lib/zod"
 import { cn } from "@/lib/utils"
-import { usePathname } from "next/navigation"
 import { updateUserWithOutPassword } from "@/actions/user"
 
 interface UpdateUserFormProps {
@@ -79,19 +79,7 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
       <Form {...form}>
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid gap-8 lg:grid-cols-2">
-            <FormField
-              name="avatar"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Avatar</FormLabel>
-                  <FormControl>
-                    <Input type="file" disabled={isPending} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            
 
             <FormField
               name="name"
@@ -208,7 +196,6 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
           <div className="space-x-2">
             <CustomSubmitButton
               type="submit"
-              createLabel="Criar usuário"
               updateLabel="Editar usuário"
               formType={"update"}
               isPending={isPending}
