@@ -108,7 +108,7 @@ export const EntityForm = ({
             />
             {!isPending && (
               <Link
-                href="/app"
+                href={type === "create" ? "/app" : "/app/admin/entity"}
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
                   "text-black ",
