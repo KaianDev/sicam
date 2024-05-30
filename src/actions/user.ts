@@ -2,23 +2,30 @@
 
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import prisma from "@/lib/db"
 import bcrypt from "bcryptjs"
 
-import { CreateUserType, UpdateUserWithOutPasswordType } from "@/types/zod"
+import {
+  CreateUserData,
+  UpdateUserData,
+  createUserService,
+  getAllUsers,
+  getUserByEmail,
+  getUserById,
+  updateUserService,
+} from "@/services/user"
+import { ChangePasswordData } from "@/types/zod"
 
-export const createUser = async (data: CreateUserType) => {
-  try {
-    const user = await prisma.user.findUnique({ where: { email: data.email } })
-    if (user) return { message: "Já existe um usuário com esse e-mail." }
+export const createUser = async (data: CreateUserData) => {
+  const hasUser = await getUserByEmail(data.email)
+  if (hasUser) return { message: "Já existe um usuário com esse e-mail." }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10)
+  const hashedPassword = await bcrypt.hash(data.password, 10)
 
-    await prisma.user.create({
-      data: { ...data, password: hashedPassword },
-    })
-  } catch {
-    return { message: "Ocorreu um erro ao criar o usuário." }
+  const user = await createUserService({ ...data, password: hashedPassword })
+  if (!user) {
+    return {
+      message: "Ocorreu um erro ao criar usuário",
+    }
   }
 
   revalidatePath("/app/admin/users")
@@ -26,52 +33,39 @@ export const createUser = async (data: CreateUserType) => {
 }
 
 export const fetchUsers = async () => {
-  return await prisma.user.findMany({
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      sector: {
-        select: {
-          name: true,
-        },
-      },
-    },
-  })
+  const users = await getAllUsers()
+  if (!users) return []
+  return users
 }
 
 export const fetchUserById = async (id: string) => {
-  return await prisma.user.findUnique({
-    where: { id },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      sectorId: true,
-      avatar: true,
-    },
-  })
+  return await getUserById(id)
 }
 
-export const updateUserWithOutPassword = async (
-  id: string,
-  data: UpdateUserWithOutPasswordType,
-) => {
-  try {
-    const user = await prisma.user.findUnique({ where: { id } })
-
-    if (!user) return { message: "Usuário não encontrado." }
-
-    await prisma.user.update({
-      where: { id },
-      data: data,
-    })
-  } catch (e) {
-    return { message: "Ocorreu um erro ao atualizar o usuário." }
-  }
-
+export const updateUser = async (id: string, data: UpdateUserData) => {
+  const hasUser = await getUserById(id)
+  if (!hasUser) return { message: "Usuário não encontrado." }
+  const user = await updateUserService(hasUser.id, data)
+  if (!user) return { message: "Ocorreu um erro ao alterar os dados" }
   revalidatePath("/app/admin/users")
   redirect("/app/admin/users")
+}
+
+export const changePassword = async (id: string, data: ChangePasswordData) => {
+  const hasUser = await getUserById(id)
+  if (!hasUser) return { message: "Usuário não encontrado." }
+
+  const matchPassword = await bcrypt.compare(data.oldPassword, hasUser.password)
+
+  if (!matchPassword) return { message: "Dados inválidos" }
+
+  const hashedPassword = await bcrypt.hash(data.newPassword, 10)
+
+  const user = updateUser(hasUser.id, {
+    password: hashedPassword,
+  })
+
+  if (!user) return { message: "Ocorreu um erro ao tentar atualizar a senha" }
+
+  redirect("/app/profile")
 }

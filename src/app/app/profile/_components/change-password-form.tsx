@@ -2,6 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useToast } from "@/components/ui/use-toast"
+import { useTransition } from "react"
 import type { ChangePasswordData } from "@/types/zod"
 
 // Components
@@ -18,6 +20,8 @@ import {
 
 // Utilities
 import { ChangePasswordSchema } from "@/lib/zod"
+import { changePassword } from "@/actions/user"
+import { CustomSubmitButton } from "@/components/custom-submit-button"
 
 interface ChangePasswordFormProps {
   userId: string
@@ -28,12 +32,28 @@ export const ChangePasswordForm = ({
   userId,
   hideForms,
 }: ChangePasswordFormProps) => {
+  const [isPending, startTransition] = useTransition()
+  const { toast } = useToast()
   const form = useForm<ChangePasswordData>({
     resolver: zodResolver(ChangePasswordSchema),
   })
 
   const handleSubmit = form.handleSubmit((data) => {
-    console.log(data)
+    startTransition(async () => {
+      const res = await changePassword(userId, data)
+      if (res?.message) {
+        toast({
+          title: "Opzz.. Ocorreu um erro.",
+          description: res.message,
+          variant: "destructive",
+        })
+      } else {
+        toast({
+          title: "Sucesso!",
+          description: "Setor atualizado com sucesso.",
+        })
+      }
+    })
   })
 
   return (
@@ -46,7 +66,12 @@ export const ChangePasswordForm = ({
             <FormItem>
               <FormLabel>Senha atual</FormLabel>
               <FormControl>
-                <Input {...field} type="password" placeholder="******" />
+                <Input
+                  {...field}
+                  type="password"
+                  placeholder="******"
+                  disabled={isPending}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -59,7 +84,12 @@ export const ChangePasswordForm = ({
             <FormItem>
               <FormLabel>Nova senha</FormLabel>
               <FormControl>
-                <Input {...field} type="password" placeholder="******" />
+                <Input
+                  {...field}
+                  type="password"
+                  placeholder="******"
+                  disabled={isPending}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -72,16 +102,24 @@ export const ChangePasswordForm = ({
             <FormItem>
               <FormLabel>Confirma nova senha</FormLabel>
               <FormControl>
-                <Input {...field} type="password" placeholder="******" />
+                <Input
+                  {...field}
+                  type="password"
+                  placeholder="******"
+                  disabled={isPending}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <div className="flex gap-4">
-          <Button type="submit" variant="secondary">
-            Salvar
-          </Button>
+          <CustomSubmitButton
+            updateLabel="Confirma"
+            formType="update"
+            isPending={isPending}
+          />
+
           <Button
             type="button"
             variant="ghost"

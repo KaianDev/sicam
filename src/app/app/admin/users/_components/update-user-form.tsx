@@ -34,7 +34,7 @@ import { Input } from "@/components/ui/input"
 // Utilities
 import { UpdateUserWithOutPasswordSchema } from "@/lib/zod"
 import { cn } from "@/lib/utils"
-import { updateUserWithOutPassword } from "@/actions/user"
+import { updateUser } from "@/actions/user"
 
 interface UpdateUserFormProps {
   user: UserWithOutPassword
@@ -58,7 +58,7 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
 
   const handleSubmit = form.handleSubmit((data) => {
     startTransition(async () => {
-      const res = await updateUserWithOutPassword(user.id, data)
+      const res = await updateUser(user.id, data)
       if (res?.message) {
         toast({
           title: "Opzz.. Ocorreu um erro.",
