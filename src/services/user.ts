@@ -19,7 +19,7 @@ export const getAllUsers = async () => {
         },
       },
     })
-    if (!users) return []
+    if (!users) return false
     return users
   } catch (error) {
     return false

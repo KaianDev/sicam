@@ -1,14 +1,16 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 
-import { User } from "@prisma/client"
+import type { User } from "@prisma/client"
 
 // Components
 import { Button, buttonVariants } from "@/components/ui/button"
+
+// Utilities
 import { UpdateDataForm } from "./update-data-form"
 import { ChangePasswordForm } from "./change-password-form"
-import Link from "next/link"
 import { cn } from "@/lib/utils"
 
 interface ProfileDataProps {
@@ -38,13 +40,14 @@ export const ProfileData = ({ user }: ProfileDataProps) => {
           </div>
           <div>
             <p className="font-semibold">E-mail</p>
-            <p>johnsnow@mail.com</p>
+            <p>{user.email}</p>
           </div>
           <div>
             <p className="font-semibold">Setor</p>
+            {/* TODO: Mock, alterar */}
             <p>CEGAF</p>
           </div>
-          <div className="space-x-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <Button
               variant="secondary"
               onClick={() => setShowForm({ ...showForm, alterData: true })}

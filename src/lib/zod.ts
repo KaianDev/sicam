@@ -63,14 +63,6 @@ export const UserSchema = z.object({
 
 export const CreateUserSchema = UserSchema.omit({ id: true, avatar: true })
 
-export const UpdateUserProfileSchema = UserSchema.omit({
-  id: true,
-  password: true,
-  sectorId: true,
-  role: true,
-  avatar: true,
-})
-
 export const UpdateUserWithOutPasswordSchema = UserSchema.omit({
   password: true,
   id: true,
@@ -81,20 +73,3 @@ export const SendMailSchema = z.object({
     .string({ required_error: "Campo obrigatório" })
     .email("E-mail inválido"),
 })
-
-export const ChangePasswordSchema = z
-  .object({
-    oldPassword: z
-      .string({ required_error: "Campo obrigatório" })
-      .min(6, "A senha deve ter pelo menos 6 caracteres"),
-    newPassword: z
-      .string({ required_error: "Campo obrigatório" })
-      .min(6, "A senha deve ter pelo menos 6 caracteres"),
-    confirmPassword: z
-      .string({ required_error: "Campo obrigatório" })
-      .min(6, "A senha deve ter pelo menos 6 caracteres"),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    message: "As senhas não conferem",
-    path: ["confirmPassword"],
-  })

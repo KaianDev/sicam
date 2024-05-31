@@ -1,12 +1,14 @@
 "use client"
 
+import { useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
 import type { User } from "@prisma/client"
-import type { UpdateProfileData } from "@/types/zod"
+import type { UpdateProfileData } from "../types"
 
 // Components
+import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -17,9 +19,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { CustomSubmitButton } from "@/components/custom-submit-button"
 
 // Utilities
-import { UpdateUserProfileSchema } from "@/lib/zod"
+import { updateUserProfileSchema } from "../schemas"
+import { updateProfile } from "../actions"
 
 interface UpdateDataFormProps {
   user: User
@@ -27,15 +31,34 @@ interface UpdateDataFormProps {
 }
 
 export const UpdateDataForm = ({ user, hideForms }: UpdateDataFormProps) => {
+  const [isPending, startTransition] = useTransition()
+  const { toast } = useToast()
   const form = useForm<UpdateProfileData>({
-    resolver: zodResolver(UpdateUserProfileSchema),
+    resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
       name: user.name,
       email: user.email,
     },
   })
 
-  const handleSubmit = form.handleSubmit((data) => {})
+  const handleSubmit = form.handleSubmit((data) => {
+    startTransition(async () => {
+      const res = await updateProfile(user.id, data)
+      if (res?.message) {
+        toast({
+          title: "Opzz.. Ocorreu um erro.",
+          description: res.message,
+          variant: "destructive",
+        })
+      } else {
+        toast({
+          title: "Sucesso!",
+          description: "Dados alterados com sucesso.",
+        })
+        hideForms()
+      }
+    })
+  })
 
   return (
     <Form {...form}>
@@ -67,14 +90,17 @@ export const UpdateDataForm = ({ user, hideForms }: UpdateDataFormProps) => {
           )}
         />
         <div className="flex gap-4">
-          <Button type="submit" variant="secondary">
-            Salvar
-          </Button>
+          <CustomSubmitButton
+            updateLabel="Confirma"
+            formType="update"
+            isPending={isPending}
+          />
           <Button
             type="button"
             variant="ghost"
             className="text-black"
             onClick={hideForms}
+            disabled={isPending}
           >
             Cancelar
           </Button>
