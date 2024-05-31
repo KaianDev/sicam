@@ -6,11 +6,13 @@ import { Avatar } from "./_components/avatar"
 import { ProfileData } from "./_components/profile-data"
 
 // Utilities
-import { fetchSector } from "@/actions/sector"
+import { fetchUserById } from "@/actions/user"
+import { redirect } from "next/navigation"
 
 const ProfilePage = async () => {
-  const user = mockUser
-  // const sector = await fetchSector(user.sectorId)
+  const user = await fetchUserById("33c4c4a2-9bd4-495d-b855-77505c4ce4bc")
+
+  if (!user) redirect("/app")
 
   return (
     <main className="mx-auto my-10 min-h-[calc(100vh-200px)] space-y-10 rounded-md bg-white p-4 shadow-md">

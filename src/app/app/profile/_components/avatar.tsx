@@ -17,11 +17,7 @@ interface AvatarProps {
 export const Avatar = ({ user }: AvatarProps) => {
   const [preview, setPreview] = useState("")
 
-  const avatarImage = user.avatar
-    ? user.avatar
-    : preview
-      ? preview
-      : "/assets/default.png"
+  const avatarImage = preview ? preview : user.avatar ? user.avatar : "/assets/default.png"
 
   return (
     <div className="flex flex-col gap-4 sm:flex-row ">
@@ -35,7 +31,7 @@ export const Avatar = ({ user }: AvatarProps) => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <SwitchAvatarForm preview={preview} setPreview={setPreview} />
+        <SwitchAvatarForm user={user} preview={preview} setPreview={setPreview} />
         {user.avatar && (
           <Link
             href=""

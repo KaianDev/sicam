@@ -1,5 +1,8 @@
 import prisma from "@/lib/db"
 import { Prisma } from "@prisma/client"
+import { storage } from "@/lib/firebase"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import mime from "mime"
 
 export const getAllUsers = async () => {
   try {
@@ -79,6 +82,20 @@ export const createUserService = async (data: CreateUserData) => {
     const user = await prisma.user.create({ data })
     if (!user) return false
     return user
+  } catch (error) {
+    return false
+  }
+}
+
+export const uploadImage = async (file: File, imageName: string) => {
+  try {
+    const bucketRef = ref(
+      storage,
+      `${imageName}.${mime.getExtension(file.type)}`,
+    )
+    const snapshot = await uploadBytes(bucketRef, file)
+    const url = await getDownloadURL(snapshot.ref)
+    return url
   } catch (error) {
     return false
   }
