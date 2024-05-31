@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useToast } from "@/components/ui/use-toast"
 import { useTransition } from "react"
-import type { ChangePasswordData } from "@/types/zod"
 
 // Components
 import { Button } from "@/components/ui/button"
@@ -17,11 +16,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { CustomSubmitButton } from "@/components/custom-submit-button"
 
 // Utilities
-import { ChangePasswordSchema } from "@/lib/zod"
-import { changePassword } from "@/actions/user"
-import { CustomSubmitButton } from "@/components/custom-submit-button"
+import { changePasswordSchema } from "../schemas"
+import { changePassword } from "../actions"
+import { ChangePasswordData } from "../types"
 
 interface ChangePasswordFormProps {
   userId: string
@@ -35,7 +35,7 @@ export const ChangePasswordForm = ({
   const [isPending, startTransition] = useTransition()
   const { toast } = useToast()
   const form = useForm<ChangePasswordData>({
-    resolver: zodResolver(ChangePasswordSchema),
+    resolver: zodResolver(changePasswordSchema),
   })
 
   const handleSubmit = form.handleSubmit((data) => {
@@ -50,9 +50,11 @@ export const ChangePasswordForm = ({
       } else {
         toast({
           title: "Sucesso!",
-          description: "Setor atualizado com sucesso.",
+          description: "Senha alterada com sucesso.",
         })
+        hideForms()
       }
+
     })
   })
 

@@ -1,13 +1,12 @@
-import { mockUser } from "@/data/mock-user"
+import { redirect } from "next/navigation"
 
 // Components
 import { Subtitle } from "@/components/subtitle"
-import { Avatar } from "./_components/avatar"
+import { ProfileAvatar } from "./_components/profile-avatar"
 import { ProfileData } from "./_components/profile-data"
 
 // Utilities
 import { fetchUserById } from "@/actions/user"
-import { redirect } from "next/navigation"
 
 const ProfilePage = async () => {
   const user = await fetchUserById("33c4c4a2-9bd4-495d-b855-77505c4ce4bc")
@@ -21,7 +20,7 @@ const ProfilePage = async () => {
           Perfil do Usuário
         </h1>
         <div className="flex flex-col gap-8 sm:flex-row">
-          <Avatar user={user} />
+          <ProfileAvatar user={user} />
         </div>
         <div>
           <div className="mb-2 border-b pb-2">
