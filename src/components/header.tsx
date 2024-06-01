@@ -11,12 +11,15 @@ import { BackLink } from "@/components/back-link"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { LogIn } from "lucide-react"
+import { auth } from "@/auth"
+import { fetchUserById } from "@/actions/user"
 
-export const Header = () => {
-  const session = true
+export const Header = async () => {
+  const session = await auth()
+  const user = session?.user ? await fetchUserById(session?.user.id) : undefined
 
   return (
-    <header className="h-shadow fixed w-full top-0 z-10 flex h-24 items-center justify-between gap-2 bg-green-700 px-4 sm:px-8">
+    <header className="h-shadow fixed top-0 z-10 flex h-24 w-full items-center justify-between gap-2 bg-green-700 px-4 sm:px-8">
       <BackLink>
         <Image
           src="/assets/logo.png"
@@ -45,7 +48,7 @@ export const Header = () => {
           </>
         )}
 
-        {session && <AsideMenu />}
+        {session && <AsideMenu user={user} />}
       </div>
     </header>
   )

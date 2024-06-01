@@ -4,8 +4,9 @@ import { useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
-import type { User } from "@prisma/client"
 import type { UpdateProfileData } from "../types"
+
+import type { UserWithSector } from "@/types/user"
 
 // Components
 import { useToast } from "@/components/ui/use-toast"
@@ -24,26 +25,30 @@ import { CustomSubmitButton } from "@/components/custom-submit-button"
 // Utilities
 import { updateUserProfileSchema } from "../schemas"
 import { updateProfile } from "../actions"
+import { useRouter } from "next/navigation"
 
 interface UpdateDataFormProps {
-  user: User
+  user: UserWithSector
   hideForms: () => void
 }
 
 export const UpdateDataForm = ({ user, hideForms }: UpdateDataFormProps) => {
   const [isPending, startTransition] = useTransition()
   const { toast } = useToast()
+
+  const router = useRouter()
+
   const form = useForm<UpdateProfileData>({
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
-      name: user.name,
-      email: user.email,
+      name: user?.name,
+      email: user?.email,
     },
   })
 
   const handleSubmit = form.handleSubmit((data) => {
     startTransition(async () => {
-      const res = await updateProfile(user.id, data)
+      const res = await updateProfile(user?.id!, data)
       if (res?.message) {
         toast({
           title: "Opzz.. Ocorreu um erro.",
@@ -56,6 +61,7 @@ export const UpdateDataForm = ({ user, hideForms }: UpdateDataFormProps) => {
           description: "Dados alterados com sucesso.",
         })
         hideForms()
+        router.refresh()
       }
     })
   })

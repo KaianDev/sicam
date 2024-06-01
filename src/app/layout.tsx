@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster"
 
 // Utilities
 import { cn } from "@/lib/utils"
+import { Providers } from "@/providers"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -41,7 +42,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        {children}
+        <Providers>{children}</Providers>
         <Toaster />
       </body>
     </html>

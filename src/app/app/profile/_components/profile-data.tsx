@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useState } from "react"
 
-import type { User } from "@prisma/client"
+import type { UserWithSector } from "@/types/user"
 
 // Components
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -14,7 +14,7 @@ import { ChangePasswordForm } from "./change-password-form"
 import { cn } from "@/lib/utils"
 
 interface ProfileDataProps {
-  user: User
+  user: UserWithSector
 }
 
 export const ProfileData = ({ user }: ProfileDataProps) => {
@@ -36,16 +36,16 @@ export const ProfileData = ({ user }: ProfileDataProps) => {
         <>
           <div>
             <p className="font-semibold">Nome</p>
-            <p>{user.name}</p>
+            <p>{user?.name}</p>
           </div>
           <div>
             <p className="font-semibold">E-mail</p>
-            <p>{user.email}</p>
+            <p>{user?.email}</p>
           </div>
           <div>
             <p className="font-semibold">Setor</p>
             {/* TODO: Mock, alterar */}
-            <p>CEGAF</p>
+            <p>{user?.sector.name}</p>
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button
@@ -71,13 +71,12 @@ export const ProfileData = ({ user }: ProfileDataProps) => {
         </>
       )}
 
-      {/* TODO: Melhorar a tipagem dos dados do usuário no formulário */}
       {showForm.alterData && (
         <UpdateDataForm user={user} hideForms={hideForms} />
       )}
 
       {showForm.alterPassword && (
-        <ChangePasswordForm userId={user.id} hideForms={hideForms} />
+        <ChangePasswordForm userId={user?.id!} hideForms={hideForms} />
       )}
     </div>
   )

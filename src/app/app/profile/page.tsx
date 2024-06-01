@@ -1,17 +1,16 @@
-import { redirect } from "next/navigation"
-
 // Components
 import { Subtitle } from "@/components/subtitle"
 import { ProfileAvatar } from "./_components/profile-avatar"
 import { ProfileData } from "./_components/profile-data"
-
-// Utilities
+import { getCurrentUser } from "@/helpers/get-current-user"
 import { fetchUserById } from "@/actions/user"
 
-const ProfilePage = async () => {
-  const user = await fetchUserById("33c4c4a2-9bd4-495d-b855-77505c4ce4bc")
+// Utilities
 
-  if (!user) redirect("/app")
+const ProfilePage = async () => {
+  const sessionUser = await getCurrentUser()
+  if (!sessionUser) return
+  const user = await fetchUserById(sessionUser.id)
 
   return (
     <main className="mx-auto my-10 min-h-[calc(100vh-200px)] space-y-10 rounded-md bg-white p-4 shadow-md">

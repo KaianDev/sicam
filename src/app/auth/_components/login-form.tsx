@@ -5,8 +5,10 @@ import { useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Loader } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
+import { useRouter } from "next/navigation"
 
-import { LoginSchema } from "@/types/zod"
+import type { LoginSchema } from "@/types/zod"
 
 // Components
 import {
@@ -23,9 +25,12 @@ import { Button, buttonVariants } from "@/components/ui/button"
 // Utilities
 import { loginSchema } from "@/lib/zod"
 import { cn } from "@/lib/utils"
+import { login } from "../actions"
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition()
+  const { toast } = useToast()
+  const router = useRouter()
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -33,7 +38,18 @@ export const LoginForm = () => {
 
   const handleLoginSubmit = form.handleSubmit((data) => {
     startTransition(async () => {
-      console.log(data)
+      const res = await login(data)
+      if (res?.message) {
+        toast({
+          title: "Opz.. ",
+          description: res.message,
+        })
+      } else {
+        toast({
+          title: "Usuário logado com sucesso!",
+        })
+        router.replace("/app")
+      }
     })
   })
 
