@@ -20,7 +20,6 @@ export const Aside = async () => {
       <div className="flex h-full flex-col justify-between bg-green-700">
         <AsideUser />
 
-        {/* TODO: Links */}
         <div className="flex flex-1 flex-col justify-between px-2 py-4 lg:p-4">
           <NavLinks userRole={user.role} />
 

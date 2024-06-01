@@ -16,7 +16,7 @@ export const AsideUser = async () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 bg-green-800 p-4 lg:w-full">
-      <div className="size-[100px] overflow-hidden rounded-full border-4 border-zinc-300 bg-zinc-300">
+      <div className="size-[70px] overflow-hidden rounded-full border-4 border-zinc-300 bg-zinc-300 lg:size-[90px]">
         <CustomAvatar
           userName={user.name}
           src={user.avatar || "/assets/default.png"}
