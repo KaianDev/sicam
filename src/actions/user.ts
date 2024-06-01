@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import bcrypt from "bcryptjs"
 
 import {
   CreateUserData,
@@ -13,12 +12,13 @@ import {
   getUserById,
   updateUserService,
 } from "@/services/user"
+import { hashPassword } from "@/lib/password"
 
 export const createUser = async (data: CreateUserData) => {
   const hasUser = await getUserByEmail(data.email)
   if (hasUser) return { message: "Já existe um usuário com esse e-mail." }
 
-  const hashedPassword = await bcrypt.hash(data.password, 10)
+  const hashedPassword = await hashPassword(data.password)
 
   const user = await createUserService({ ...data, password: hashedPassword })
   if (!user) {
@@ -49,5 +49,3 @@ export const updateUser = async (id: string, data: UpdateUserData) => {
   revalidatePath("/app/admin/users")
   redirect("/app/admin/users")
 }
-
-

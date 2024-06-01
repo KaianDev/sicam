@@ -3,7 +3,6 @@
 import { z } from "zod"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import bcrypt from "bcryptjs"
 
 import type { ChangePasswordData } from "./types"
 
@@ -14,6 +13,7 @@ import {
   updateUserService,
   uploadImage,
 } from "@/services/user"
+import { checkPassword, hashPassword } from "@/lib/password"
 
 export const changeProfileImage = async (formData: FormData) => {
   const data = Object.fromEntries(formData.entries())
@@ -54,11 +54,11 @@ export const changePassword = async (id: string, data: ChangePasswordData) => {
   const hasUser = await getUserById(id)
   if (!hasUser) return { message: "Usuário não encontrado." }
 
-  const matchPassword = await bcrypt.compare(data.oldPassword, hasUser.password)
+  const matchPassword = await checkPassword(data.oldPassword, hasUser.password)
 
   if (!matchPassword) return { message: "Dados inválidos" }
 
-  const hashedPassword = await bcrypt.hash(data.newPassword, 10)
+  const hashedPassword = await hashPassword(data.newPassword)
 
   const user = updateUserService(hasUser.id, {
     password: hashedPassword,
