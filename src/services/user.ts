@@ -46,22 +46,16 @@ export const getUserByEmail = async (email: string) => {
 }
 
 export const getUserById = async (id: string) => {
-  try {
-    const user = await prisma.user.findFirst({
-      where: { id },
-      include: {
-        sector: {
-          select: {
-            name: true,
-          },
+  return await prisma.user.findFirst({
+    where: { id },
+    include: {
+      sector: {
+        select: {
+          name: true,
         },
       },
-    })
-    if (!user) return false
-    return user
-  } catch (error) {
-    return false
-  }
+    },
+  })
 }
 
 export type UpdateUserData = Prisma.Args<typeof prisma.user, "update">["data"]

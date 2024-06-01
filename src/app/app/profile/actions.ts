@@ -3,6 +3,8 @@
 import { z } from "zod"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { signIn } from "@/auth"
+import { JWT } from "next-auth/jwt"
 
 import type { ChangePasswordData } from "./types"
 

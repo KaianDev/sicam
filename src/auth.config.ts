@@ -7,6 +7,50 @@ import { loginSchema } from "@/lib/zod"
 import { getUserByEmail } from "@/services/user"
 
 export default {
+  callbacks: {
+    authorized: async ({ auth, request: { nextUrl } }) => {
+      const isLoggedIn = !!auth?.user
+
+      const isRootRoute = nextUrl.pathname === "/"
+      const isPrivateAppRoute = nextUrl.pathname.startsWith("/app")
+      const isPrivateAdminRoute = nextUrl.pathname.startsWith("/app/admin")
+
+      const isAuthRoute = nextUrl.pathname.startsWith("/auth")
+
+      if (!isLoggedIn && isPrivateAppRoute) return false
+
+      if (isLoggedIn && isAuthRoute)
+        return Response.redirect(new URL("/app", nextUrl))
+
+      if (isLoggedIn && isRootRoute)
+        return Response.redirect(new URL("/app", nextUrl))
+
+      if (auth?.user.role !== "ADMIN" && isPrivateAdminRoute)
+        return Response.redirect(new URL("/app", nextUrl))
+
+      return true
+    },
+
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.name = user.name
+        token.role = user.role
+        token.sub = user.id
+        token.picture = user.image
+      }
+      return token
+    },
+
+    session: async ({ session, token }) => {
+      if (token) {
+        session.user.id = token.sub!
+        session.user.email = token.email!
+        session.user.image = token.picture
+        session.user.role = token.role!
+      }
+      return session
+    },
+  },
   providers: [
     Credentials({
       authorize: async (credentials) => {
@@ -27,10 +71,7 @@ export default {
           return {
             id: user.id,
             email: user.email,
-            avatar: user.avatar,
             name: user.name,
-            sectorId: user.sectorId,
-            sectorName: user.sector.name,
             role: user.role,
           }
         } catch (error) {
