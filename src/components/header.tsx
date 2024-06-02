@@ -12,7 +12,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { LogIn } from "lucide-react"
 import { auth } from "@/auth"
-import { fetchUserById } from "@/actions/user"
+import { fetchUserById } from "@/data/users"
 
 export const Header = async () => {
   const session = await auth()

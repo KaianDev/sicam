@@ -6,7 +6,7 @@ import { UpdateUserForm } from "../../_components/update-user-form"
 
 // Utilities
 import { fetchSectors } from "@/data/sector"
-import { fetchUserById } from "@/actions/user"
+import { fetchUserById } from "@/data/users"
 
 interface UpdateUserAdminPageProps {
   params: {

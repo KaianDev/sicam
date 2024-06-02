@@ -6,7 +6,7 @@ import { NavLinks } from "../_components/nav-links"
 import { AsideUser } from "../_components/aside-user"
 import { logout } from "@/actions/auth"
 import { getCurrentUser } from "@/helpers/get-current-user"
-import { fetchUserById } from "@/actions/user"
+import { fetchUserById } from "@/data/users"
 
 export const Aside = async () => {
   const sessionUser = await getCurrentUser()
