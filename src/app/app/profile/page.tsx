@@ -2,10 +2,12 @@
 import { Subtitle } from "@/components/subtitle"
 import { ProfileAvatar } from "./_components/profile-avatar"
 import { ProfileData } from "./_components/profile-data"
-import { getCurrentUser } from "@/helpers/get-current-user"
-import { fetchUserById } from "@/actions/user"
+
+
 
 // Utilities
+import { fetchUserById } from "@/actions/user"
+import { getCurrentUser } from "@/helpers/get-current-user"
 
 const ProfilePage = async () => {
   const sessionUser = await getCurrentUser()

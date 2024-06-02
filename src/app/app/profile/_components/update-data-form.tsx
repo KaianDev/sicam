@@ -48,7 +48,7 @@ export const UpdateDataForm = ({ user, hideForms }: UpdateDataFormProps) => {
 
   const handleSubmit = form.handleSubmit((data) => {
     startTransition(async () => {
-      const res = await updateProfile(user?.id!, data)
+      const res = await updateProfile(data)
       if (res?.message) {
         toast({
           title: "Opzz.. Ocorreu um erro.",

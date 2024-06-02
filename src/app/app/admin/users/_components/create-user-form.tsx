@@ -1,13 +1,13 @@
 "use client"
 
-import type { CreateUserType } from "@/types/zod"
-
 import Link from "next/link"
 import { useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { usePathname } from "next/navigation"
 import { Role, Sector } from "@prisma/client"
+
+import type { CreateUserData } from "../types"
 
 // Components
 import { buttonVariants } from "@/components/ui/button"
@@ -32,8 +32,8 @@ import { useToast } from "@/components/ui/use-toast"
 
 // Utilities
 import { cn } from "@/lib/utils"
-import { CreateUserSchema } from "@/lib/zod"
-import { createUser } from "@/actions/user"
+import { createUserSchema } from "../schemas"
+import { createUser } from "../actions"
 
 interface CreateUserFormProps {
   sectors: Sector[]
@@ -43,8 +43,8 @@ export const CreateUserForm = ({ sectors }: CreateUserFormProps) => {
   const { toast } = useToast()
   const pathname = usePathname()
 
-  const form = useForm<CreateUserType>({
-    resolver: zodResolver(CreateUserSchema),
+  const form = useForm<CreateUserData>({
+    resolver: zodResolver(createUserSchema),
   })
   const [isPending, startTransition] = useTransition()
 

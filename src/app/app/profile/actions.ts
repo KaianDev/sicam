@@ -3,8 +3,6 @@
 import { z } from "zod"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import { signIn } from "@/auth"
-import { JWT } from "next-auth/jwt"
 
 import type { ChangePasswordData } from "./types"
 
@@ -16,6 +14,7 @@ import {
   uploadImage,
 } from "@/services/user"
 import { checkPassword, hashPassword } from "@/lib/password"
+import { getCurrentUser } from "@/helpers/get-current-user"
 
 export const changeProfileImage = async (formData: FormData) => {
   const data = Object.fromEntries(formData.entries())
@@ -71,8 +70,12 @@ export const changePassword = async (id: string, data: ChangePasswordData) => {
   redirect("/app/profile")
 }
 
-export const updateProfile = async (id: string, data: UpdateUserData) => {
-  const hasUser = await getUserById(id)
+export const updateProfile = async (data: UpdateUserData) => {
+  const sessionUser = await getCurrentUser()
+
+  if (!sessionUser) return { message: "Acesso não autorizado" }
+
+  const hasUser = await getUserById(sessionUser.id)
   if (!hasUser) return { message: "Usuário não encontrado." }
 
   const user = await updateUserService(hasUser.id, data)
