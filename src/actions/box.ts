@@ -5,6 +5,7 @@ import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 
 import type { CreateOrUpdateBoxType } from "@/types/zod"
+import { getCurrentUser } from "@/helpers/get-current-user"
 
 export const fetchBox = async (id: string) => {
   const box = await prisma.box.findFirst({
@@ -85,8 +86,10 @@ export const fetchBoxes = async ({ page, search }: SearchParams) => {
 }
 
 export const addNewBox = async (data: CreateOrUpdateBoxType) => {
-  // const ownerId = "55c511dc-ec7c-4a3c-82e6-01d99df846d0" // John Snow
-  const ownerId = "6d578917-1d2d-4e09-8474-b7f59de71363" // Daenarys Targeryen
+  const sessionUser = await getCurrentUser()
+  const ownerId = sessionUser?.id
+
+  if (!ownerId) return { message: "Acesso negado!" }
 
   try {
     const user = await prisma.user.findFirst({ where: { id: ownerId } })

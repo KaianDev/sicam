@@ -19,8 +19,8 @@ const UpdateUserAdminPage = async ({ params }: UpdateUserAdminPageProps) => {
     fetchSectors(),
     fetchUserById(params.id),
   ])
-
   if (!user) return notFound()
+
   return (
     <main className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
       <div className="container space-y-4 px-0">

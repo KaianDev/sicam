@@ -9,7 +9,7 @@ import { Role, Sector } from "@prisma/client"
 import { usePathname } from "next/navigation"
 
 import type { UserWithOutPassword } from "@/types/user"
-import type { UpdateUserWithOutPasswordType } from "@/types/zod"
+import type { UpdateUserWithOutPasswordData } from "../types"
 
 // Components
 import { buttonVariants } from "@/components/ui/button"
@@ -32,9 +32,9 @@ import { CustomSubmitButton } from "@/components/custom-submit-button"
 import { Input } from "@/components/ui/input"
 
 // Utilities
-import { UpdateUserWithOutPasswordSchema } from "@/lib/zod"
 import { cn } from "@/lib/utils"
-import { updateUser } from "@/actions/user"
+import { updateUser } from "../actions"
+import { updateUserWithOutPasswordSchema } from "../schemas"
 
 interface UpdateUserFormProps {
   user: UserWithOutPassword
@@ -45,14 +45,14 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
   const pathname = usePathname()
   const { toast } = useToast()
 
-  const form = useForm<UpdateUserWithOutPasswordType>({
+  const form = useForm<UpdateUserWithOutPasswordData>({
     defaultValues: {
       name: user.name,
       email: user.email,
       role: user.role,
       sectorId: user.sectorId,
     },
-    resolver: zodResolver(UpdateUserWithOutPasswordSchema),
+    resolver: zodResolver(updateUserWithOutPasswordSchema),
   })
   const [isPending, startTransition] = useTransition()
 
@@ -79,8 +79,6 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
       <Form {...form}>
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid gap-8 lg:grid-cols-2">
-            
-
             <FormField
               name="name"
               control={form.control}
