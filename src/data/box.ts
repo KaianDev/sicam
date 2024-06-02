@@ -27,37 +27,24 @@ export const fetchBoxes = async ({ page, search }: SearchParams) => {
   const skip =
     page && !isNaN(parseInt(page)) ? (parseInt(page) - 1) * take : 0 * take
 
-  const getBoxes = () =>
-    prisma.box.findMany({
-      take,
-      skip,
-      where: search
-        ? {
-            content: {
-              contains: search.toLocaleLowerCase(),
-              mode: "insensitive",
-            },
-          }
-        : {},
-      include: { entity: true, sector: true },
-      orderBy: {
-        createdAt: "desc",
-      },
-    })
+  const boxes = await prisma.box.findMany({
+    take,
+    skip,
+    where: search
+      ? {
+          content: {
+            contains: search.toLocaleLowerCase(),
+            mode: "insensitive",
+          },
+        }
+      : {},
+    include: { entity: true, sector: true },
+    orderBy: {
+      createdAt: "desc",
+    },
+  })
 
-  const getCount = () =>
-    prisma.box.count({
-      where: search
-        ? {
-            content: {
-              contains: search.toLocaleLowerCase(),
-              mode: "insensitive",
-            },
-          }
-        : {},
-    })
-
-  const [boxes, boxCount] = await Promise.all([getBoxes(), getCount()])
+  const boxCount = boxes.length
 
   const pageNum = page && !isNaN(parseInt(page)) ? parseInt(page) : 1
   const pageCount = Math.ceil(boxCount / take)

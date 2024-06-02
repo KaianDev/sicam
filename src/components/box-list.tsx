@@ -22,6 +22,7 @@ interface BoxListProps {
 export const BoxList = async ({ backHref, searchParams }: BoxListProps) => {
   const { boxes, boxCount, first, last, next, prev, page, pageCount } =
     await fetchBoxes(searchParams)
+    
   return (
     <div className="space-y-6">
       {searchParams.search && (
