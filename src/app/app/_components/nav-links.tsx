@@ -6,13 +6,15 @@ import { usePathname } from "next/navigation"
 // Utilities
 import { getLinks } from "@/lib/links"
 import { cn } from "@/lib/utils"
-import { mockUser } from "@/data/mock-user"
+import { Role } from "@prisma/client"
 
-export const NavLinks = () => {
+interface NavLinksProps {
+  userRole: Role
+}
+
+export const NavLinks = ({ userRole }: NavLinksProps) => {
   const pathname = usePathname()
-  // TODO: get user
-  const user = mockUser
-  const links = getLinks(user.role)
+  const links = getLinks(userRole)
 
   return (
     <div className="flex max-h-screen flex-1 flex-col items-center gap-2 lg:gap-3">

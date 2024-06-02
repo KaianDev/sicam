@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 
 // Components
 import { Button } from "@/components/ui/button"
@@ -19,23 +20,33 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 // Utilities
 import { getLinks } from "@/lib/links"
 import { cn } from "@/lib/utils"
-import { mockUser } from "@/data/mock-user"
+import { logout } from "@/actions/auth"
+import { UserWithSector } from "@/types/user"
+import { CustomAvatar } from "./custom-avatar"
 
-export const AsideMenu = () => {
+interface AsideMenuProps {
+  user?: UserWithSector
+}
+
+export const AsideMenu = ({ user }: AsideMenuProps) => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
 
-  // TODO: get user
-  const user = mockUser
-  const links = getLinks(user.role)
+  if (!user) return
 
-  if (pathname === "/") return null
+  const links = getLinks(user.role)
 
   const handleLinkClick = (href: string) => {
     setOpen(false)
     router.push(href)
   }
+
+  const handleLogout = async () => {
+    await logout()
+  }
+
+  const avatarImage = user.avatar ?? "/assets/default.png"
 
   return (
     <div className="sm:hidden">
@@ -48,14 +59,17 @@ export const AsideMenu = () => {
         <SheetContent className="flex flex-col">
           <SheetHeader>
             <div className="flex items-center gap-4 py-2">
-              <Avatar>
+              {/* <Avatar>
                 <AvatarFallback></AvatarFallback>
                 <AvatarImage src="/assets/default.png"></AvatarImage>
-              </Avatar>
+              </Avatar> */}
+              <div className="size-12 overflow-hidden rounded-full border-2 border-zinc-300">
+                <CustomAvatar src={avatarImage} userName={user.name} />
+              </div>
               <div>
                 <SheetTitle>{user.name}</SheetTitle>
                 <SheetDescription className="text-start">
-                  {user.role === "ADMIN" && "Admin"}
+                  {user.sector.name}
                 </SheetDescription>
               </div>
             </div>
@@ -80,9 +94,9 @@ export const AsideMenu = () => {
                 )
               })}
             </div>
-            <Button className="mt-auto gap-4">
+            <Button onClick={handleLogout} className="mt-auto gap-4">
               <LogOut />
-              <div>Sair</div>
+              Sair
             </Button>
           </div>
         </SheetContent>

@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form"
 import { useToast } from "@/components/ui/use-toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import type { User } from "@prisma/client"
 import type { ProfileAvatarData } from "../types"
 
 // Components
@@ -25,9 +24,11 @@ import { Input } from "@/components/ui/input"
 import { profileAvatarFormSchema } from "../schemas"
 import { changeProfileImage, removeProfileImage } from "../actions"
 import { cn } from "@/lib/utils"
+import { useRouter } from "next/navigation"
+import { UserWithSector } from "@/types/user"
 
 interface SwitchAvatarFormProps {
-  user: User
+  user: UserWithSector
   preview: string
   setPreview: (path: string) => void
 }
@@ -39,6 +40,11 @@ export const SwitchAvatarForm = ({
 }: SwitchAvatarFormProps) => {
   const { toast } = useToast()
   const [isPending, startTransition] = useTransition()
+
+  const router = useRouter()
+
+  const userId = user?.id
+  const userImage = user?.avatar
 
   const form = useForm<ProfileAvatarData>({
     resolver: zodResolver(profileAvatarFormSchema),
@@ -59,9 +65,13 @@ export const SwitchAvatarForm = ({
   const handleSubmit = form.handleSubmit((data) => {
     startTransition(async () => {
       const formData = new FormData()
+      if (!userId) return
+
       formData.append("avatar", data.avatar)
-      formData.append("id", user.id)
+      formData.append("id", userId)
+
       const res = await changeProfileImage(formData)
+
       if (res?.message) {
         toast({
           title: "Opzz..",
@@ -80,7 +90,9 @@ export const SwitchAvatarForm = ({
 
   const handleRemoveProfileImage = () => {
     startTransition(async () => {
-      await removeProfileImage(user.id)
+      if (!userId) return
+      await removeProfileImage(userId)
+      router.refresh()
     })
   }
 
@@ -138,7 +150,7 @@ export const SwitchAvatarForm = ({
           )}
         </form>
       </Form>
-      {user.avatar && (
+      {userImage && (
         <Button
           onClick={handleRemoveProfileImage}
           variant="secondary"
