@@ -9,7 +9,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { Pagination } from "@/components/pagination"
 
 // Utilities
-import { fetchBoxes } from "@/actions/box"
+import { fetchBoxes } from "@/data/box"
 
 interface BoxListProps {
   backHref: string

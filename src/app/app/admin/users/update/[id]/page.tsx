@@ -5,8 +5,8 @@ import { Subtitle } from "@/components/subtitle"
 import { UpdateUserForm } from "../../_components/update-user-form"
 
 // Utilities
-import { fetchSectors } from "@/actions/sector"
-import { fetchUserById } from "@/actions/user"
+import { fetchSectors } from "@/data/sector"
+import { fetchUserById } from "@/data/users"
 
 interface UpdateUserAdminPageProps {
   params: {

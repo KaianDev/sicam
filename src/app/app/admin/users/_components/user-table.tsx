@@ -14,7 +14,7 @@ import {
 import { UpdateDropdown } from "@/components/update-dropdown"
 
 // Utilities
-import { fetchUsers } from "@/actions/user"
+import { fetchUsers } from "@/data/users"
 
 export const UserTable = async () => {
   const users = await fetchUsers()

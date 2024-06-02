@@ -14,7 +14,7 @@ import {
 import { UpdateDropdown } from "@/components/update-dropdown"
 
 // Utilities
-import { fetchEntities } from "@/actions/entity"
+import { fetchEntities } from "@/data/entity"
 import { formatEntityName } from "@/helpers/format-entity-name"
 
 export const EntityTable = async () => {

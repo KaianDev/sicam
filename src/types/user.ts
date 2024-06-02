@@ -1,4 +1,4 @@
-import { fetchUserById } from "@/actions/user"
+import { fetchUserById } from "@/data/users"
 import { User } from "@prisma/client"
 
 export type UserWithOutPassword = Omit<User, "password">

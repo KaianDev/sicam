@@ -14,7 +14,7 @@ import {
 import { UpdateDropdown } from "@/components/update-dropdown"
 
 // Utilities
-import { fetchSectors } from "@/actions/sector"
+import { fetchSectors } from "@/data/sector"
 
 export const SectorTable = async () => {
   const sectors = await fetchSectors()

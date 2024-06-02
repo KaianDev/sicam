@@ -1,5 +1,5 @@
 // Components
-import { fetchUserById } from "@/actions/user"
+import { fetchUserById } from "@/data/users"
 import { CustomAvatar } from "@/components/custom-avatar"
 
 // Utilities

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 
 // Components
 import { Subtitle } from "@/components/subtitle"
-import { fetchEntity } from "@/actions/entity"
+import { fetchEntity } from "@/data/entity"
 import { UpdateEntityForm } from "@/app/app/admin/entity/_components/update-entity-form"
 
 interface UpdateEntityPageProps {

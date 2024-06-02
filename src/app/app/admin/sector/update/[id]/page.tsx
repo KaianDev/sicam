@@ -5,7 +5,7 @@ import { Subtitle } from "@/components/subtitle"
 import { UpdateSectorForm } from "../../_components/update-sector-form"
 
 // Utilities
-import { fetchSector } from "@/actions/sector"
+import { fetchSector } from "@/data/sector"
 
 interface UpdateSectorPageProps {
   params: {

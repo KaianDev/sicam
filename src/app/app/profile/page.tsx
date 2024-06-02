@@ -3,10 +3,8 @@ import { Subtitle } from "@/components/subtitle"
 import { ProfileAvatar } from "./_components/profile-avatar"
 import { ProfileData } from "./_components/profile-data"
 
-
-
 // Utilities
-import { fetchUserById } from "@/actions/user"
+import { fetchUserById } from "@/data/users"
 import { getCurrentUser } from "@/helpers/get-current-user"
 
 const ProfilePage = async () => {
