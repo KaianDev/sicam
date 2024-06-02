@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache"
 
 import type { CreateOrUpdateBoxType } from "@/types/zod"
 import { getCurrentUser } from "@/helpers/get-current-user"
+import { getUserById } from "@/services/user"
 
 export const addNewBox = async (data: CreateOrUpdateBoxType) => {
   const sessionUser = await getCurrentUser()
@@ -14,7 +15,7 @@ export const addNewBox = async (data: CreateOrUpdateBoxType) => {
   if (!ownerId) return { message: "Acesso negado!" }
 
   try {
-    const user = await prisma.user.findFirst({ where: { id: ownerId } })
+    const user = await getUserById(ownerId)
 
     if (!user) {
       return { message: "Usuário não encontrado!" }
