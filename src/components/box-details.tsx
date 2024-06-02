@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 // Utilities
 import { fetchBox } from "@/actions/box"
 import { Subtitle } from "./subtitle"
+import { auth } from "@/auth"
 
 interface BoxDetailsProps {
   origin: "/" | "/app"
@@ -16,8 +17,11 @@ interface BoxDetailsProps {
 
 export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
   // Get User
+  const session = await auth()
   const box = await fetchBox(boxId)
   if (!box) return notFound()
+
+  const canEdit = session?.user.id === box.ownerId
 
   return (
     <div className="container space-y-4 px-4 sm:px-8">
@@ -30,7 +34,9 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
             <ArrowLeft />
             Voltar
           </Link>
-          <Badge className="h-max" variant="secondary">{box.sector.name}</Badge>
+          <Badge className="h-max" variant="secondary">
+            {box.sector.name}
+          </Badge>
         </div>
         <Subtitle label={`Detalhes da Caixa - Nº ${box.numBox}`} />
         <strong>{box.entity.name}</strong>
@@ -64,7 +70,7 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
           </p>
         </div>
         <div className="flex justify-end gap-4">
-          {origin !== "/" && (
+          {origin !== "/" && canEdit && (
             <Link
               href={`/app/box/update/id`}
               className="flex gap-2 rounded-md bg-green-700 p-2 text-white"
