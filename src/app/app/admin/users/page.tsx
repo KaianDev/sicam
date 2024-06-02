@@ -4,7 +4,7 @@ import { CreateUserForm } from "./_components/create-user-form"
 import { UserTable } from "./_components/user-table"
 
 // Utilities
-import { fetchSectors } from "@/actions/sector"
+import { fetchSectors } from "@/data/sector"
 
 const UserAdminPage = async () => {
   const sectors = await fetchSectors()

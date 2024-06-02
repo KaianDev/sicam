@@ -1,28 +1,10 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-
-import prisma from "@/lib/db"
-import { CreateOrUpdateSectorType } from "@/types/zod"
 import { redirect } from "next/navigation"
 
-export const fetchSectors = async () => {
-  const sectors = await prisma.sector.findMany({
-    orderBy: {
-      name: "asc",
-    },
-  })
-  return sectors
-}
-
-export const fetchSector = async (id: string) => {
-  const sector = await prisma.sector.findUnique({
-    where: {
-      id,
-    },
-  })
-  return sector
-}
+import { CreateOrUpdateSectorType } from "@/types/zod"
+import prisma from "@/lib/db"
 
 export const createSector = async (data: CreateOrUpdateSectorType) => {
   try {

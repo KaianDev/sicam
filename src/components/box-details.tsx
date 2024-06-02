@@ -6,7 +6,7 @@ import { FolderEdit, ArrowLeft } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 // Utilities
-import { fetchBox } from "@/actions/box"
+import { fetchBox } from "@/data/box"
 import { Subtitle } from "./subtitle"
 import { auth } from "@/auth"
 

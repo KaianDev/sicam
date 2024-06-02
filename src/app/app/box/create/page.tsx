@@ -1,5 +1,5 @@
 import { CreateBoxForm } from "@/app/app/box/_components/create-box-form"
-import { fetchEntities } from "@/actions/entity"
+import { fetchEntities } from "@/data/entity"
 
 export const dynamic = "force-dynamic"
 

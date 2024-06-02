@@ -7,7 +7,7 @@ import { BoxItem } from "./box-item"
 import { BackLink } from "./back-link"
 
 // Utilities
-import { fetchEntityWithBoxes } from "@/actions/entity"
+import { fetchEntityWithBoxes } from "@/data/entity"
 
 interface EntityBoxListProps {
   entityId: string
