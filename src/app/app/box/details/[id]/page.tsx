@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { Metadata } from "next"
 
 // Components
+import { Container } from "@/components/container"
 import { BoxDetails } from "@/components/box-details"
 import { BoxDetailsSkeleton } from "@/components/skeletons"
 
@@ -17,11 +18,11 @@ interface DetailsBoxPageProps {
 
 const DetailsAppBoxPage = ({ params }: DetailsBoxPageProps) => {
   return (
-    <main className="mx-auto my-10 min-h-[calc(100vh-200px)] space-y-4 rounded-md bg-white px-0 pb-8 shadow-md sm:p-4 ">
+    <Container>
       <Suspense fallback={<BoxDetailsSkeleton />}>
         <BoxDetails origin="/app" boxId={params.id} />
       </Suspense>
-    </main>
+    </Container>
   )
 }
 

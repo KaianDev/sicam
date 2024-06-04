@@ -3,6 +3,7 @@ import { Suspense } from "react"
 // Components
 import { EntityBoxList } from "@/components/entity-box-list"
 import { EntityBoxListSkeleton } from "@/components/skeletons"
+import { Container } from "@/components/container"
 
 interface EntityDetailsPageProps {
   params: { id: string }
@@ -10,13 +11,13 @@ interface EntityDetailsPageProps {
 
 const EntityDetailsAppPage = async ({ params }: EntityDetailsPageProps) => {
   return (
-    <main className="mx-auto my-10 min-h-[calc(100vh-200px)] rounded-md bg-white shadow-md sm:p-4">
+    <Container>
       <div className="container px-4 sm:px-8">
         <Suspense fallback={<EntityBoxListSkeleton />}>
           <EntityBoxList entityId={params.id} />
         </Suspense>
       </div>
-    </main>
+    </Container>
   )
 }
 

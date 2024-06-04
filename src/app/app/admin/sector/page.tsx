@@ -1,17 +1,17 @@
 import { Suspense } from "react"
 
 // Components
+import { Container } from "@/components/container"
+import { Title } from "@/components/title"
 import { Subtitle } from "@/components/subtitle"
 import { CreateSectorForm } from "./_components/create-sector-form"
 import { SectorTable } from "./_components/sector-table"
 
 const SectorPage = () => {
   return (
-    <main className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
+    <Container>
       <div className="container space-y-4 px-0">
-        <h1 className="border-b border-zinc-300 py-4 text-3xl font-semibold">
-          Setor
-        </h1>
+        <Title>Setor</Title>
         <Subtitle label="Criar novo setor" />
         <CreateSectorForm />
         <Subtitle label="Setores cadastrados" />
@@ -19,7 +19,7 @@ const SectorPage = () => {
           <SectorTable />
         </Suspense>
       </div>
-    </main>
+    </Container>
   )
 }
 

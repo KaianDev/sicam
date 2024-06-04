@@ -7,6 +7,8 @@ import { UpdateUserForm } from "../../_components/update-user-form"
 // Utilities
 import { fetchSectors } from "@/data/sector"
 import { fetchUserById } from "@/data/users"
+import { Container } from "@/components/container"
+import { Title } from "@/components/title"
 
 interface UpdateUserAdminPageProps {
   params: {
@@ -22,15 +24,13 @@ const UpdateUserAdminPage = async ({ params }: UpdateUserAdminPageProps) => {
   if (!user) return notFound()
 
   return (
-    <main className="mx-auto my-10 space-y-10 rounded-md bg-white p-4 shadow-md">
+    <Container>
       <div className="container space-y-4 px-0">
-        <h1 className="border-b border-zinc-300 py-4 text-3xl font-semibold">
-          Usuário
-        </h1>
+        <Title>Usuário</Title>
         <Subtitle label="Editar usuário" />
         <UpdateUserForm sectors={sectors} user={user} />
       </div>
-    </main>
+    </Container>
   )
 }
 
