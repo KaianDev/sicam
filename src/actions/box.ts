@@ -8,6 +8,7 @@ import type { CreateOrUpdateBoxType } from "@/types/zod"
 import { getCurrentUser } from "@/helpers/get-current-user"
 import { getUserById } from "@/services/user"
 import { createBox } from "@/services/box"
+import { getEntityWithBox } from "@/services/entity"
 
 export const addNewBox = async (data: CreateOrUpdateBoxType) => {
   const sessionUser = await getCurrentUser()
@@ -25,10 +26,7 @@ export const addNewBox = async (data: CreateOrUpdateBoxType) => {
     const sectorId = user.sectorId
     const { content, entityId, observation } = data
 
-    const entity = await prisma.entity.findFirst({
-      where: { id: entityId },
-      include: { boxes: true },
-    })
+    const entity = await getEntityWithBox(entityId)
 
     const sector = await prisma.sector.findFirst({
       where: {

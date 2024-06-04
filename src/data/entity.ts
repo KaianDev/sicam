@@ -1,39 +1,29 @@
 import prisma from "@/lib/db"
+import { getEntities, getEntityById, getEntityWithBox } from "@/services/entity"
 
 export const fetchEntities = async () => {
-  const entities = await prisma.entity.findMany({
-    orderBy: [
-      {
-        uex: {
-          sort: "asc",
-          nulls: "first",
-        },
-      },
-      {
-        name: "asc",
-      },
-    ],
-  })
-  return entities
+  try {
+    const entities = await getEntities()
+    return entities
+  } catch (error) {
+    return []
+  }
 }
 
 export const fetchEntity = async (id: string) => {
-  const entity = await prisma.entity.findFirst({ where: { id } })
-  return entity
+  try {
+    const entity = await getEntityById(id)
+    return entity
+  } catch (error) {
+    return null
+  }
 }
 
 export const fetchEntityWithBoxes = async (id: string) => {
-  const entity = await prisma.entity.findFirst({
-    where: { id },
-    include: {
-      boxes: {
-        include: {
-          sector: true,
-          user: { select: { id: true } },
-          entity: true,
-        },
-      },
-    },
-  })
-  return entity
+  try {
+    const entity = await getEntityWithBox(id)
+    return entity
+  } catch (error) {
+    return null
+  }
 }
