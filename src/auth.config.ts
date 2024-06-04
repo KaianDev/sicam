@@ -10,7 +10,6 @@ export default {
   callbacks: {
     authorized: async ({ auth, request: { nextUrl } }) => {
       const isLoggedIn = !!auth?.user
-
       const isRootRoute = nextUrl.pathname === "/"
       const isPrivateAppRoute = nextUrl.pathname.startsWith("/app")
       const isPrivateAdminRoute = nextUrl.pathname.startsWith("/app/admin")
@@ -25,7 +24,7 @@ export default {
       if (isLoggedIn && isRootRoute)
         return Response.redirect(new URL("/app", nextUrl))
 
-      if (auth?.user.role !== "ADMIN" && isPrivateAdminRoute)
+      if (isLoggedIn && auth.user.role !== "ADMIN" && isPrivateAdminRoute)
         return Response.redirect(new URL("/app", nextUrl))
 
       return true

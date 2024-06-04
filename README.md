@@ -17,48 +17,57 @@ O Sistema de Catálogo de Arquivo Morto (SiCAM) é uma solução projetada para 
 
 ## Instalação
 
-**Pré requisitos**
+**1. Pré requisitos**
 
 - [NodeJS](https://nodejs.org/en/download/package-manager)
 - [pnpm](https://pnpm.io/pt/installation)
 
-**Clone o projeto**
+**2. Clone o projeto**
 
 ```bash
   git clone https://github.com/KaianDev/sicam.git
 ```
 
-**Entre no diretório do projeto**
+**3. Entre no diretório do projeto**
 
 ```bash
   cd sicam
 ```
 
-**Configure o banco de dados (Postgresql)**
+**4. Configure o banco de dados (Postgresql)**
 
-**Renomeie o arquivo .env.example para .env**
+**5. Renomeie o arquivo .env.example para .env**
 
-**Defina as váriaveis de ambiente no arquivo .env**
+**6. Defina a variável de AUTH_SECRET rodando o comando abaixo**
+
+```bash
+  npx auth secret
+```
+
+**7. Defina as váriaveis de ambiente no arquivo .env**
 
 - DATABASE_URL="postgres://username:password@host:port/mydb"
 - SICAM_ADMIN_NAME="nome_do_usuário"
 - SICAM_ADMIN_EMAIL="email_do_admin"
 - SICAM_ADMIN_PASSWORD="senha_do_admin"
+- AUTH_SECRET="secret de autenticação"
 
-**Instale as dependências**
+- Copie o resultado gerado e no arquivo .env defina o valor para a variável de ambiente AUTH_SECRET
+
+**8. Instale as dependências**
 
 ```bash
   pnpm i
 ```
 
-**Rode o comando de Seed** <br/>
+**9. Rode o comando de Seed** <br/>
 Esse comando irá criar o usuário ADMIN, guarde as credenciais para fazer o login com esse usuário posteriormente.
 
 ```bash
   npx prisma db seed
 ```
 
-**Inicie o servidor**
+**10. Inicie a aplicação em ambiente de DEV**
 
 ```bash
   pnpm dev
