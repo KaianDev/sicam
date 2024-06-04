@@ -10,6 +10,7 @@ import { Pagination } from "@/components/pagination"
 
 // Utilities
 import { fetchBoxes } from "@/data/box"
+import { redirect } from "next/navigation"
 
 interface BoxListProps {
   backHref: string
@@ -20,9 +21,13 @@ interface BoxListProps {
 }
 
 export const BoxList = async ({ backHref, searchParams }: BoxListProps) => {
-  const { boxes, boxCount, first, last, next, prev, page, pageCount } =
-    await fetchBoxes(searchParams)
-    
+  const results = await fetchBoxes(searchParams)
+
+  // TODO: Fazer uma página de ocorreu um erro
+  if (!results) return <div>Ocorreu um erro no carregamento dos dados</div>
+
+  const { boxCount, boxes, first, last, next, page, pageCount, prev } = results
+
   return (
     <div className="space-y-6">
       {searchParams.search && (

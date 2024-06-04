@@ -1,20 +1,12 @@
-import prisma from "@/lib/db"
+import { getBox, getBoxes, getBoxesCount } from "@/services/box"
 
 export const fetchBox = async (id: string) => {
-  const box = await prisma.box.findFirst({
-    where: { id },
-    include: {
-      entity: true,
-      sector: true,
-      user: {
-        select: {
-          name: true,
-        },
-      },
-    },
-  })
-
-  return box
+  try {
+    const box = await getBox(id)
+    return box
+  } catch (error) {
+    return null
+  }
 }
 
 interface SearchParams {
@@ -27,49 +19,28 @@ export const fetchBoxes = async ({ page, search }: SearchParams) => {
   const skip =
     page && !isNaN(parseInt(page)) ? (parseInt(page) - 1) * take : 0 * take
 
-  const boxes = await prisma.box.findMany({
-    take,
-    skip,
-    where: search
-      ? {
-          content: {
-            contains: search.toLocaleLowerCase(),
-            mode: "insensitive",
-          },
-        }
-      : {},
-    include: { entity: true, sector: true },
-    orderBy: {
-      createdAt: "desc",
-    },
-  })
+  try {
+    const boxes = await getBoxes({ take, skip, search })
+    const boxCount = await getBoxesCount({ search })
 
-  const boxCount = await prisma.box.count({
-    where: search
-      ? {
-          content: {
-            contains: search.toLocaleLowerCase(),
-            mode: "insensitive",
-          },
-        }
-      : {},
-  })
+    const pageNum = page && !isNaN(parseInt(page)) ? parseInt(page) : 1
+    const pageCount = Math.ceil(boxCount / take)
+    const first = 1
+    const last = Math.ceil(boxCount / take)
+    const next = pageNum + 1 <= last ? pageNum + 1 : null
+    const prev = pageNum <= first ? null : pageNum - 1
 
-  const pageNum = page && !isNaN(parseInt(page)) ? parseInt(page) : 1
-  const pageCount = Math.ceil(boxCount / take)
-  const first = 1
-  const last = Math.ceil(boxCount / take)
-  const next = pageNum + 1 <= last ? pageNum + 1 : null
-  const prev = pageNum <= first ? null : pageNum - 1
-
-  return {
-    first,
-    next,
-    prev,
-    page: pageNum,
-    last,
-    boxes,
-    boxCount,
-    pageCount,
+    return {
+      first,
+      next,
+      prev,
+      page: pageNum,
+      last,
+      boxes,
+      boxCount,
+      pageCount,
+    }
+  } catch (error) {
+    return null
   }
 }

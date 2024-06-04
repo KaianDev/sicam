@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache"
 import type { CreateOrUpdateBoxType } from "@/types/zod"
 import { getCurrentUser } from "@/helpers/get-current-user"
 import { getUserById } from "@/services/user"
+import { createBox } from "@/services/box"
 
 export const addNewBox = async (data: CreateOrUpdateBoxType) => {
   const sessionUser = await getCurrentUser()
@@ -52,15 +53,13 @@ export const addNewBox = async (data: CreateOrUpdateBoxType) => {
 
     const numBox = sector.boxes.length + 1
 
-    await prisma.box.create({
-      data: {
-        content,
-        observation,
-        numBox,
-        entityId,
-        ownerId,
-        sectorId,
-      },
+    await createBox({
+      numBox,
+      content,
+      observation,
+      ownerId,
+      entityId,
+      sectorId,
     })
   } catch (error) {
     return { message: "Erro de BD: Falha ao criar caixa" }
