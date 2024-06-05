@@ -89,7 +89,7 @@ export const UpdateDataForm = ({ user, hideForms }: UpdateDataFormProps) => {
             <FormItem>
               <FormLabel>E-mail</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Digite seu e-mail" />
+                <Input {...field} placeholder="Digite seu e-mail" disabled />
               </FormControl>
               <FormMessage />
             </FormItem>

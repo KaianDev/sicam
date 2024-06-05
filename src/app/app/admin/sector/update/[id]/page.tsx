@@ -21,7 +21,7 @@ const UpdateSectorPage = async ({ params }: UpdateSectorPageProps) => {
 
   return (
     <Container>
-      <div className="container space-y-4 px-0">
+      <div className="container space-y-4 px-0 py-2">
         <Title>Setor</Title>
         <Subtitle label="Editar setor" />
         <UpdateSectorForm sector={sector} />

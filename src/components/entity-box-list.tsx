@@ -19,7 +19,7 @@ export const EntityBoxList = async ({ entityId }: EntityBoxListProps) => {
   if (!entity) return notFound()
 
   return (
-    <div className="space-y-10 py-8">
+    <div className="space-y-10 pt-2 pb-8">
       <div className="space-y-4">
         <div className="flex justify-between">
           <BackLink className="flex w-max items-center gap-1 hover:text-primary">

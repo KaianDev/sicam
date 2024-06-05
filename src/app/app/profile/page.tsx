@@ -16,10 +16,8 @@ const ProfilePage = async () => {
 
   return (
     <Container>
-      <div className="container space-y-4 px-0">
-        <Title>
-          Perfil do Usuário
-        </Title>
+      <div className="container space-y-4 px-0 py-2">
+        <Title>Perfil do Usuário</Title>
         <div className="flex flex-col gap-8 sm:flex-row">
           <ProfileAvatar user={user} />
         </div>

@@ -12,7 +12,7 @@ const CreateBoxPage = async () => {
 
   return (
     <Container>
-      <div className="container space-y-4 px-0">
+      <div className="container space-y-4 px-0 py-2">
         <Title>Criar nova caixa</Title>
         <CreateBoxForm entities={entities} />
       </div>

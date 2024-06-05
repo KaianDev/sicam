@@ -11,7 +11,7 @@ import { EntityTable } from "./_components/entity-table"
 const Entity = () => {
   return (
     <Container>
-      <div className="container space-y-4 px-0">
+      <div className="container space-y-4 px-0 py-2">
         <Title>Entidade</Title>
         <Subtitle label="Criar nova entidade" />
         <CreateEntityForm />

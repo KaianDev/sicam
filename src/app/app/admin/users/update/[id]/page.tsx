@@ -25,7 +25,7 @@ const UpdateUserAdminPage = async ({ params }: UpdateUserAdminPageProps) => {
 
   return (
     <Container>
-      <div className="container space-y-4 px-0">
+      <div className="container space-y-4 px-0 py-2">
         <Title>Usuário</Title>
         <Subtitle label="Editar usuário" />
         <UpdateUserForm sectors={sectors} user={user} />

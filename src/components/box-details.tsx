@@ -25,7 +25,7 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
 
   return (
     <div className="container space-y-4 px-4 sm:px-8">
-      <div className="border-b border-zinc-300 py-4">
+      <div className="border-b border-zinc-300 py-2">
         <div className="flex justify-between">
           <Link
             href={origin}
@@ -44,13 +44,15 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
 
       <div>
         <h2 className="text-xl font-semibold">Conteúdo</h2>
-        <p className="text-muted-foreground">{box.content}</p>
+        <p className="break-words text-muted-foreground">{box.content}</p>
       </div>
 
       {box.observation && (
         <div>
           <h2 className="text-lg font-semibold">Observação</h2>
-          <p className="text-base text-muted-foreground">{box.observation}</p>
+          <p className="break-words text-base text-muted-foreground">
+            {box.observation}
+          </p>
         </div>
       )}
 
@@ -62,6 +64,7 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
               year: "numeric",
               month: "long",
               day: "numeric",
+              timeZone: "America/Fortaleza",
             })}
           </small>
           <p>
