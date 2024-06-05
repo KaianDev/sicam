@@ -3,10 +3,18 @@
 import { getAllUsers, getUserById } from "@/services/user"
 
 export const fetchUsers = async () => {
-  const users = await getAllUsers()
-  return users
+  try {
+    const users = await getAllUsers()
+    return users
+  } catch (error) {
+    return []
+  }
 }
 
 export const fetchUserById = async (id: string) => {
-  return await getUserById(id)
+  try {
+    return await getUserById(id)
+  } catch (error) {
+    return null
+  }
 }
