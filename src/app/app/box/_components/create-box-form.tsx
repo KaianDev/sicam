@@ -1,7 +1,7 @@
 "use client"
 import { Entity } from "@prisma/client"
 
-import type { CreateOrUpdateBoxType } from "@/types/zod"
+import type { CreateOrUpdateBoxData } from "../types"
 
 // Components
 import { BoxForm } from "./box-form"
@@ -17,7 +17,7 @@ interface CreateBoxFormProps {
 export const CreateBoxForm = ({ entities }: CreateBoxFormProps) => {
   const { toast } = useToast()
 
-  const handleCreateNewBoxSubmit = async (data: CreateOrUpdateBoxType) => {
+  const handleCreateNewBoxSubmit = async (data: CreateOrUpdateBoxData) => {
     const res = await addNewBox(data)
     if (res?.message) {
       toast({
