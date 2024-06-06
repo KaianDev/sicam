@@ -64,7 +64,8 @@ export const BoxForm = ({
     })
   })
 
-  const disabledSelect = isPending || session?.user.role === "USER"
+  const disabledSelect =
+    isPending || (session?.user.role === "USER" && type === "update")
 
   return (
     <div className="pb-6">
