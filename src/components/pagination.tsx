@@ -69,7 +69,7 @@ export const Pagination = ({
   }
 
   return (
-    <div className="flex items-center justify-center gap-4 pb-8">
+    <div className="flex mt-auto items-center justify-center gap-4 pb-8">
       <div className="space-x-2">
         <Button
           size="icon"
