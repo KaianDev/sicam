@@ -1,25 +1,13 @@
 "use client"
+import { useSearchContext } from "@/context/search"
 import { Search } from "lucide-react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { FormEvent, useState } from "react"
+import { FormEvent } from "react"
 
 export const SearchForm = () => {
-  const [term, setTerm] = useState("")
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const path = pathname.includes("/app") ? "/app" : pathname
-
-  const router = useRouter()
-
+  const { searchValue, updateSearch, setSearchValue } = useSearchContext()
   const handleSearch = (e: FormEvent) => {
     e.preventDefault()
-    const params = new URLSearchParams(searchParams)
-
-    if (term.trim() !== "") {
-      if (params.has("page")) params.delete("page")
-      params.set("search", term)
-    }
-    router.replace(`${path}?${params.toString()}`)
+    updateSearch()
   }
 
   return (
@@ -33,8 +21,8 @@ export const SearchForm = () => {
           name="search"
           placeholder="Pesquisar"
           className="h-full w-full border-0 pl-10 pr-2 outline-none ring-0"
-          onChange={(e) => setTerm(e.target.value)}
-          value={term}
+          onChange={(e) => setSearchValue(e.target.value)}
+          value={searchValue}
         />
         <button className="top absolute left-2 top-0 size-9 text-muted-foreground">
           <Search />
