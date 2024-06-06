@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import type { Entity } from "@prisma/client"
+import type { CreateOrUpdateBoxData } from "../types"
 
 // Components
-import { buttonVariants } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -28,9 +28,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { CustomSubmitButton } from "@/components/custom-submit-button"
 
 // Utilities
-import { CreateOrUpdateBoxType } from "@/types/zod"
-import { CreateOrUpdateBoxSchema } from "@/lib/zod"
+import { buttonVariants } from "@/components/ui/button"
+import { createOrUpdateBoxSchema } from "../schemas"
 import { cn } from "@/lib/utils"
+import { useSession } from "next-auth/react"
 
 interface BoxFormProps {
   type: "create" | "update"
@@ -39,7 +40,7 @@ interface BoxFormProps {
     content: string
     observation?: string
   }
-  onSubmit: (data: CreateOrUpdateBoxType) => Promise<void>
+  onSubmit: (data: CreateOrUpdateBoxData) => Promise<void>
   entities: Entity[]
 }
 
@@ -49,9 +50,11 @@ export const BoxForm = ({
   entities,
   onSubmit,
 }: BoxFormProps) => {
-  const form = useForm<CreateOrUpdateBoxType>({
+  const { data: session } = useSession()
+
+  const form = useForm<CreateOrUpdateBoxData>({
     defaultValues,
-    resolver: zodResolver(CreateOrUpdateBoxSchema),
+    resolver: zodResolver(createOrUpdateBoxSchema),
   })
   const [isPending, startTransition] = useTransition()
 
@@ -60,6 +63,8 @@ export const BoxForm = ({
       await onSubmit(data)
     })
   })
+
+  const disabledSelect = isPending || session?.user.role !== "ADMIN"
 
   return (
     <div className="pb-6">
@@ -76,7 +81,7 @@ export const BoxForm = ({
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  disabled={!!defaultValues?.entityId || isPending}
+                  disabled={disabledSelect}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione uma escola ou município" />

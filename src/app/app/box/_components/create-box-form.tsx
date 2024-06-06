@@ -4,10 +4,10 @@ import { Entity } from "@prisma/client"
 import type { CreateOrUpdateBoxType } from "@/types/zod"
 
 // Components
-import { BoxForm } from "@/app/app/box/_components/box-form"
+import { BoxForm } from "./box-form"
 
 // Utilities
-import { addNewBox } from "@/actions/box"
+import { addNewBox } from "../actions"
 import { useToast } from "@/components/ui/use-toast"
 
 interface CreateBoxFormProps {
