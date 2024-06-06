@@ -6,9 +6,9 @@ import { FolderEdit, ArrowLeft } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 // Utilities
-import { fetchBox } from "@/data/box"
+import { fetchBoxWithEntityAndSectorAndUser } from "@/data/box"
 import { Subtitle } from "./subtitle"
-import { auth } from "@/auth"
+import { getCurrentUser } from "@/helpers/get-current-user"
 
 interface BoxDetailsProps {
   origin: "/" | "/app"
@@ -16,12 +16,11 @@ interface BoxDetailsProps {
 }
 
 export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
-  // Get User
-  const session = await auth()
-  const box = await fetchBox(boxId)
+  const user = await getCurrentUser()
+  const box = await fetchBoxWithEntityAndSectorAndUser(boxId)
   if (!box) return notFound()
 
-  const canEdit = session?.user.id === box.ownerId
+  const canEdit = user?.id === box.ownerId
 
   return (
     <div className="container space-y-4 px-4 sm:px-8">
@@ -75,7 +74,7 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
         <div className="flex justify-end gap-4">
           {origin !== "/" && canEdit && (
             <Link
-              href={`/app/box/update/id`}
+              href={`/app/box/update/${box.id}`}
               className="flex gap-2 rounded-md bg-green-700 p-2 text-white"
             >
               <FolderEdit />
