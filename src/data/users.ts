@@ -6,5 +6,9 @@ export const fetchUsers = async () => {
 }
 
 export const fetchUserById = async (id: string) => {
-  return await getUserById(id)
+  try {
+    return await getUserById(id)
+  } catch (error) {
+    return null
+  }
 }
