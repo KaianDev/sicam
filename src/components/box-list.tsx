@@ -10,7 +10,6 @@ import { Pagination } from "@/components/pagination"
 
 // Utilities
 import { fetchBoxes } from "@/data/box"
-import { redirect } from "next/navigation"
 
 interface BoxListProps {
   backHref: string
