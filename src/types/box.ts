@@ -1,6 +1,8 @@
-import { Box, Entity, Sector } from "@prisma/client"
+import { Prisma } from "@prisma/client"
 
-export interface BoxWithEntityAndSector extends Box {
-  entity: Entity
-  sector: Sector
-}
+export type BoxWithEntityAndSector = Prisma.BoxGetPayload<{
+  include: {
+    entity: true
+    sector: true
+  }
+}>
