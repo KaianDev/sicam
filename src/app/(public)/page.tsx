@@ -3,6 +3,7 @@ import { Suspense } from "react"
 // Components
 import { BoxList } from "@/components/box-list"
 import { BoxesListSkeleton } from "@/components/skeletons"
+import { Container } from "./_components/container"
 
 interface HomePageProps {
   searchParams: {
@@ -14,11 +15,11 @@ interface HomePageProps {
 const HomePage = ({ searchParams }: HomePageProps) => {
   return (
     <div className="mx-4">
-      <main className="container mx-auto my-10 overflow-y-auto rounded-md bg-white p-4 shadow-md">
+      <Container className="p-4 flex flex-col">
         <Suspense fallback={<BoxesListSkeleton />}>
           <BoxList searchParams={searchParams} backHref="/" />
         </Suspense>
-      </main>
+      </Container>
     </div>
   )
 }
