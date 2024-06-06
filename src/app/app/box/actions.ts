@@ -90,7 +90,29 @@ export const updateBox = async (id: string, data: CreateOrUpdateBoxData) => {
 
     if (box.ownerId !== ownerId) return { message: "Acesso negado" }
 
-    await updateBoxService(box.id, data)
+    if (box.entityId === data.entityId) {
+      await updateBoxService(box.id, data)
+    } else {
+      const user = await getUserById(ownerId)
+
+      const entity = await getEntityWithBox(data.entityId)
+      const sector = await prisma.sector.findFirst({
+        where: { id: user?.sectorId },
+        include: {
+          boxes: {
+            where: {
+              entityId: entity?.id,
+            },
+          },
+        },
+      })
+
+      if (!sector) return { message: "Erro ao buscar o setor" }
+
+      const numBox = sector.boxes.length + 1
+      console.log("Alterando entidade", numBox)
+      await updateBoxService(id, { ...data, numBox })
+    }
   } catch (error) {
     return { message: "Erro de BD: Falha ao editar caixa" }
   }

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useSession } from "next-auth/react"
 
 import type { Entity } from "@prisma/client"
 import type { CreateOrUpdateBoxData } from "../types"
@@ -31,7 +32,6 @@ import { CustomSubmitButton } from "@/components/custom-submit-button"
 import { buttonVariants } from "@/components/ui/button"
 import { createOrUpdateBoxSchema } from "../schemas"
 import { cn } from "@/lib/utils"
-import { useSession } from "next-auth/react"
 
 interface BoxFormProps {
   type: "create" | "update"
@@ -64,7 +64,7 @@ export const BoxForm = ({
     })
   })
 
-  const disabledSelect = isPending || session?.user.role !== "ADMIN"
+  const disabledSelect = isPending || session?.user.role === "USER"
 
   return (
     <div className="pb-6">
