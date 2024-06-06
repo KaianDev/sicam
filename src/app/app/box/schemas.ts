@@ -5,7 +5,10 @@ export const BoxSchema = z.object({
   entityId: z.string({ required_error: "Campo obrigatório" }),
   ownerId: z.string(),
   sectorId: z.string(),
-  content: z.string({ required_error: "Campo obrigatório" }),
+  content: z
+    .string({ required_error: "Campo obrigatório" })
+    .trim()
+    .min(1, "Campo obrigatório"),
   observation: z.string().optional(),
   numBox: z.number(),
   createdAt: z.date(),
