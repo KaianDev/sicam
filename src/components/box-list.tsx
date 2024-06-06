@@ -1,15 +1,15 @@
 import Link from "next/link"
-import { ArrowLeft, Eraser } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 
 // Components
 import { BoxItem } from "@/components/box-item"
 import { Subtitle } from "@/components/subtitle"
-import { BackLink } from "@/components/back-link"
 import { buttonVariants } from "@/components/ui/button"
 import { Pagination } from "@/components/pagination"
 
 // Utilities
 import { fetchBoxes } from "@/data/box"
+import { ClearSearchButton } from "./clear-search-button"
 
 interface BoxListProps {
   backHref: string
@@ -28,7 +28,7 @@ export const BoxList = async ({ backHref, searchParams }: BoxListProps) => {
   const { boxCount, boxes, first, last, next, page, pageCount, prev } = results
 
   return (
-    <div className="flex flex-1 flex-col gap-6 justify-between h-full">
+    <div className="flex h-full flex-1 flex-col justify-between gap-6">
       {searchParams.search && (
         <div>
           <div className="mb-2 border-b pb-2">
@@ -49,12 +49,7 @@ export const BoxList = async ({ backHref, searchParams }: BoxListProps) => {
                 </p>
               )}
             </div>
-            {boxCount > 0 && (
-              <BackLink className={buttonVariants({ variant: "outline" })}>
-                <Eraser className="mr-2" />
-                Limpar Pesquisa
-              </BackLink>
-            )}
+            {boxCount > 0 && <ClearSearchButton />}
           </div>
         </div>
       )}

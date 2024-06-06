@@ -1,8 +1,6 @@
 "use client"
 
 import {
-  ArrowLeft,
-  ArrowRight,
   ChevronFirst,
   ChevronLast,
   ChevronLeft,
