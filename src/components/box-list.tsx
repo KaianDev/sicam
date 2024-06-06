@@ -28,7 +28,7 @@ export const BoxList = async ({ backHref, searchParams }: BoxListProps) => {
   const { boxCount, boxes, first, last, next, page, pageCount, prev } = results
 
   return (
-    <div className="flex h-full flex-1 flex-col justify-between gap-6">
+    <div className="flex h-full flex-1 flex-col gap-6">
       {searchParams.search && (
         <div>
           <div className="mb-2 border-b pb-2">
