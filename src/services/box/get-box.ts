@@ -1,6 +1,6 @@
 import prisma from "@/lib/db"
 
-export const getBox = async (id: string) => {
+export const getBoxWithEntityAndSectorAndUser = async (id: string) => {
   return await prisma.box.findFirst({
     where: { id },
     include: {
@@ -13,4 +13,8 @@ export const getBox = async (id: string) => {
       },
     },
   })
+}
+
+export const getBox = async (id: string) => {
+  return await prisma.box.findFirst({ where: { id } })
 }

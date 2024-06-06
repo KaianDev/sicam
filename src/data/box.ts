@@ -1,4 +1,18 @@
-import { getBox, getBoxes, getBoxesCount } from "@/services/box"
+import {
+  getBoxWithEntityAndSectorAndUser,
+  getBoxes,
+  getBoxesCount,
+  getBox,
+} from "@/services/box"
+
+export const fetchBoxWithEntityAndSectorAndUser = async (id: string) => {
+  try {
+    const box = await getBoxWithEntityAndSectorAndUser(id)
+    return box
+  } catch (error) {
+    return null
+  }
+}
 
 export const fetchBox = async (id: string) => {
   try {
