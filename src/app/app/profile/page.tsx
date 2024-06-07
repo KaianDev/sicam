@@ -8,6 +8,7 @@ import { ProfileData } from "./_components/profile-data"
 import { fetchUserById } from "@/data/users"
 import { getCurrentUser } from "@/helpers/get-current-user"
 import { Title } from "@/components/title"
+import { ProfilePageSkeleton } from "@/components/skeletons"
 
 const ProfilePage = async () => {
   const sessionUser = await getCurrentUser()
@@ -28,6 +29,7 @@ const ProfilePage = async () => {
           <ProfileData user={user} />
         </div>
       </div>
+      {/* <ProfilePageSkeleton /> */}
     </Container>
   )
 }

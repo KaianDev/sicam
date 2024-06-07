@@ -43,7 +43,7 @@ export const EntityTableSkeleton = () => {
 
 export const BoxDetailsSkeleton = () => {
   return (
-    <div className="container space-y-4 p-4 px-4 sm:px-8">
+    <div className="container space-y-4 px-4 py-2 sm:px-8">
       <div className="flex justify-between">
         <Skeleton className="h-6 w-24" />
         <Skeleton className="h-6 w-16 rounded-full" />
@@ -85,7 +85,7 @@ export const BoxDetailsSkeleton = () => {
 
 export const EntityBoxListSkeleton = () => {
   return (
-    <div className="py-8">
+    <div className="">
       <div className="mb-4 flex justify-between">
         <Skeleton className="h-6 w-24" />
         {/* TODO: Filter Button */}
@@ -97,6 +97,14 @@ export const EntityBoxListSkeleton = () => {
       </div>
 
       <BoxesListSkeleton />
+    </div>
+  )
+}
+
+export const ProfilePageSkeleton = () => {
+  return (
+    <div className="container space-y-4 px-0 py-2">
+      <Skeleton className="h-14 w-[300px]" />
     </div>
   )
 }
