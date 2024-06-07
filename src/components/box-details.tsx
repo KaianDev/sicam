@@ -20,7 +20,7 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
   const box = await fetchBoxWithEntityAndSectorAndUser(boxId)
   if (!box) return notFound()
 
-  const canEdit = user?.id === box.ownerId
+  const canEdit = user?.id === box.ownerId && origin !== "/"
 
   return (
     <div className="container space-y-4 px-4 sm:px-8">
@@ -72,7 +72,7 @@ export const BoxDetails = async ({ origin, boxId }: BoxDetailsProps) => {
           </p>
         </div>
         <div className="flex justify-end gap-4">
-          {origin !== "/" && canEdit && (
+          {canEdit && (
             <Link
               href={`/app/box/update/${box.id}`}
               className="flex gap-2 rounded-md bg-green-700 p-2 text-white"

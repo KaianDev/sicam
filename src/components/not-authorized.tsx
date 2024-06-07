@@ -1,8 +1,12 @@
 import Link from "next/link"
+import { ArrowLeft, ShieldX } from "lucide-react"
+
+// Components
 import { Container } from "./container"
+
+// Utilities
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "./ui/button"
-import { ArrowLeft, ShieldX } from "lucide-react"
 
 export const NotAuthorized = () => {
   return (
