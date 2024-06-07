@@ -1,5 +1,6 @@
 // Components
 import { Container } from "@/components/container"
+import { Title } from "@/components/title"
 import { Subtitle } from "@/components/subtitle"
 import { ProfileAvatar } from "./_components/profile-avatar"
 import { ProfileData } from "./_components/profile-data"
@@ -7,12 +8,11 @@ import { ProfileData } from "./_components/profile-data"
 // Utilities
 import { fetchUserById } from "@/data/users"
 import { getCurrentUser } from "@/helpers/get-current-user"
-import { Title } from "@/components/title"
-import { ProfilePageSkeleton } from "@/components/skeletons"
+import { redirect } from "next/navigation"
 
 const ProfilePage = async () => {
   const sessionUser = await getCurrentUser()
-  if (!sessionUser) return
+  if (!sessionUser) return redirect("/app")
   const user = await fetchUserById(sessionUser.id)
 
   return (
@@ -29,7 +29,6 @@ const ProfilePage = async () => {
           <ProfileData user={user} />
         </div>
       </div>
-      {/* <ProfilePageSkeleton /> */}
     </Container>
   )
 }
