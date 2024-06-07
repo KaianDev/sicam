@@ -151,10 +151,68 @@ export const CreateBoxPageSkeleton = () => {
   return (
     <div className="container space-y-4 px-0 py-2">
       <div className="animate-pulse border-b border-zinc-300 pb-4">
-        {/* TITLE */}
         <Skeleton className="h-14 w-[300px]" />
       </div>
-      <div className="flex flex-col gap-4 sm:flex-row">
+
+      <div className="space-y-8">
+        <div className="space-y-3">
+          <Skeleton className="h-5 w-28" />
+          <Skeleton className="h-10 w-full" />
+        </div>
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="space-y-3">
+            <Skeleton className="h-5 w-28" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+          <div className="space-y-3">
+            <Skeleton className="h-5 w-28" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+        </div>
+
+        <div className="flex gap-3">
+          <Skeleton className="h-10 sm:w-28" />
+          <Skeleton className="h-10 sm:w-28" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const UpdateBoxPageSkeleton = () => {
+  return (
+    <div className="container space-y-4 px-0 py-2">
+      <div className="animate-pulse border-b border-zinc-300 pb-4">
+        <Skeleton className="h-14 w-[300px]" />
+      </div>
+
+      <div className="space-y-8">
+        <div className="space-y-3">
+          <Skeleton className="h-5 w-28" />
+          <Skeleton className="h-10 w-full" />
+        </div>
+        <div className="grid gap-8 lg:grid-cols-2">
+          <div className="space-y-3">
+            <Skeleton className="h-5 w-28" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+          <div className="space-y-3">
+            <Skeleton className="h-5 w-28" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+        </div>
+
+        <div className="flex gap-3">
+          <Skeleton className="h-10 sm:w-28" />
+          <Skeleton className="h-10 sm:w-28" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+{
+  /* <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex items-center justify-center">
           <Skeleton className="size-36 sm:size-48" />
         </div>
@@ -162,34 +220,32 @@ export const CreateBoxPageSkeleton = () => {
           <Skeleton className="h-10 w-full sm:max-w-[160px]" />
           <Skeleton className="h-10 w-full sm:max-w-[160px]" />
         </div>
-      </div>
-      <div>
-        <div className="mb-2 animate-pulse border-b border-zinc-300 pb-2">
-          {/* SUBTITLE */}
-          <Skeleton className="h-7 w-52" />
-        </div>
-
-        <div className="space-y-4">
-          <div className="space-y-1">
-            <Skeleton className="h-[24px] w-28" />
-            <Skeleton className="h-[24px] w-full" />
-          </div>
-          <div className="space-y-1">
-            <Skeleton className="h-[24px] w-28" />
-            <Skeleton className="h-[24px] w-full" />
-          </div>
-          <div className="space-y-1">
-            <Skeleton className="h-[24px] w-28" />
-            <Skeleton className="h-[24px] w-full" />
-          </div>
-          <div className="flex flex-col gap-4 sm:flex-row">
-            {/* BUTTONS */}
-            <Skeleton className="h-10 sm:w-28" />
-            <Skeleton className="h-10 sm:w-28" />
-            <Skeleton className="h-10 sm:w-28" />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+  </div> */
 }
+// <div>
+//   <div className="mb-2 animate-pulse border-b border-zinc-300 pb-2">
+//     {/* SUBTITLE */}
+//     <Skeleton className="h-7 w-52" />
+//   </div>
+// </div>
+
+// <div className="space-y-4">
+//   <div className="space-y-1">
+//     <Skeleton className="h-[24px] w-28" />
+//     <Skeleton className="h-[24px] w-full" />
+//   </div>
+//   <div className="space-y-1">
+//     <Skeleton className="h-[24px] w-28" />
+//     <Skeleton className="h-[24px] w-full" />
+//   </div>
+//   <div className="space-y-1">
+//     <Skeleton className="h-[24px] w-28" />
+//     <Skeleton className="h-[24px] w-full" />
+//   </div>
+//   <div className="flex flex-col gap-4 sm:flex-row">
+//     {/* BUTTONS */}
+//     <Skeleton className="h-10 sm:w-28" />
+//     <Skeleton className="h-10 sm:w-28" />
+//     <Skeleton className="h-10 sm:w-28" />
+//   </div>
+// </div>
