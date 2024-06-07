@@ -5,8 +5,11 @@ import { notFound } from "next/navigation"
 import { Container } from "@/components/container"
 import { Title } from "@/components/title"
 import { UpdateBoxForm } from "../../_components/update-box-form"
+
+// Utilities
 import { getCurrentUser } from "@/helpers/get-current-user"
 import { fetchEntities } from "@/data/entity"
+import { NotAuthorized } from "@/components/not-authorized"
 
 interface UpdateBoxPageProps {
   params: { id: string }
@@ -17,7 +20,7 @@ const UpdateBoxPage = async ({ params }: UpdateBoxPageProps) => {
 
   if (!box) return notFound()
   // TODO: Fazer página de acesso negado
-  if (user?.id !== box.ownerId) return <div>Acesso não permitido</div>
+  if (user?.id !== box.ownerId) return <NotAuthorized />
 
   const entities = await fetchEntities()
 
