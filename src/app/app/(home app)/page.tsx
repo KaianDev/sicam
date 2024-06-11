@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 
 // Components
-import { BoxList } from "@/components/box-list"
+import { BoxContainer } from "@/components/box-container"
 import { BoxesListSkeleton } from "@/components/skeletons"
 import { Container } from "@/components/container"
 
@@ -16,7 +16,7 @@ const AppPage = async ({ searchParams }: AppPageProps) => {
   return (
     <Container>
       <Suspense fallback={<BoxesListSkeleton />}>
-        <BoxList searchParams={searchParams} backHref="/app" />
+        <BoxContainer searchParams={searchParams} backHref="/app" />
       </Suspense>
     </Container>
   )
