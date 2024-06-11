@@ -2,9 +2,9 @@ import { ArrowLeft } from "lucide-react"
 import { notFound } from "next/navigation"
 
 // Components
-import { Subtitle } from "./subtitle"
-import { BoxItem } from "./box-item"
-import { BackLink } from "./back-link"
+import { Subtitle } from "@/components/subtitle"
+import { BackLink } from "@/components/back-link"
+import { BoxList } from "@/components/box-list"
 
 // Utilities
 import { fetchEntityWithBoxes } from "@/data/entity"
@@ -19,7 +19,7 @@ export const EntityBoxList = async ({ entityId }: EntityBoxListProps) => {
   if (!entity) return notFound()
 
   return (
-    <div className="space-y-10 pt-2 pb-8">
+    <div className="space-y-10 pb-8 pt-2">
       <div className="space-y-4">
         <div className="flex justify-between">
           <BackLink className="flex w-max items-center gap-1 hover:text-primary">
@@ -34,11 +34,7 @@ export const EntityBoxList = async ({ entityId }: EntityBoxListProps) => {
           <strong>{entity?.name}</strong>
         </div>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {entity?.boxes.map((box) => (
-          <BoxItem box={box} key={box.id} showEntity={false} />
-        ))}
-      </div>
+      <BoxList boxes={entity.boxes} />
     </div>
   )
 }
