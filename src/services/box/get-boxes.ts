@@ -1,23 +1,38 @@
 import prisma from "@/lib/db"
+import { SearchParams } from "@/types/search-params"
 
 interface GetBoxesData {
   take: number
   skip: number
-  search?: string
+  searchParams: SearchParams
 }
 
-export const getBoxes = async ({ take, skip, search }: GetBoxesData) => {
+export const getBoxes = async ({
+  take,
+  skip,
+  searchParams: { search, entity, sector },
+}: GetBoxesData) => {
   const boxes = await prisma.box.findMany({
     take,
     skip,
-    where: search
-      ? {
-          content: {
-            contains: search.toLocaleLowerCase(),
-            mode: "insensitive",
-          },
-        }
-      : undefined,
+    where: {
+      content: {
+        contains: search?.toLocaleLowerCase(),
+        mode: "insensitive",
+      },
+      entity: {
+        name: {
+          equals: entity?.toLocaleLowerCase(),
+          mode: "insensitive",
+        },
+      },
+      sector: {
+        name: {
+          mode: "insensitive",
+          equals: sector?.toLocaleLowerCase(),
+        },
+      },
+    },
     include: { entity: true, sector: true },
     orderBy: {
       createdAt: "desc",

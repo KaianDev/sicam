@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
+import type { SearchParams } from "@/types/search-params"
+
 // Components
 import { Pagination } from "@/components/pagination"
 import { SearchResultInfo } from "@/components/search-result-info"
@@ -12,10 +14,7 @@ import { BoxList } from "@/components/box-list"
 
 interface BoxContainerProps {
   backHref: string
-  searchParams: {
-    page?: string
-    search?: string
-  }
+  searchParams: SearchParams
 }
 
 export const BoxContainer = async ({
@@ -29,17 +28,19 @@ export const BoxContainer = async ({
 
   const { boxCount, boxes, first, last, next, page, pageCount, prev } = results
 
+  const { entity, search, sector, page: pageSearch } = searchParams
+  const hasParams = search || entity || sector || pageSearch
+
   return (
     <div className="flex h-full flex-1 flex-col gap-6">
-      {searchParams.search && (
+      {hasParams && (
         <SearchResultInfo
-          search={searchParams.search}
-          boxCount={boxCount}
+          searchParams={searchParams}
           page={page}
+          boxCount={boxCount}
           pageCount={pageCount}
         />
       )}
-
       {boxes.length > 0 && (
         <>
           <BoxList boxes={boxes} />
@@ -56,11 +57,11 @@ export const BoxContainer = async ({
       {boxes.length === 0 && (
         <div className="flex flex-1 flex-col items-center justify-center gap-8">
           <div className="text-center text-2xl">
-            {searchParams.search
+            {hasParams
               ? "Nenhum resultado encontrado para essa consulta"
               : "Não há caixas cadastradas"}
           </div>
-          {(searchParams.search || searchParams.page) && (
+          {hasParams && (
             <div className="text-center">
               <Link href={backHref} className={buttonVariants()}>
                 <ArrowLeft />

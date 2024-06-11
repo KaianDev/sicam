@@ -1,3 +1,5 @@
+import type { SearchParams } from "@/types/search-params"
+
 import {
   getBoxWithEntityAndSectorAndUser,
   getBoxes,
@@ -23,19 +25,23 @@ export const fetchBox = async (id: string) => {
   }
 }
 
-interface SearchParams {
-  page?: string
-  search?: string
-}
-
-export const fetchBoxes = async ({ page, search }: SearchParams) => {
+export const fetchBoxes = async ({
+  page,
+  search,
+  entity,
+  sector,
+}: SearchParams) => {
   const take = 12
   const skip =
     page && !isNaN(parseInt(page)) ? (parseInt(page) - 1) * take : 0 * take
 
   try {
-    const boxes = await getBoxes({ take, skip, search })
-    const boxCount = await getBoxesCount({ search })
+    const boxes = await getBoxes({
+      take,
+      skip,
+      searchParams: { search, entity, sector },
+    })
+    const boxCount = await getBoxesCount({ search, entity, sector })
 
     const pageNum = page && !isNaN(parseInt(page)) ? parseInt(page) : 1
     const pageCount = Math.ceil(boxCount / take)

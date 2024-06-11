@@ -1,18 +1,19 @@
+import type { SearchParams } from "@/types/search-params"
 import { ClearSearchButton } from "./clear-search-button"
 import { Subtitle } from "./subtitle"
 
 interface SearchResultInfoProps {
-  search?: string
   boxCount: number
-  page: number
   pageCount: number
+  page: number
+  searchParams: SearchParams
 }
 
 export const SearchResultInfo = ({
   boxCount,
-  page,
   pageCount,
-  search,
+  page,
+  searchParams: { entity, search, sector },
 }: SearchResultInfoProps) => {
   return (
     <div>
@@ -21,9 +22,22 @@ export const SearchResultInfo = ({
       </div>
       <div className="flex flex-col items-start gap-2 sm:flex-row sm:justify-between ">
         <div>
-          <p>
-            Pesquisando por: <strong>{search}</strong>
-          </p>
+          {search && (
+            <p>
+              Pesquisando por: <strong>{search}</strong>
+            </p>
+          )}
+          {sector && (
+            <p>
+              Filtrado por: <strong>{sector}</strong>
+            </p>
+          )}
+          {entity && (
+            <p>
+              Filtrado por: <strong>{entity}</strong>
+            </p>
+          )}
+
           <p>
             Quantidade de resultados: <strong>{boxCount}</strong>
           </p>
