@@ -34,7 +34,7 @@ export const EntityBoxList = async ({ entityId }: EntityBoxListProps) => {
           <strong>{entity?.name}</strong>
         </div>
       </div>
-      <BoxList boxes={entity.boxes} />
+      <BoxList boxes={entity.boxes} showEntity={false} />
     </div>
   )
 }

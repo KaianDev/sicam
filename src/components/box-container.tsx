@@ -29,7 +29,7 @@ export const BoxContainer = async ({
   const { boxCount, boxes, first, last, next, page, pageCount, prev } = results
 
   const { entity, search, sector, page: pageSearch } = searchParams
-  const hasParams = search || entity || sector || pageSearch
+  const hasParams = search || entity || sector
 
   return (
     <div className="flex h-full flex-1 flex-col gap-6">
@@ -61,7 +61,7 @@ export const BoxContainer = async ({
               ? "Nenhum resultado encontrado para essa consulta"
               : "Não há caixas cadastradas"}
           </div>
-          {hasParams && (
+          {(hasParams || pageSearch) && (
             <div className="text-center">
               <Link href={backHref} className={buttonVariants()}>
                 <ArrowLeft />
