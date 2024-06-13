@@ -1,4 +1,4 @@
-import { ArrowLeft, FilterX } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
@@ -46,7 +46,7 @@ export const EntityBoxList = async ({
       <BoxList boxes={entity.boxes} showEntity={false} />
       {entity.boxes.length === 0 && (
         <div className="flex flex-col items-center justify-center text-center text-2xl">
-          Não há resultados <br /> para esse filtro
+          Não há resultados <br /> para o filtro
         </div>
       )}
     </div>

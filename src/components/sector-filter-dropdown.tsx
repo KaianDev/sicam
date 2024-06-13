@@ -1,6 +1,9 @@
 "use client"
 import { Filter } from "lucide-react"
 import { useState } from "react"
+import { useRouter, useSearchParams, usePathname } from "next/navigation"
+
+import type { Sector } from "@prisma/client"
 
 // Components
 import {
@@ -12,9 +15,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuRadioGroup,
 } from "@/components/ui/dropdown-menu"
-import { Sector } from "@prisma/client"
-import { Button } from "./ui/button"
-import { useRouter, useSearchParams, usePathname } from "next/navigation"
+import { Button } from "@/components/ui/button"
 
 interface SectorFilterDropdownProps {
   sectors: Sector[]
@@ -23,10 +24,18 @@ interface SectorFilterDropdownProps {
 export const SectorFilterDropdown = ({
   sectors,
 }: SectorFilterDropdownProps) => {
-  const [value, setValue] = useState("ALL")
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
+  const searchValue = searchParams.get("sector")
+
+  const sectorSearchValue = searchValue
+    ? searchValue !== "ALL"
+      ? searchValue
+      : ""
+    : "ALL"
+
+  const [value, setValue] = useState(sectorSearchValue)
 
   const handleChangeValue = (value: string) => {
     setValue(value)
