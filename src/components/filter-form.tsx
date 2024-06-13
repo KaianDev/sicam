@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,8 +16,10 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "./ui/button"
-import { usePathname, useSearchParams, useRouter } from "next/navigation"
-import { PathParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime"
+import { useSearchParams, useRouter } from "next/navigation"
+
+// Utilities
+import { useCurrentPath } from "@/hooks"
 
 interface FilterFormProps {
   entities: Entity[]
@@ -32,9 +33,8 @@ const formFilterSchema = z.object({
 })
 
 export const FilterForm = ({ entities, sectors }: FilterFormProps) => {
-  const pathname = usePathname()
   const router = useRouter()
-  const path = pathname.includes("/app") ? "/app" : pathname
+  const path = useCurrentPath()
   const searchParams = useSearchParams()
   const form = useForm<z.infer<typeof formFilterSchema>>({
     resolver: zodResolver(formFilterSchema),

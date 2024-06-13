@@ -1,6 +1,7 @@
 "use client"
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useCurrentPath } from "@/hooks"
+import { useRouter, useSearchParams } from "next/navigation"
 import { PropsWithChildren, createContext, useContext, useState } from "react"
 
 interface SearchContextData {
@@ -14,8 +15,7 @@ const SearchContext = createContext({} as SearchContextData)
 
 export const SearchContextProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter()
-  const pathname = usePathname()
-  const path = pathname.includes("/app") ? "/app" : pathname
+  const path = useCurrentPath()
   const searchParams = useSearchParams()
 
   const [searchValue, setSearchValue] = useState(
