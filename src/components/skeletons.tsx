@@ -87,9 +87,8 @@ export const EntityBoxListSkeleton = () => {
   return (
     <div className="">
       <div className="mb-4 flex justify-between">
-        <Skeleton className="h-6 w-24" />
-        {/* TODO: Filter Button */}
-        {/* <Skeleton className="h-6 w-24" /> */}
+        <Skeleton className="h-10 w-24" />
+        <Skeleton className="h-10 w-24" />
       </div>
       <div className="mb-10 space-y-2 border-b pb-4">
         <Skeleton className="h-7 w-28" />

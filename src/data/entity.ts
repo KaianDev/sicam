@@ -19,9 +19,9 @@ export const fetchEntity = async (id: string) => {
   }
 }
 
-export const fetchEntityWithBoxes = async (id: string) => {
+export const fetchEntityWithBoxes = async (id: string, sector?: string) => {
   try {
-    const entity = await getEntityWithBox(id)
+    const entity = await getEntityWithBox(id, sector)
     return entity
   } catch (error) {
     return null

@@ -1,6 +1,6 @@
 import prisma from "@/lib/db"
 
-export const getEntityWithBox = async (entityId: string) => {
+export const getEntityWithBox = async (entityId: string, sector?: string) => {
   return await prisma.entity.findFirst({
     where: { id: entityId },
     include: {
@@ -9,6 +9,14 @@ export const getEntityWithBox = async (entityId: string) => {
           sector: true,
           user: { select: { id: true } },
           entity: true,
+        },
+        where: {
+          sector: {
+            name: {
+              equals: sector?.toLocaleLowerCase(),
+              mode: "insensitive",
+            },
+          },
         },
       },
     },
