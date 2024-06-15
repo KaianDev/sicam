@@ -9,6 +9,6 @@ export const fetchUserById = async (id: string) => {
   try {
     return await getUserById(id)
   } catch (error) {
-    return null
+    throw new Error("Erro no carregamento dos dados")
   }
 }

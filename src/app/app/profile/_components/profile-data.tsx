@@ -44,7 +44,6 @@ export const ProfileData = ({ user }: ProfileDataProps) => {
           </div>
           <div>
             <p className="font-semibold">Setor</p>
-            {/* TODO: Mock, alterar */}
             <p>{user?.sector.name}</p>
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">

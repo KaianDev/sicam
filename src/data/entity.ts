@@ -15,7 +15,7 @@ export const fetchEntity = async (id: string) => {
     const entity = await getEntityById(id)
     return entity
   } catch (error) {
-    return null
+    throw new Error("Erro no carregamento dos dados")
   }
 }
 
@@ -24,6 +24,6 @@ export const fetchEntityWithBoxes = async (id: string, sector?: string) => {
     const entity = await getEntityWithBox(id, sector)
     return entity
   } catch (error) {
-    return null
+    throw new Error("Erro no carregamento dos dados")
   }
 }

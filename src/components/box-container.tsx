@@ -6,11 +6,11 @@ import type { SearchParams } from "@/types/search-params"
 // Components
 import { Pagination } from "@/components/pagination"
 import { SearchResultInfo } from "@/components/search-result-info"
+import { buttonVariants } from "@/components/ui/button"
+import { BoxList } from "@/components/box-list"
 
 // Utilities
 import { fetchBoxes } from "@/data/box"
-import { buttonVariants } from "@/components/ui/button"
-import { BoxList } from "@/components/box-list"
 
 interface BoxContainerProps {
   backHref: string
@@ -22,9 +22,6 @@ export const BoxContainer = async ({
   searchParams,
 }: BoxContainerProps) => {
   const results = await fetchBoxes(searchParams)
-
-  // TODO: Fazer uma página de ocorreu um erro
-  if (!results) return <div>Ocorreu um erro no carregamento dos dados</div>
 
   const { boxCount, boxes, first, last, next, page, pageCount, prev } = results
 

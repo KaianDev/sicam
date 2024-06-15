@@ -36,12 +36,14 @@ export const fetchBoxes = async ({
     page && !isNaN(parseInt(page)) ? (parseInt(page) - 1) * take : 0 * take
 
   try {
-    const boxes = await getBoxes({
-      take,
-      skip,
-      searchParams: { search, entity, sector },
-    })
-    const boxCount = await getBoxesCount({ search, entity, sector })
+    const [boxes, boxCount] = await Promise.all([
+      getBoxes({
+        take,
+        skip,
+        searchParams: { search, entity, sector },
+      }),
+      getBoxesCount({ search, entity, sector }),
+    ])
 
     const pageNum = page && !isNaN(parseInt(page)) ? parseInt(page) : 1
     const pageCount = Math.ceil(boxCount / take)
@@ -49,7 +51,6 @@ export const fetchBoxes = async ({
     const last = Math.ceil(boxCount / take)
     const next = pageNum + 1 <= last ? pageNum + 1 : null
     const prev = pageNum <= first ? null : pageNum - 1
-
     return {
       first,
       next,
@@ -60,7 +61,7 @@ export const fetchBoxes = async ({
       boxCount,
       pageCount,
     }
-  } catch (error) {
-    return null
+  } catch {
+    throw new Error("Erro no carregamento dos dados")
   }
 }

@@ -38,6 +38,5 @@ export const getBoxes = async ({
       createdAt: "desc",
     },
   })
-
   return boxes
 }
