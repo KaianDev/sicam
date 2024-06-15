@@ -1,17 +1,19 @@
 "use client"
 
-import { CreateOrUpdateEntityType } from "@/types/zod"
+import type { CreateOrUpdateEntityData } from "../types"
 
 // Components
 import { EntityForm } from "@/app/app/admin/entity/_components/entity-form"
-import { createEntity } from "@/actions/entity"
+
+// Utilities
 import { useToast } from "@/components/ui/use-toast"
+import { createEntity } from "../actions"
 
 export const CreateEntityForm = () => {
   const { toast } = useToast()
 
   const handleCreateNewEntitySubmit = async (
-    data: CreateOrUpdateEntityType,
+    data: CreateOrUpdateEntityData,
   ) => {
     const res = await createEntity(data)
 

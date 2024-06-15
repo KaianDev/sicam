@@ -2,10 +2,10 @@
 
 import Link from "next/link"
 import { useTransition } from "react"
-import { Loader } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
-import type { CreateOrUpdateEntityType } from "@/types/zod"
+import type { CreateOrUpdateEntityData } from "../types"
 
 // Components
 import { buttonVariants } from "@/components/ui/button"
@@ -21,9 +21,8 @@ import { Input } from "@/components/ui/input"
 import { CustomSubmitButton } from "@/components/custom-submit-button"
 
 // Utilities
-import { zodResolver } from "@hookform/resolvers/zod"
-import { CreateOrUpdateEntitySchema } from "@/lib/zod"
 import { cn } from "@/lib/utils"
+import { createOrUpdateEntitySchema } from "../schemas"
 
 interface EntityFormProps {
   type: "update" | "create"
@@ -31,7 +30,7 @@ interface EntityFormProps {
     name?: string
     uex?: string
   }
-  onSubmit: (data: CreateOrUpdateEntityType) => Promise<void>
+  onSubmit: (data: CreateOrUpdateEntityData) => Promise<void>
 }
 
 export const EntityForm = ({
@@ -39,9 +38,9 @@ export const EntityForm = ({
   defaultValues,
   onSubmit,
 }: EntityFormProps) => {
-  const form = useForm<CreateOrUpdateEntityType>({
+  const form = useForm<CreateOrUpdateEntityData>({
     defaultValues,
-    resolver: zodResolver(CreateOrUpdateEntitySchema),
+    resolver: zodResolver(createOrUpdateEntitySchema),
   })
 
   const [isPending, startTransition] = useTransition()

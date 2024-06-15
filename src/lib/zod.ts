@@ -1,14 +1,6 @@
 import { Role } from "@prisma/client"
 import { z } from "zod"
 
-export const entitySchema = z.object({
-  id: z.string(),
-  name: z.string({ required_error: "Campo Obrigatório" }),
-  uex: z.string().optional(),
-})
-
-export const CreateOrUpdateEntitySchema = entitySchema.omit({ id: true })
-
 export const SectorSchema = z.object({
   id: z.string(),
   name: z.string({ required_error: "Campo obrigatório" }),
