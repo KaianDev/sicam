@@ -1,19 +1,18 @@
-import prisma from "@/lib/db"
+import { getSectorById, getSectors } from "@/services/sector"
 
 export const fetchSectors = async () => {
-  const sectors = await prisma.sector.findMany({
-    orderBy: {
-      name: "asc",
-    },
-  })
-  return sectors
+  try {
+    return await getSectors()
+  } catch (error) {
+    throw new Error("Erro no carregamento dos dados")
+  }
 }
 
 export const fetchSector = async (id: string) => {
-  const sector = await prisma.sector.findUnique({
-    where: {
-      id,
-    },
-  })
-  return sector
+  try {
+    const sector = await getSectorById(id)
+    return sector
+  } catch (error) {
+    throw new Error("Erro no carregamento dos dados")
+  }
 }
