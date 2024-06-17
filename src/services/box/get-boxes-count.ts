@@ -29,3 +29,7 @@ export const getBoxesCount = async ({
   })
   return boxCount
 }
+
+export const getTotalBoxCount = async () => {
+  return await prisma.box.count()
+}

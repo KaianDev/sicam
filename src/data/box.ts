@@ -5,6 +5,7 @@ import {
   getBoxes,
   getBoxesCount,
   getBox,
+  getTotalBoxCount,
 } from "@/services/box"
 
 export const fetchBoxWithEntityAndSectorAndUser = async (id: string) => {
@@ -62,6 +63,14 @@ export const fetchBoxes = async ({
       pageCount,
     }
   } catch {
+    throw new Error("Erro no carregamento dos dados")
+  }
+}
+
+export const fetchTotalBoxCount = async () => {
+  try {
+    return await getTotalBoxCount()
+  } catch (error) {
     throw new Error("Erro no carregamento dos dados")
   }
 }
