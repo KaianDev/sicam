@@ -60,14 +60,21 @@ O Sistema de Catálogo de Arquivo Morto (SiCAM) é uma solução projetada para 
   pnpm i
 ```
 
-**9. Rode o comando de Seed** <br/>
+**9. Rode o comando prisma db push**
+Esse comando irá criar o banco de dados e as tabelas necessárias para a aplicação funcionar.
+
+```bash
+  npx prisma db push
+```
+
+**10. Rode o comando de Seed** <br/>
 Esse comando irá criar o usuário ADMIN, guarde as credenciais para fazer o login com esse usuário posteriormente.
 
 ```bash
   npx prisma db seed
 ```
 
-**10. Inicie a aplicação em ambiente de DEV**
+**11. Inicie a aplicação em ambiente de DEV**
 
 ```bash
   pnpm dev
@@ -96,14 +103,6 @@ Para fazer o deploy desse projeto rode
         <img src="https://avatars.githubusercontent.com/u/123319433?v=4" width="100px;" alt="Kaian Vasconcelos"/><br>
         <sub>
           <b>Kaian Vasconcelos</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/vitorAlves0">
-        <img src="https://avatars.githubusercontent.com/u/110987582?v=4" width="100px;" alt="Vitor Alves"/><br>
-        <sub>
-          <b>Vitor Alves</b>
         </sub>
       </a>
     </td>
