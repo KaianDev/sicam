@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { FileEdit } from "lucide-react"
+import { CheckCircle, FileEdit, XCircle } from "lucide-react"
 
 // Components
 import {
@@ -25,6 +25,9 @@ export const UserTable = async () => {
         <TableCaption>Lista de Usuários</TableCaption>
         <TableHeader className="bg-green-700">
           <TableRow className="hover:bg-green-700">
+            <TableHead className="w-5 text-white lg:w-24">
+              <span className="hidden lg:block">Status</span>
+            </TableHead>
             <TableHead className="text-white">Nome do usuário</TableHead>
             <TableHead className="hidden text-white md:table-cell">
               Setor
@@ -38,6 +41,20 @@ export const UserTable = async () => {
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id}>
+              <TableCell className="w-5 lg:w-24">
+                {user.active ? (
+                  <div className="flex items-center gap-1">
+                    <CheckCircle size={16} className="text-green-500" />
+                    <span className="hidden lg:block">Ativo</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1">
+                    <XCircle size={16} className="text-red-500" />
+                    <span className="hidden lg:block">Inativo</span>
+                  </div>
+                )}
+              </TableCell>
+
               <TableCell className="flex flex-col text-sm lg:text-base">
                 <p className="font-bold md:font-normal">{user.name}</p>
                 <small className="md:hidden">{user.sector.name}</small>

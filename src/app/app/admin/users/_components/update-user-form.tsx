@@ -35,6 +35,7 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { updateUser } from "../actions"
 import { updateUserWithOutPasswordSchema } from "../schemas"
+import { UserStatus } from "@/lib/zod"
 
 interface UpdateUserFormProps {
   user: UserWithOutPassword
@@ -51,6 +52,7 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
       email: user.email,
       role: user.role,
       sectorId: user.sectorId,
+      active: user.active,
     },
     resolver: zodResolver(updateUserWithOutPasswordSchema),
   })
@@ -157,39 +159,72 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
               )}
             />
 
-            {pathname.includes("/admin") && (
-              <FormField
-                name="role"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="after:text-red-500 after:content-['*']">
-                      Perfil
-                    </FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        disabled={isPending}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione um perfil" />
-                        </SelectTrigger>
-                        <FormControl>
-                          <SelectContent>
-                            <SelectItem value={Role.USER}>Usuário</SelectItem>
-                            <SelectItem value={Role.ADMIN}>
-                              Administrador
-                            </SelectItem>
-                          </SelectContent>
-                        </FormControl>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
+            <FormField
+              name="role"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="after:text-red-500 after:content-['*']">
+                    Perfil
+                  </FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={isPending}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione um perfil" />
+                      </SelectTrigger>
+                      <FormControl>
+                        <SelectContent>
+                          <SelectItem value={Role.USER}>Usuário</SelectItem>
+                          <SelectItem value={Role.ADMIN}>
+                            Administrador
+                          </SelectItem>
+                        </SelectContent>
+                      </FormControl>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="active"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="after:text-red-500 after:content-['*']">
+                    Status
+                  </FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={
+                        field.value ? UserStatus.ACTIVE : UserStatus.INACTIVE
+                      }
+                      disabled={isPending}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione um perfil" />
+                      </SelectTrigger>
+                      <FormControl>
+                        <SelectContent>
+                          <SelectItem value={UserStatus.ACTIVE}>
+                            Ativado
+                          </SelectItem>
+                          <SelectItem value={UserStatus.INACTIVE}>
+                            Desativado
+                          </SelectItem>
+                        </SelectContent>
+                      </FormControl>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <div className="space-x-2">
             <CustomSubmitButton

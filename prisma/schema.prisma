@@ -21,6 +21,7 @@ model User {
   avatar   String?
   role     Role    @default(USER)
   sectorId String
+  active   Boolean @default(true)
 
   boxes Box[]
 
@@ -30,8 +31,8 @@ model User {
 }
 
 model Entity {
-  id   String     @id @default(uuid())
-  name String     @unique
+  id   String  @id @default(uuid())
+  name String  @unique
   uex  String?
 
   boxes Box[]

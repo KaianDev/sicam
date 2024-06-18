@@ -7,6 +7,7 @@ export const getAllUsers = async () => {
       name: true,
       email: true,
       role: true,
+      active: true,
       sector: {
         select: {
           name: true,

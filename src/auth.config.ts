@@ -61,6 +61,10 @@ export default {
             throw new Error("Dados inválidos")
           }
 
+          if (!user.active) {
+            throw new Error("Usuário desativado")
+          }
+
           const matchPassword = await checkPassword(password, user.password)
 
           if (!matchPassword) {
