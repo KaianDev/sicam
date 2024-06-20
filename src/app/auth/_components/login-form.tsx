@@ -43,10 +43,12 @@ export const LoginForm = () => {
         toast({
           title: "Opz.. ",
           description: res.message,
+          duration: 1000,
         })
       } else {
         toast({
           title: "Usuário logado com sucesso!",
+          duration: 1000,
         })
         router.replace("/app")
       }

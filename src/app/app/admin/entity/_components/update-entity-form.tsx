@@ -24,10 +24,12 @@ export const UpdateEntityForm = ({ entity }: UpdateEntityFormProps) => {
         title: "Opzz..",
         description: res.message,
         variant: "destructive",
+        duration: 1000,
       })
     } else {
       toast({
         title: "Entidade atualizada com sucesso!",
+        duration: 1000,
       })
     }
   }

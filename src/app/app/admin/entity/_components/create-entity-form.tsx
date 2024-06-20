@@ -22,10 +22,12 @@ export const CreateEntityForm = () => {
         title: "Opzz..",
         description: res.message,
         variant: "destructive",
+        duration: 1000,
       })
     } else {
       toast({
         title: "Entidade criada com sucesso!",
+        duration: 1000,
       })
     }
   }

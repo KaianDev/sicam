@@ -24,11 +24,13 @@ export const UpdateSectorForm = ({ sector }: UpdateSectorFormProps) => {
         title: "Opzz.. Ocorreu um erro.",
         description: res.message,
         variant: "destructive",
+        duration: 1000,
       })
     } else {
       toast({
         title: "Sucesso!",
         description: "Setor atualizado com sucesso.",
+        duration: 1000,
       })
     }
   }

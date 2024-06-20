@@ -23,10 +23,12 @@ export const UpdateBoxForm = ({ box, entities }: UpdateBoxFormProps) => {
       toast({
         title: "Opzz.. Ocorreu um erro.",
         description: res.message,
+        duration: 1000,
       })
     } else {
       toast({
         title: "Caixa atualizada com sucesso!",
+        duration: 1000,
       })
     }
   }

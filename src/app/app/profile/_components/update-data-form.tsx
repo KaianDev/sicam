@@ -54,11 +54,13 @@ export const UpdateDataForm = ({ user, hideForms }: UpdateDataFormProps) => {
           title: "Opzz.. Ocorreu um erro.",
           description: res.message,
           variant: "destructive",
+          duration: 1000,
         })
       } else {
         toast({
           title: "Sucesso!",
           description: "Dados alterados com sucesso.",
+          duration: 1000,
         })
         hideForms()
         router.refresh()

@@ -77,11 +77,13 @@ export const SwitchAvatarForm = ({
           title: "Opzz..",
           description: res.message,
           variant: "destructive",
+          duration: 1000,
         })
       } else {
         toast({
           title: "Sucesso!",
           description: "Imagem alterada com sucesso.",
+          duration: 1000,
         })
         setPreview("")
       }

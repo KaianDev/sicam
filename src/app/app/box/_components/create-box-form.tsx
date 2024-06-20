@@ -23,10 +23,12 @@ export const CreateBoxForm = ({ entities }: CreateBoxFormProps) => {
       toast({
         title: "Opzz.. Ocorreu um erro.",
         description: res.message,
+        duration: 1000,
       })
     } else {
       toast({
         title: "Caixa adicionada com sucesso!",
+        duration: 1000,
       })
     }
   }

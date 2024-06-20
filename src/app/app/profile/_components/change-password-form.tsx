@@ -46,11 +46,13 @@ export const ChangePasswordForm = ({
           title: "Opzz.. Ocorreu um erro.",
           description: res.message,
           variant: "destructive",
+          duration: 1000,
         })
       } else {
         toast({
           title: "Sucesso!",
           description: "Senha alterada com sucesso.",
+          duration: 1000,
         })
         hideForms()
       }

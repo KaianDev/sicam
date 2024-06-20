@@ -56,11 +56,13 @@ export const CreateUserForm = ({ sectors }: CreateUserFormProps) => {
           title: "Opzz.. Ocorreu um erro.",
           description: res.message,
           variant: "destructive",
+          duration: 1000,
         })
       } else {
         toast({
           title: "Sucesso!",
           description: "Usuário criado com sucesso.",
+          duration: 1000,
         })
       }
       form.reset({

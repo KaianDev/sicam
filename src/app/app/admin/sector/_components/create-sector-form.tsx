@@ -20,11 +20,13 @@ export const CreateSectorForm = () => {
         title: "Opzz.. Ocorreu um erro.",
         description: res.message,
         variant: "destructive",
+        duration: 1000,
       })
     } else {
       toast({
         title: "Sucesso!",
         description: "Setor criado com sucesso.",
+        duration: 1000,
       })
     }
   }
