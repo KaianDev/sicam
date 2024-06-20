@@ -204,7 +204,9 @@ export const UpdateUserForm = ({ user, sectors }: UpdateUserFormProps) => {
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={
-                        field.value ? UserStatus.ACTIVE : UserStatus.INACTIVE
+                        field.value === true
+                          ? UserStatus.ACTIVE.toString()
+                          : UserStatus.INACTIVE.toString()
                       }
                       disabled={isPending}
                     >

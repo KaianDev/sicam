@@ -1,5 +1,5 @@
 import { Role } from "@prisma/client"
-import { z } from "zod"
+import { boolean, z } from "zod"
 
 export enum UserStatus {
   ACTIVE = "ACTIVE",
@@ -21,11 +21,17 @@ export const UserSchema = z.object({
   role: z.nativeEnum(Role, { required_error: "Campo obrigatório" }),
   active: z
     .nativeEnum(UserStatus)
-    .transform((v) => (v === UserStatus.ACTIVE ? true : false))
+    .or(boolean())
+    .transform((v) => {
+      if (v === UserStatus.ACTIVE || v) {
+        return true
+      } else {
+        return false
+      }
+    })
     .optional(),
   avatar: z.string().optional(),
 })
-
 
 export const SectorSchema = z.object({
   id: z.string(),

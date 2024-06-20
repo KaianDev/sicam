@@ -110,7 +110,6 @@ export const updateBox = async (id: string, data: CreateOrUpdateBoxData) => {
       if (!sector) return { message: "Erro ao buscar o setor" }
 
       const numBox = sector.boxes.length + 1
-      console.log("Alterando entidade", numBox)
       await updateBoxService(id, { ...data, numBox })
     }
   } catch (error) {

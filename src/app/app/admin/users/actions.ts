@@ -31,7 +31,6 @@ export const createUser = async (data: CreateUserData) => {
 
 export const updateUser = async (id: string, data: UpdateUserData) => {
   const hasUser = await getUserById(id)
-  console.log({ data })
   if (!hasUser) return { message: "Usuário não encontrado." }
   const user = await updateUserService(hasUser.id, data)
   if (!user) return { message: "Ocorreu um erro ao alterar os dados" }
