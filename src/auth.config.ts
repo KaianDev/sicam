@@ -5,6 +5,7 @@ import { ZodError } from "zod"
 import { checkPassword } from "@/lib/password"
 import { loginSchema } from "@/lib/zod"
 import { getUserByEmail } from "@/services/user"
+import { Role } from "@prisma/client"
 
 export default {
   callbacks: {
@@ -24,7 +25,7 @@ export default {
       if (isLoggedIn && isRootRoute)
         return Response.redirect(new URL("/app", nextUrl))
 
-      if (isLoggedIn && auth.user.role !== "ADMIN" && isPrivateAdminRoute)
+      if (isLoggedIn && auth.user.role !== Role.ADMIN && isPrivateAdminRoute)
         return Response.redirect(new URL("/app", nextUrl))
 
       return true
