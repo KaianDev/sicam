@@ -63,11 +63,11 @@ export const AsideMenu = ({ user }: AsideMenuProps) => {
                 <AvatarFallback></AvatarFallback>
                 <AvatarImage src="/assets/default.png"></AvatarImage>
               </Avatar> */}
-              <div className="size-12 overflow-hidden rounded-full border-2 border-zinc-300">
+              <div className="size-12 shrink-0 overflow-hidden rounded-full border-2 border-zinc-300">
                 <CustomAvatar src={avatarImage} userName={user.name} />
               </div>
-              <div>
-                <SheetTitle>{user.name}</SheetTitle>
+              <div className="overflow-hidden">
+                <SheetTitle className="truncate">{user.name}</SheetTitle>
                 <SheetDescription className="text-start">
                   {user.sector.name}
                 </SheetDescription>
